@@ -4,13 +4,6 @@
     height: 100vh;
     font-family: $main-font;
 
-    .headerNav {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-    }
     .aside {
         border-radius: 5px;
         background-color: $bg-light;

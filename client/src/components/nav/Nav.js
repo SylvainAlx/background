@@ -4,7 +4,7 @@ import { useState } from "react"
 import AsideMenu from "../aside/AsideMenu.js"
 import BurgerMenu from "./BurgerMenu.js"
 
-const Nav = (props) => {
+const Nav = () => {
 
     const [asideOpen, setAsideOpen] = useState("hidden")
     const [burgerModel, setBurgerModel] = useState("burgerClose")
@@ -20,26 +20,22 @@ const Nav = (props) => {
         }
     }
 
-    if(props.page === "home"){
 
         return (
-            <nav className="headerNav">
-                <ClassicButton link="/login" content="se connecter"/>
-            </nav>
-        )
-    }
-    else{
-        return (
-            <nav className="headerNav">
-                <ClassicButton link="/" content="accueil"/>
-                <div onClick={toggleAside}>
-                    <BurgerMenu burgerModel={burgerModel} />
-                </div>
+            <>
+                <nav className="headerNav">
+                    <div onClick={toggleAside}>
+                        <BurgerMenu burgerModel={burgerModel} />
+                    </div>
+                    <ClassicButton link="/" content="accueil"/>
+                    <ClassicButton link="/login" content="se connecter"/>
+                    <ClassicButton link="/register" content="s'inscrire"/>
+                </nav>
                 <aside className={asideOpen}>
                     <AsideMenu />
                 </aside>
-            </nav>
+            </>
         )
-    }
+    
 }
 export default Nav
