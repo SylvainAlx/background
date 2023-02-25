@@ -6,7 +6,7 @@ const Header = () => {
     return (
         <header>
             <h1>background</h1>
-            <em>outil de worldbuilding pour créateurs d'histoires</em>
+            <em>worldbuilding pour créateurs d'histoires</em>
             < Nav page="home"/>
         </header>
 

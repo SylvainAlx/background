@@ -1,11 +1,11 @@
 @import "variables";
 
 .classicButton {
-    line-height: 25px;
-    max-width: 100px;
-    margin: 10px auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 10px 0;
     padding: 5px 8px;
-    text-align: center;
     color: white;
     background-color: $color-softgreen;
     border-radius: 5px;

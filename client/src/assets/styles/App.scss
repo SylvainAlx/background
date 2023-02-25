@@ -2,29 +2,35 @@
 
 .App {
     height: 100vh;
+    display: flex;
+    flex-direction: column;
     font-family: $main-font;
+    background: url("../images/banner.jpg")fixed;
+    background-size: cover;
 
-    .aside {
-        border-radius: 5px;
-        background-color: $bg-light;
-        padding: 20px;
+    aside {
+        width: 100%;
+        overflow: auto;
         transition: all 0.5s;
+        
+        h4,
+        h5,
+        h6 {
+            margin: 0;
+        }
     }
     .show {
-        display: flex;
-        flex-direction: column;
+        max-height: 200px;
     }
     .hidden {
-        display: none;
+        max-height: 0px;
     }
     .main {
         display: flex;
         flex-direction: column;
         align-items: center;
         flex-grow: 1;
-        margin: 10px auto;
         padding: 20px;
-        border-radius: 5px;
         background-color: $color-lightbrown;
 
 
@@ -33,10 +39,23 @@
             color: $color-darkgreen;
         }
 
-        .userFieldset {
-            display: flex;
-            flex-direction: column;
+        form {
+            border-radius: 5px;
+
+            .userFieldset {
+                margin: 10px;
+                border-radius: 5px;
+                border: 1px solid $color-softgreen;
+                display: flex;
+                flex-direction: column;
+                color: $color-lightgray;
+                background-color: $color-graygreen;
+                text-align: center;
+            }
+
         }
+
+
 
     }
 }

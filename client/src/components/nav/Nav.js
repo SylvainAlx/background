@@ -20,7 +20,6 @@ const Nav = () => {
         }
     }
 
-
         return (
             <>
                 <nav className="headerNav">
@@ -28,8 +27,10 @@ const Nav = () => {
                         <BurgerMenu burgerModel={burgerModel} />
                     </div>
                     <ClassicButton link="/" content="accueil"/>
+                    <ClassicButton link="/" content="parcourir"/>
                     <ClassicButton link="/login" content="se connecter"/>
                     <ClassicButton link="/register" content="s'inscrire"/>
+                    <ClassicButton link="/" content="se déconnecter"/>
                 </nav>
                 <aside className={asideOpen}>
                     <AsideMenu />
