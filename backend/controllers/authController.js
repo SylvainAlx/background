@@ -8,7 +8,7 @@ export const register = async (req, res) => {
             pseudo,
             email,
             password,
-            isAdmin: email === "admin@background.com",
+            isAdmin: email === process.env.EMAIL_ADMIN,
         });
         user.save()
             .then((user) => {
@@ -48,7 +48,7 @@ export const login = async (req, res) => {
 export const verify = (req, res) => {
     try {
         const token = req.headers.authorization.split(" ")[1];
-        const secret = "key_secret";
+        const secret = process.env.JWT_SECRET;
         const decoded = jwt.verify(token, secret);
         res.send(decoded);
     } catch (err) {

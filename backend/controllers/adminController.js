@@ -18,3 +18,16 @@ export const getProjects = async (req, res) => {
         res.status(400).json({ error });
     }
 };
+
+export const deleteUser = async (req, res) => {
+    try {
+        const i = req.params.id;
+        const users = await User.find();
+        const ID = users[i]._id;
+        User.findByIdAndDelete(ID, (error) => {
+            if (error) res.send(error);
+        });
+    } catch (error) {
+        res.send(error);
+    }
+};
