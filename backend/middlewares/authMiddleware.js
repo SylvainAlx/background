@@ -12,6 +12,7 @@ export const verifyJwt = (req, res, next) => {
             res.status(400).json({ error });
         }
     } catch (error) {
+        console.log(error);
         res.status(400).json({ error });
     }
 };

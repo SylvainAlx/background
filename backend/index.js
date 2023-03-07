@@ -3,6 +3,7 @@ import express from "express";
 import dotenv from "dotenv";
 import authRouter from "./routers/authRouter.js";
 import adminRouter from "./routers/adminRouter.js";
+import userRouter from "./routers/userRouter.js";
 import { verifyJwt, isAdmin } from "./middlewares/authMiddleware.js";
 
 //config serveur
@@ -28,4 +29,5 @@ app.listen(PORT, () => {
     console.log(`server running at PORT : ${PORT}`);
     app.use("/auth", authRouter);
     app.use("/admin", [verifyJwt], [isAdmin], adminRouter);
+    app.use("/user", [verifyJwt], userRouter);
 });

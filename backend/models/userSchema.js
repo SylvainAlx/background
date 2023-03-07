@@ -30,6 +30,20 @@ userSchema.pre("save", async function () {
     const salt = await bcrypt.genSalt(10);
     this.password = await bcrypt.hash(this.password, salt);
 });
+userSchema.pre("findOneAndUpdate", async function (next) {
+    const password = this.getUpdate().$set.password;
+    if (!password) {
+        return next();
+    }
+    try {
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(password, salt);
+        this.getUpdate().$set.password = hashedPassword;
+        next();
+    } catch (error) {
+        next(error);
+    }
+});
 //methode pour vérifier que le mot de passe envoyé correspond à celui de la BDD
 userSchema.methods.comparePassword = function (candidatePassword, cb) {
     bcrypt.compare(candidatePassword, this.password, (err, isMatch) => {
@@ -45,7 +59,7 @@ userSchema.methods.createJWT = function () {
             email: this.email,
             isAdmin: this.isAdmin,
         },
-        "key_secret",
+        process.env.JWT_SECRET,
         { expiresIn: "24h" }
     );
 };
