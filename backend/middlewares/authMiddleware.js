@@ -6,7 +6,8 @@ export const verifyJwt = (req, res, next) => {
         const secret = process.env.JWT_SECRET;
         const decoded = jwt.verify(token, secret);
         if (decoded) {
-            res.locals.decoded = decoded;
+            req.decoded = decoded;
+            req.userId = decoded.id;
             next();
         } else {
             res.status(400).json({ error });
@@ -18,7 +19,7 @@ export const verifyJwt = (req, res, next) => {
 };
 
 export const isAdmin = (req, res, next) => {
-    if (res.locals.decoded.isAdmin) {
+    if (req.decoded.isAdmin) {
         next();
     } else {
         res.status(400).json({

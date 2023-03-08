@@ -8,7 +8,7 @@ const projectSchema = mongoose.Schema(
         },
         theme: {
             type: String,
-            require: true,
+            required: true,
         },
         user: {
             type: mongoose.Schema.Types.ObjectId,
@@ -19,7 +19,7 @@ const projectSchema = mongoose.Schema(
         },
         isPublic: {
             type: Boolean,
-            require: true,
+            required: true,
         },
     },
     {

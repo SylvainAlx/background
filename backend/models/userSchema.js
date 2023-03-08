@@ -12,6 +12,7 @@ const userSchema = mongoose.Schema(
         email: {
             type: String,
             required: true,
+            match: /.+\@.+\..+/,
             unique: true,
         },
         password: {
@@ -29,30 +30,6 @@ const userSchema = mongoose.Schema(
 userSchema.pre("save", async function () {
     const salt = await bcrypt.genSalt(10);
     this.password = await bcrypt.hash(this.password, salt);
-});
-
-userSchema.pre("findOneAndUpdate", function (next) {
-    const update = this.getUpdate();
-    const user = this.model.findOne(this.getQuery());
-
-    if (!update.password) {
-        return next();
-    }
-
-    bcrypt.genSalt(10, (err, salt) => {
-        if (err) {
-            return next(err);
-        }
-
-        bcrypt.hash(update.password, salt, (err, hash) => {
-            if (err) {
-                return next(err);
-            }
-
-            update.password = hash;
-            next();
-        });
-    });
 });
 
 //methode pour vérifier que le mot de passe envoyé correspond à celui de la BDD

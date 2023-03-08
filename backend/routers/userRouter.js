@@ -11,6 +11,6 @@ const userRouter = express.Router();
 userRouter.post("/updateuser", updateUser);
 userRouter.post("/createproject", createProject);
 userRouter.get("/getmyprojects", getMyProjects);
-userRouter.delete("/deleteproject/:id", deleteProject);
+userRouter.delete("/deleteproject", deleteProject);
 
 export default userRouter;
