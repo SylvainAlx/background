@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import express from "express";
 import dotenv from "dotenv";
+import cors from "cors";
 import authRouter from "./routers/authRouter.js";
 import adminRouter from "./routers/adminRouter.js";
 import userRouter from "./routers/userRouter.js";
@@ -9,6 +10,7 @@ import { verifyJwt, isAdmin } from "./middlewares/authMiddleware.js";
 //config serveur
 const app = express();
 const PORT = 9875;
+app.use(cors());
 dotenv.config();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
