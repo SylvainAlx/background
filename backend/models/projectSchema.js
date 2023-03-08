@@ -6,6 +6,10 @@ const projectSchema = mongoose.Schema(
             type: String,
             required: true,
         },
+        theme: {
+            type: String,
+            require: true,
+        },
         user: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "User",
@@ -13,7 +17,10 @@ const projectSchema = mongoose.Schema(
         data: {
             type: Array,
         },
-        isPublic: Boolean,
+        isPublic: {
+            type: Boolean,
+            require: true,
+        },
     },
     {
         timestamps: true,

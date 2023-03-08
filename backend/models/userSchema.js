@@ -31,33 +31,29 @@ userSchema.pre("save", async function () {
     this.password = await bcrypt.hash(this.password, salt);
 });
 
-userSchema.pre('findOneAndUpdate', function(next) {
+userSchema.pre("findOneAndUpdate", function (next) {
     const update = this.getUpdate();
     const user = this.model.findOne(this.getQuery());
-  
-    // Si le mot de passe n'a pas été modifié, on passe au middleware suivant
+
     if (!update.password) {
-      return next();
+        return next();
     }
-  
-    // On génère un salt pour crypter le mot de passe
+
     bcrypt.genSalt(10, (err, salt) => {
-      if (err) {
-        return next(err);
-      }
-  
-      // On crypte le mot de passe avec le salt
-      bcrypt.hash(update.password, salt, (err, hash) => {
         if (err) {
-          return next(err);
+            return next(err);
         }
-  
-        // On remplace le mot de passe en clair par le hash dans l'objet de mise à jour
-        update.password = hash;
-        next();
-      });
+
+        bcrypt.hash(update.password, salt, (err, hash) => {
+            if (err) {
+                return next(err);
+            }
+
+            update.password = hash;
+            next();
+        });
     });
-  });
+});
 
 //methode pour vérifier que le mot de passe envoyé correspond à celui de la BDD
 userSchema.methods.comparePassword = function (candidatePassword, cb) {

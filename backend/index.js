@@ -5,6 +5,7 @@ import cors from "cors";
 import authRouter from "./routers/authRouter.js";
 import adminRouter from "./routers/adminRouter.js";
 import userRouter from "./routers/userRouter.js";
+import publicRouter from "./routers/publicRouter.js";
 import { verifyJwt, isAdmin } from "./middlewares/authMiddleware.js";
 
 //config serveur
@@ -32,4 +33,5 @@ app.listen(PORT, () => {
     app.use("/auth", authRouter);
     app.use("/admin", [verifyJwt], [isAdmin], adminRouter);
     app.use("/user", [verifyJwt], userRouter);
+    app.use("/public", publicRouter);
 });
