@@ -27,7 +27,11 @@ const userSchema = mongoose.Schema(
 );
 
 //cryptage du mot de passe avant chaque save qui modifie le mdp
-userSchema.pre("save", async function () {
+userSchema.pre("save", async function (next) {
+    const user = this;
+    if (!user.isModified('password')) {
+        return next();
+      }
     const salt = await bcrypt.genSalt(10);
     this.password = await bcrypt.hash(this.password, salt);
 });
