@@ -27,3 +27,31 @@ export const addComment = async (req, res) => {
     });
   }
 };
+
+export const deleteComment = async (req, res) => {
+  try {
+    const { commentId, commentUser } = req.body;
+    if (!commentId || !commentUser) {
+      return res.status(400).json({
+        message: "informations manquantes",
+      });
+    }
+    if (commentUser === req.userId) {
+      Comment.findByIdAndDelete(commentId)
+        .then((resp) =>
+          res.status(200).json({
+            action: `le commentaire à été supprimé`,
+          })
+        )
+        .catch((error) => res.status(400).json(error));
+    } else {
+      res.status(403).json({
+        message: "suppression interdite",
+      });
+    }
+  } catch (error) {
+    res.status(400).json({
+      message: "suppression du commentaire impossible",
+    });
+  }
+};

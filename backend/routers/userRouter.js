@@ -10,7 +10,11 @@ import {
   updateAccount,
   deleteAccount,
 } from "../controllers/user/settingsController.js";
-import { addComment } from "../controllers/user/commentsController.js";
+import {
+  addComment,
+  deleteComment,
+} from "../controllers/user/commentsController.js";
+import { uploadFile, deleteFile } from "../controllers/user/filesController.js";
 
 const userRouter = express.Router();
 
@@ -22,5 +26,8 @@ userRouter.get("/getmyprojects", getMyProjects);
 userRouter.delete("/deleteproject", deleteProject);
 userRouter.put("/updateproject", updateProject);
 userRouter.post("/addcomment", addComment);
+userRouter.delete("/deletecomment", deleteComment);
+userRouter.post("/uploadfile", uploadFile);
+userRouter.delete("/deletefile", deleteFile);
 
 export default userRouter;
