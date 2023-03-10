@@ -1,6 +1,8 @@
 import User from "../../models/userSchema.js";
 import Project from "../../models/projectSchema.js";
 import Template from "../../models/templateSchema.js";
+import { deleteFolder } from "../../utils/deleteFolder.js";
+import fs from "fs";
 
 export const getMyProjects = async (req, res) => {
   try {
@@ -28,7 +30,17 @@ export const createProject = async (req, res) => {
     });
     project
       .save()
-      .then((resp) => res.status(201).json({ project }))
+      .then((resp) => {
+        fs.mkdir(
+          `${process.env.PUBLIC_DIR_URL}/images/${req.userId}/${project._id}`,
+          (error) => {
+            if (error) {
+              console.log(error);
+            }
+          }
+        );
+        res.status(201).json({ project });
+      })
       .catch((error) => res.status(400).json(error.message));
   } catch (error) {
     res.status(400).json({
@@ -43,11 +55,13 @@ export const deleteProject = async (req, res) => {
     const { projectId, projectUser } = req.body;
     if (projectUser === req.userId) {
       Project.findByIdAndDelete(projectId)
-        .then((resp) =>
+        .then((resp) => {
+          const path = `${process.env.PUBLIC_DIR_URL}/images/${req.userId}/${projectId}`;
+          deleteFolder(path);
           res.status(200).json({
             action: `le projet ${resp.title} a été retiré de la base de données`,
-          })
-        )
+          });
+        })
         .catch((error) => res.status(400).json(error));
     } else {
       res.status(403).json({

@@ -15,7 +15,7 @@ export const uploadFile = (req, res) => {
         const extension = files.file.originalFilename.split(".").pop();
         let oldpath = files.file.filepath;
         let newpath =
-          `public/images/${projectId}_` +
+          `public/images/${req.userId}/${projectId}/` +
           files.file.newFilename +
           "." +
           extension;

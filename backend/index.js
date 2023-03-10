@@ -21,17 +21,17 @@ app.use(express.static("public"));
 mongoose.set("strictQuery", false);
 mongoose.connect(process.env.MONGO_DB_URI);
 mongoose.connection.on("error", () => {
-    console.log("Erreur lors de la connexion à la base de données");
+  console.log("Erreur lors de la connexion à la base de données");
 });
 mongoose.connection.on("open", () => {
-    console.log("connexion à la base de données");
+  console.log("connexion à la base de données");
 });
 
 //écouteur du port
 app.listen(PORT, () => {
-    console.log(`server running at PORT : ${PORT}`);
-    app.use("/auth", authRouter);
-    app.use("/admin", [verifyJwt], [isAdmin], adminRouter);
-    app.use("/user", [verifyJwt], userRouter);
-    app.use("/public", publicRouter);
+  console.log(`server running at PORT : ${PORT}`);
+  app.use("/auth", authRouter);
+  app.use("/admin", [verifyJwt], [isAdmin], adminRouter);
+  app.use("/user", [verifyJwt], userRouter);
+  app.use("/public", publicRouter);
 });
