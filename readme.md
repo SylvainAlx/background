@@ -1,5 +1,6 @@
 PROJET DE FIN D'ÉTUDES : DÉVELOPPEMENT D’UNE APPLICATION
 
+
 Généralités
 
 Nom : Background
@@ -18,7 +19,7 @@ Enfin, il peut choisir de s'inscrire ou se connecter s'il possède un compte.
 
 Utilisateur connecté
 
-Une fois inscrit et connecté, l'utilisateur peut accéder au tableau de bord. Depuis le tableau de bord, il peut ouvrir un projet existant ou en créer de nouveaux. Il peut choisir de rendre son projet public ou non.
+Une fois inscrit  et connecté, l'utilisateur peut accéder au tableau de bord. Depuis le tableau de bord, il peut ouvrir un projet existant ou en créer de nouveaux. Il peut choisir de rendre son projet public ou non.
 Il peut aussi commenter les projets publics.
 L'utilisateur a également accès à ses paramètres où il peut modifier ses informations ou supprimer son compte.
 
@@ -26,11 +27,12 @@ Utilisateur Administrateur
 
 L'administrateur peut accéder au panneau d'administration depuis lequel il peut modifier ou supprimer entièrement ou en partie les collections de la base de données.
 
+
 Côté backend
 
 Base de données
 
-Collections :
+Collections : 
 
 users : la liste des utilisateurs {email,password,pseudo,isAdmin,timestamps}
 projects: la liste de l’ensemble des projets de tous les users {title,user,data,isPublic,timestamps}
@@ -41,36 +43,37 @@ Le serveur
 
 CRUD :
 
-routes publiques :
+routes publiques : 
 
-GET : accès aux projets publics et leurs commentaires
+GET : accès aux projets publics
 POST : s’enregistrer
 POST : se connecter
 
-routes utilisateurs (vérification du JWT) :
+routes utilisateurs (vérification du JWT) : 
 
 GET : accès aux templates lors de la création d’un nouveau projet
 GET : accès à ses propres projets
-GET : accéder à ses informations de compte
 POST : créer des projets
-POST : modifier ses projets en ajoutant, modifiant ou supprimant des informations
+PUT : modifier ses projets
+POST : uploader une image
+DELETE : supprimer une image
 POST : ajout de commentaires sur les projets publiques
-POST : modifier ses informations de compte
+PUT : modifier ses informations de compte
 DELETE : supprimer un ou plusieurs de ses projets
 DELETE : supprimer un ou plusieurs de ses commentaires
 DELETE : supprimer son compte
 
-routes administrateurs (vérification du JWT et des droit admin) :
+routes administrateurs (vérification du JWT et des droit admin) : 
 
 GET : accès à la liste des utilisateurs
 GET : accès aux projets
-GET : accès aux templates
 POST : création des templates
-POST : modification des templates
+PUT : modification des templates
 DELETE: supprimer des templates
 DELETE: supprimer des utilisateurs
 DELETE: supprimer des projets
 DELETE: supprimer des commentaires
+
 
 côté front
 
@@ -83,19 +86,20 @@ projets publics (“/publics”) : liste des projets publics
 s'enregistrer (“/register”) : formulaire d’inscription
 login (“/login”) : formulaire de connexion
 
-page utilisateurs :
+page utilisateurs : 
 
 tableau de bord (“/dashboard”) : interface d’édition des projets
 
-page administrateurs :
+page administrateurs : 
 
 administration (“/admin”) : gestion des utilisateurs et des projets
+
 
 Projet de l'utilisateur
 
 Création d'un nouveau projet
 
-Assistant de création :
+Assistant de création : 
 
 L’assistant de création de projet propose à l’utilisateur certains paramètres prédéfinis pour se lancer. Il peut s’agir par exemple de modèles de lieux ou de personnages selon le style d’univers fictif (historique, fantastique, science-fiction,...). L’utilisateur peut choisir de ne pas utiliser l’assistant et démarrer sur un projet entièrement vierge.
 
@@ -104,3 +108,4 @@ L’assistant de création de projet propose à l’utilisateur certains paramè
 Tableau de bord :
 
 Une fois l’assistant passé, l’utilisateur se retrouve devant son tableau de bord. Le nouveau projet est présent. Il peut donc y entrer et ajouter des éléments enfants puis apporter des modifications. Une arborescence sur le côté permet de se repérer dans la hiérarchie des éléments du projet.
+

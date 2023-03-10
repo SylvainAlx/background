@@ -3,6 +3,11 @@ import {
     getUsers,
     getProjects,
     deleteUser,
+    createTemplate,
+    deleteTemplate,
+    updateTemplate,
+    deleteProject,
+    deleteComment,
 } from "../controllers/adminController.js";
 
 const adminRouter = express.Router();
@@ -10,5 +15,10 @@ const adminRouter = express.Router();
 adminRouter.get("/getusers", getUsers);
 adminRouter.get("/getprojects", getProjects);
 adminRouter.delete("/deleteuser/:id", deleteUser);
+adminRouter.delete("/deletetemplate", deleteTemplate);
+adminRouter.delete("/deleteproject", deleteProject);
+adminRouter.delete("/deletecomment", deleteComment);
+adminRouter.post("/createtemplate", createTemplate);
+adminRouter.put("/updatetemplate", updateTemplate);
 
 export default adminRouter;

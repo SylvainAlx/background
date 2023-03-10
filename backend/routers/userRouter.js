@@ -1,18 +1,18 @@
 import express from "express";
 import {
-  getTemplates,
-  createProject,
-  getMyProjects,
-  deleteProject,
-  updateProject,
+    getTemplates,
+    createProject,
+    getMyProjects,
+    deleteProject,
+    updateProject,
 } from "../controllers/user/projectsController.js";
 import {
-  updateAccount,
-  deleteAccount,
+    updateAccount,
+    deleteAccount,
 } from "../controllers/user/settingsController.js";
 import {
-  addComment,
-  deleteComment,
+    addComment,
+    deleteComment,
 } from "../controllers/user/commentsController.js";
 import { uploadFile, deleteFile } from "../controllers/user/filesController.js";
 
