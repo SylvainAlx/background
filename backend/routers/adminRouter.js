@@ -1,13 +1,13 @@
 import express from "express";
 import {
-    getUsers,
-    getProjects,
-    deleteUser,
-    createTemplate,
-    deleteTemplate,
-    updateTemplate,
-    deleteProject,
-    deleteComment,
+  getUsers,
+  getProjects,
+  deleteUser,
+  createTemplate,
+  deleteTemplate,
+  updateTemplate,
+  deleteProject,
+  deleteComment,
 } from "../controllers/adminController.js";
 
 const adminRouter = express.Router();
