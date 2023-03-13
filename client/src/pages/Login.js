@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { setUser } from "../store/slices/userSlice.js";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { loginFetch } from "../utils/FetchOperations.js";
 import "../assets/styles/ClassicButton.scss";
 
 const Login = () => {
@@ -9,25 +10,9 @@ const Login = () => {
     email: "",
     password: "",
   });
+  const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  const loginFetch = async () => {
-    fetch("http://localhost:9875/auth/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(userData),
-    })
-      .then((resp) => resp.json())
-      .then((data) => {
-        dispatch(setUser(data));
-        localStorage.setItem("jwt", data.jwt);
-        navigate("/dashboard");
-      })
-      .catch((error) => console.log(error));
-  };
 
   const handleChange = (e) => {
     const value = e.target.value;
@@ -37,7 +22,17 @@ const Login = () => {
 
   const handleClick = (e) => {
     e.preventDefault();
-    loginFetch();
+    loginFetch(userData)
+      .then((data) => {
+        if (data.user) {
+          dispatch(setUser(data.user));
+          localStorage.setItem("jwt", data.jwt);
+          navigate("/dashboard");
+        } else {
+          console.log(data);
+        }
+      })
+      .catch((error) => console.log(error));
   };
 
   return (

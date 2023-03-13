@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { setUser } from "./store/slices/userSlice.js";
+import { authGet } from "./utils/FetchOperations.js";
 //layouts et pages
 import { Layout } from "./layouts/Layout.js";
 import { adminRoutes, privateRoutes, publicRoutes } from "./router/routes.js";
@@ -16,11 +17,7 @@ function App() {
   useEffect(() => {
     const jwt = localStorage.getItem("jwt");
     if (jwt) {
-      fetch("http://localhost:9875/auth/verify", {
-        headers: { authorization: `Bearer ${jwt}` },
-      })
-        .then((resp) => resp.json())
-        .then((json) => dispatch(setUser(json)));
+      authGet(jwt).then((data) => dispatch(setUser(data)));
     } else {
       dispatch(setUser({ pseudo: "", email: "", isAdmin: false }));
     }
@@ -45,8 +42,9 @@ function App() {
             <>
               {privateRoutes.map((route, i) => (
                 <Route
+                  key={i}
                   path={route.path}
-                  element={<Layout key={i}>{route.page}</Layout>}
+                  element={<Layout>{route.page}</Layout>}
                 />
               ))}
             </>
@@ -55,8 +53,9 @@ function App() {
             <>
               {adminRoutes.map((route, i) => (
                 <Route
+                  key={i}
                   path={route.path}
-                  element={<Layout key={i}>{route.page}</Layout>}
+                  element={<Layout>{route.page}</Layout>}
                 />
               ))}
             </>

@@ -1,44 +1,65 @@
 import ClassicButton from "../ClassicButton.js";
 import { useState } from "react";
-import { useSelector } from "react-redux";
-import AsideMenu from "../aside/AsideMenu.js";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import BurgerMenu from "./BurgerMenu.js";
+import { setUser } from "../../store/slices/userSlice.js";
 
 const Nav = () => {
-  const [asideOpen, setAsideOpen] = useState("hidden");
+  const [navOpen, setNavOpen] = useState("hidden");
   const [burgerModel, setBurgerModel] = useState("burgerClose");
   const user = useSelector((state) => state.user);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const toggleAside = () => {
-    if (asideOpen === "hidden") {
-      setAsideOpen("show");
+  const toggleNav = () => {
+    if (navOpen === "hidden") {
+      setNavOpen("show");
       setBurgerModel("burgerOpen");
     } else {
-      setAsideOpen("hidden");
+      setNavOpen("hidden");
       setBurgerModel("burgerClose");
     }
   };
 
+  const handleClick = (e) => {
+    e.preventDefault();
+    localStorage.removeItem("jwt");
+    dispatch(setUser({ email: "", isAdmin: false }));
+    navigate("/");
+  };
+
   return (
     <>
-      <nav className="headerNav">
-        <div onClick={toggleAside}>
-          <BurgerMenu burgerModel={burgerModel} />
-        </div>
+      <div onClick={toggleNav}>
+        <BurgerMenu burgerModel={burgerModel} />
+      </div>
+      <nav className={`headerNav, ${navOpen}`}>
         <ClassicButton link="/" content="accueil" />
         <ClassicButton link="/" content="parcourir" />
+        {user.isAdmin && (
+          <ClassicButton link="/admin" content="administration" />
+        )}
         {user.email === "" ? (
           <>
             <ClassicButton link="/login" content="se connecter" />
             <ClassicButton link="/register" content="s'inscrire" />
           </>
         ) : (
-          <ClassicButton link="/" content="se déconnecter" />
+          <>
+            <ClassicButton link="/dashboard" content="tableau de bord" />
+            <ClassicButton link="/settings" content="paramètres" />
+            <div
+              className="classicButton"
+              link="/"
+              content="se déconnecter"
+              onClick={handleClick}
+            >
+              se déconnecter
+            </div>
+          </>
         )}
       </nav>
-      <aside className={asideOpen}>
-        <AsideMenu />
-      </aside>
     </>
   );
 };

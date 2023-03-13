@@ -8,23 +8,6 @@
     background: url("../images/banner.jpg")fixed;
     background-size: cover;
 
-    aside {
-        width: 100%;
-        overflow: auto;
-        transition: all 0.5s;
-        
-        h4,
-        h5,
-        h6 {
-            margin: 0;
-        }
-    }
-    .show {
-        max-height: 200px;
-    }
-    .hidden {
-        max-height: 0px;
-    }
     .main {
         display: flex;
         flex-direction: column;
