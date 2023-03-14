@@ -39,10 +39,9 @@ const Login = () => {
   return (
     <main className="main">
       <section>
-        <h3>Déjà un compte ?</h3>
+        <h2>Déjà un compte ?</h2>
         <form onSubmit={handleSubmit}>
           <fieldset className="fieldset">
-            <legend>Connectez-vous</legend>
             <input
               type="email"
               name="email"
@@ -61,12 +60,8 @@ const Login = () => {
               onChange={handleChange}
             />
             <div className="error">{error}</div>
-            <div>
-              <input
-                className="classicButton deselect"
-                type="submit"
-                value="se connecter"
-              />
+            <div className="validateButton classicButton deselect">
+              <input type="submit" value="se connecter" />
             </div>
           </fieldset>
         </form>

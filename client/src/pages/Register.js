@@ -39,10 +39,9 @@ const Register = () => {
   return (
     <main className="main">
       <section>
-        <h3>Pas encore de compte ?</h3>
+        <h2>Pas encore de compte ?</h2>
         <form onSubmit={handleSubmit}>
           <fieldset className="fieldset">
-            <legend>Inscrivez-vous</legend>
             <input
               type="text"
               name="pseudo"
@@ -69,12 +68,8 @@ const Register = () => {
               onChange={handleChange}
             />
             <div className="error">{error}</div>
-            <div>
-              <input
-                className="classicButton deselect"
-                type="submit"
-                value="créer un compte"
-              />
+            <div className="validateButton classicButton deselect">
+              <input type="submit" value="créer un compte" />
             </div>
           </fieldset>
         </form>

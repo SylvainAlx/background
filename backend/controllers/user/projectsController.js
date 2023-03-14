@@ -27,6 +27,7 @@ export const createProject = async (req, res) => {
       image,
       user,
       data: [],
+      publicUser: user.pseudo,
       isPublic,
     });
     project

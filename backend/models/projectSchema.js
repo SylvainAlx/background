@@ -24,6 +24,9 @@ const projectSchema = mongoose.Schema(
     data: {
       type: Array,
     },
+    publicUser: {
+      type: String,
+    },
     isPublic: {
       type: Boolean,
       required: true,

@@ -4,6 +4,13 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import BurgerMenu from "./BurgerMenu.js";
 import { setUser } from "../../store/slices/userSlice.js";
+import {
+  AiFillHome,
+  AiFillSetting,
+  AiFillCopy,
+  AiFillControl,
+  AiFillRead,
+} from "react-icons/ai";
 
 const Nav = () => {
   const [navOpen, setNavOpen] = useState("hidden");
@@ -26,7 +33,7 @@ const Nav = () => {
     e.preventDefault();
     localStorage.removeItem("jwt");
     dispatch(setUser({ email: "", isAdmin: false }));
-    navigate("/");
+    navigate("/login");
   };
 
   return (
@@ -38,17 +45,20 @@ const Nav = () => {
         <ClassicButton
           link="/"
           class="classicButton deselect"
+          icon={<AiFillHome />}
           content="accueil"
         />
         <ClassicButton
           link="/publics"
           class="classicButton deselect"
-          content="parcourir les projets"
+          icon={<AiFillCopy />}
+          content="projets publics"
         />
         {user.isAdmin && (
           <ClassicButton
             link="/admin"
             class="classicButton deselect"
+            icon={<AiFillControl />}
             content="administration"
           />
         )}
@@ -56,12 +66,12 @@ const Nav = () => {
           <>
             <ClassicButton
               link="/login"
-              class="classicButton deselect"
+              class="classicButton log"
               content="se connecter"
             />
             <ClassicButton
               link="/register"
-              class="classicButton deselect"
+              class="classicButton log"
               content="s'inscrire"
             />
           </>
@@ -70,16 +80,17 @@ const Nav = () => {
             <ClassicButton
               link="/dashboard"
               class="classicButton deselect"
+              icon={<AiFillRead />}
               content="tableau de bord"
             />
             <ClassicButton
               link="/settings"
               class="classicButton deselect"
+              icon={<AiFillSetting />}
               content="paramètres"
             />
             <div
-              className="classicButton deselect"
-              link="/"
+              className="classicButton logout"
               content="se déconnecter"
               onClick={handleClick}
             >

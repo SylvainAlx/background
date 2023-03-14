@@ -11,6 +11,7 @@ const Publics = () => {
     getPublics()
       .then((data) => {
         dispatch(setPublics(data.publicProjects));
+        console.log(data);
       })
       .catch((error) => console.log(error));
   }, []);
@@ -23,10 +24,12 @@ const Publics = () => {
           {publics.projects.length !== 0 ? (
             publics.projects.map((project, i) => {
               return (
-                <article key={i}>
+                <article className="document" key={i}>
                   <h4>{project.title}</h4>
-                  <h5>{project.support}</h5>
-                  <h6>{project.theme}</h6>
+                  <h6>par {project.publicUser}</h6>
+                  <h6>
+                    {project.support} ({project.theme})
+                  </h6>
                 </article>
               );
             })

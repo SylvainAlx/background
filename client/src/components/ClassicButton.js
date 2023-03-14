@@ -10,6 +10,7 @@ const ClassicButton = (props) => {
 
   return (
     <div className={props.class} onClick={handleClick}>
+      {props.icon}
       {props.content}
     </div>
   );

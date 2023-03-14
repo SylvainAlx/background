@@ -5,8 +5,8 @@
     display: flex;
     flex-direction: column;
     font-family: $main-font;
-    background: url("../images/banner.jpg")fixed;
-    background-size: cover;
+    color: $color-mainlight;
+    background: url("../images/repeat.png")fixed;
 
     .main {
         width: 100%;
@@ -14,19 +14,31 @@
         flex-direction: column;
         align-items: center;
         flex-grow: 1;
-        background-color: $color-lightbrown;
+        background-color: $color-main1;
 
         section {
           margin: 0 auto;
           display: flex;
-          flex-direction: column;
           align-items: center;
-        }
+          justify-content: center;
+          flex-wrap: wrap;
 
+          h2,
+          h3 {
+            width: 100%;
+            text-align: center;
+          }
 
-        h2,
-        h3 {
+          .document {
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: $color-element;
+            box-shadow: $box-shadow;
+            border-radius: 10px;
             color: $color-main1;
+          }
         }
 
         .error {
@@ -36,20 +48,54 @@
         }
 
         form {
+          button, input[type="submit"] {
+            background: none;
+            color: inherit;
+            border: none;
+            padding: 0;
+            font: inherit;
+            cursor: pointer;
+            outline: inherit;
+          }
+          input[type="text"],
+          input[type="email"],
+          input[type="password"],
+          input[type="number"] {
+            width: 80%;
+            border-radius: 15px;
+            border: none;
+            line-height: 30px;
+            margin: 3px 0;
+            text-align: center;
+          }
 
             .fieldset {
-              width: 200px;
-                margin: 10px;
-                border-radius: 5px;
-                border: none;
-                display: flex;
-                align-items: center;
-                flex-direction: column;
-                color: $color-lightgray;
-                background-color: $color-graygreen;
-                text-align: center;
+              min-width: 200px;
+              margin: 10px;
+              padding: 10px;
+              border: none;
+              border-radius: 10px;
+              display: flex;
+              align-items: center;
+              flex-direction: column;
+              color: $color-lightgray;
+              background-color: $color-element;
+              box-shadow: $box-shadow;
+              text-align: center;
             }
 
+        }
+
+        table {
+          th {
+            color: $color-main1;
+          }
+        }
+
+        .validateButton {
+          width: 75%;
+          height: 30px;
+          font-size: 15px;
         }
 
 
