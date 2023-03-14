@@ -17,11 +17,16 @@ $color-brown: #826D62;
 $color-lightbrown: #f2f1f0;
 $color-purple: #5858bf;
 
+$color-main1: #404f76;
+$color-main2: #9a0ba7;
+$color-main3: #4c0b77;
+$color-error: #5a0909;
+
 
 
 $bg-light: rgba(255, 255, 255, 0.452);
 $bg-white: rgba(255,255,255,0.6);
-$bg-gradient: -webkit-linear-gradient(0deg, $color-softgreen 0%, $color-darkgreen 100%);
+$bg-gradient: -webkit-linear-gradient(0deg, $color-main1 0%, $color-main2 100%);
 
 
 

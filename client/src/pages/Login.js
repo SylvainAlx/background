@@ -10,6 +10,7 @@ const Login = () => {
     email: "",
     password: "",
   });
+  const [error, setError] = useState("");
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -20,7 +21,7 @@ const Login = () => {
     setUserData({ ...userData, [name]: value });
   };
 
-  const handleClick = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     loginFetch(userData)
       .then((data) => {
@@ -29,7 +30,7 @@ const Login = () => {
           localStorage.setItem("jwt", data.jwt);
           navigate("/dashboard");
         } else {
-          console.log(data);
+          setError(data.message);
         }
       })
       .catch((error) => console.log(error));
@@ -37,37 +38,39 @@ const Login = () => {
 
   return (
     <main className="main">
-      <h3>Déjà un compte ?</h3>
-      <form>
-        <fieldset className="userFieldset">
-          <legend>Connectez-vous</legend>
-          <input
-            type="email"
-            name="email"
-            placeholder="e-mail"
-            value={userData.email}
-            required
-            onChange={handleChange}
-          />
-          <input
-            type="password"
-            name="password"
-            autoComplete="on"
-            placeholder="mot de passe"
-            value={userData.password}
-            required
-            onChange={handleChange}
-          />
-          <div onClick={handleClick}>
+      <section>
+        <h3>Déjà un compte ?</h3>
+        <form onSubmit={handleSubmit}>
+          <fieldset className="fieldset">
+            <legend>Connectez-vous</legend>
             <input
-              className="classicButton"
-              type="submit"
-              value="se connecter"
-              onClick={handleClick}
+              type="email"
+              name="email"
+              placeholder="e-mail"
+              value={userData.email}
+              required
+              onChange={handleChange}
             />
-          </div>
-        </fieldset>
-      </form>
+            <input
+              type="password"
+              name="password"
+              autoComplete="on"
+              placeholder="mot de passe"
+              value={userData.password}
+              required
+              onChange={handleChange}
+            />
+            <div className="error">{error}</div>
+            <div>
+              <input
+                className="classicButton deselect"
+                type="submit"
+                value="se connecter"
+              />
+            </div>
+          </fieldset>
+        </form>
+      </section>
     </main>
   );
 };

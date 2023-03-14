@@ -7,14 +7,21 @@
     margin: 10px 0;
     padding: 5px 8px;
     color: white;
-    background-color: $color-softgreen;
+    border: none;
     border-radius: 20px;
     font-weight: 700;
     font-size: 12px;
-    transition: all 0.3s;
+    transition: all 0.2s;
 }
 
 .classicButton:hover {
-    background-color: $color-purple;
+    background-color: $color-main2;
     cursor: pointer;
+}
+
+.select {
+  background-color: $color-main3;
+}
+.deselect {
+  background-color: $color-main1;
 }

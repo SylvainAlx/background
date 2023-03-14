@@ -1,5 +1,6 @@
 //pages
 import Home from "../pages/Home.js";
+import Publics from "../pages/Publics.js";
 import Dashboard from "../pages/Dashboard.js";
 import Login from "../pages/Login.js";
 import Register from "../pages/Register.js";
@@ -8,6 +9,7 @@ import Settings from "../pages/Settings.js";
 
 export const publicRoutes = [
   { path: "/", page: <Home /> },
+  { path: "/publics", page: <Publics /> },
   { path: "/register", page: <Register /> },
   { path: "/login", page: <Login /> },
 ];

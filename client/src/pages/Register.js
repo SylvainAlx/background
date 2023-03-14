@@ -1,33 +1,86 @@
 import { useNavigate } from "react-router-dom";
-import ClassicButton from "../components/ClassicButton"
-
+import { useSelector, useDispatch } from "react-redux";
+import { useState } from "react";
+import { registerFetch } from "../utils/FetchOperations";
+import { setUser } from "../store/slices/userSlice.js";
 
 const Register = () => {
+  const [userData, setUserData] = useState({
+    pseudo: "",
+    email: "",
+    password: "",
+  });
+  const [error, setError] = useState("");
+  const user = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-    const navigate = useNavigate()
+  const handleChange = (e) => {
+    const value = e.target.value;
+    const name = e.target.name;
+    setUserData({ ...userData, [name]: value });
+  };
 
-    const handleClick = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    registerFetch(userData)
+      .then((data) => {
+        if (data.user) {
+          dispatch(setUser(data.user));
+          localStorage.setItem("jwt", data.jwt);
+          navigate("/dashboard");
+        } else {
+          setError(data.message);
+        }
+      })
+      .catch((error) => console.log(error));
+  };
 
-        navigate("/dashboard")
-    }
+  return (
+    <main className="main">
+      <section>
+        <h3>Pas encore de compte ?</h3>
+        <form onSubmit={handleSubmit}>
+          <fieldset className="fieldset">
+            <legend>Inscrivez-vous</legend>
+            <input
+              type="text"
+              name="pseudo"
+              placeholder="nom d'utilisateur"
+              value={userData.pseudo}
+              required
+              onChange={handleChange}
+            />
+            <input
+              type="email"
+              name="email"
+              placeholder="e-mail"
+              value={userData.email}
+              required
+              onChange={handleChange}
+            />
+            <input
+              type="password"
+              name="password"
+              autoComplete="on"
+              placeholder="mot de passe"
+              value={userData.password}
+              required
+              onChange={handleChange}
+            />
+            <div className="error">{error}</div>
+            <div>
+              <input
+                className="classicButton deselect"
+                type="submit"
+                value="créer un compte"
+              />
+            </div>
+          </fieldset>
+        </form>
+      </section>
+    </main>
+  );
+};
 
-
-    return (
-        <main className="main">
-            <h3>Pas encore de compte ?</h3>
-            <form>
-                <fieldset className="userFieldset">
-                    <legend>Inscrivez-vous</legend>
-                    <input type="text" name="name" placeholder="nom d'utilisateur" />
-                    <input type="email" name="email" placeholder="e-mail" />
-                    <input type="password" name="password" placeholder="mot de passe" />
-                    <div onClick={handleClick}>
-                        < ClassicButton link="/dashboard" content={"VALIDER"}/>
-                    </div>
-                </fieldset>
-            </form>
-        </main>
-    )
-}
-
-export default Register
+export default Register;

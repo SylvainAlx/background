@@ -9,27 +9,41 @@
     background-size: cover;
 
     .main {
+        width: 100%;
         display: flex;
         flex-direction: column;
         align-items: center;
         flex-grow: 1;
-        padding: 20px;
         background-color: $color-lightbrown;
+
+        section {
+          margin: 0 auto;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
 
 
         h2,
         h3 {
-            color: $color-darkgreen;
+            color: $color-main1;
+        }
+
+        .error {
+          color: $color-error;
+          font-weight: 700;
+          font-size: 11px;
         }
 
         form {
-            border-radius: 5px;
 
-            .userFieldset {
+            .fieldset {
+              width: 200px;
                 margin: 10px;
                 border-radius: 5px;
-                border: 1px solid $color-softgreen;
+                border: none;
                 display: flex;
+                align-items: center;
                 flex-direction: column;
                 color: $color-lightgray;
                 background-color: $color-graygreen;

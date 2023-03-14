@@ -34,23 +34,51 @@ const Nav = () => {
       <div onClick={toggleNav}>
         <BurgerMenu burgerModel={burgerModel} />
       </div>
-      <nav className={`headerNav, ${navOpen}`}>
-        <ClassicButton link="/" content="accueil" />
-        <ClassicButton link="/" content="parcourir" />
+      <nav className={`headerNav, ${navOpen}`} onClick={toggleNav}>
+        <ClassicButton
+          link="/"
+          class="classicButton deselect"
+          content="accueil"
+        />
+        <ClassicButton
+          link="/publics"
+          class="classicButton deselect"
+          content="parcourir les projets"
+        />
         {user.isAdmin && (
-          <ClassicButton link="/admin" content="administration" />
+          <ClassicButton
+            link="/admin"
+            class="classicButton deselect"
+            content="administration"
+          />
         )}
         {user.email === "" ? (
           <>
-            <ClassicButton link="/login" content="se connecter" />
-            <ClassicButton link="/register" content="s'inscrire" />
+            <ClassicButton
+              link="/login"
+              class="classicButton deselect"
+              content="se connecter"
+            />
+            <ClassicButton
+              link="/register"
+              class="classicButton deselect"
+              content="s'inscrire"
+            />
           </>
         ) : (
           <>
-            <ClassicButton link="/dashboard" content="tableau de bord" />
-            <ClassicButton link="/settings" content="paramètres" />
+            <ClassicButton
+              link="/dashboard"
+              class="classicButton deselect"
+              content="tableau de bord"
+            />
+            <ClassicButton
+              link="/settings"
+              class="classicButton deselect"
+              content="paramètres"
+            />
             <div
-              className="classicButton"
+              className="classicButton deselect"
               link="/"
               content="se déconnecter"
               onClick={handleClick}

@@ -6,6 +6,10 @@ const projectSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    support: {
+      type: String,
+      required: true,
+    },
     theme: {
       type: String,
       required: true,

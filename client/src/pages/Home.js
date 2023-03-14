@@ -1,20 +1,13 @@
-
-import ClassicButton from "../components/ClassicButton.js"
+import ClassicButton from "../components/ClassicButton.js";
 
 const Home = () => {
-    return (
-        <>
-            
-            <main className="main">
-                <h2>Bienvenue sur Background !</h2>
-                <h3>présentation du projet :</h3>
-                <p>Background est un gestionnaire de mondes pour créateurs d'histoires. Grâce à cet outil vous pourrez gérer l'ensemble des éléments qui composent votre projet de fiction, comme les lieux, les personnages, les évenements, etc.</p>
-                <h3>Pour commencer :</h3>
-                <ClassicButton link="/login" content="se connecter"/>
-                <ClassicButton link="/register" content="s'inscrire"/>
-            </main>
-        </>
-    )
-}
+  return (
+    <main className="main">
+      <section>
+        <h2>Bienvenue sur Background !</h2>
+      </section>
+    </main>
+  );
+};
 
-export default Home
+export default Home;

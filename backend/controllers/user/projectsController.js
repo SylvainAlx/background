@@ -18,10 +18,11 @@ export const getMyProjects = async (req, res) => {
 };
 export const createProject = async (req, res) => {
   try {
-    const { title, theme, image, isPublic } = req.body;
+    const { title, support, theme, image, isPublic } = req.body;
     const user = await User.findOne({ _id: req.userId });
     const project = new Project({
       title,
+      support,
       theme,
       image,
       user,
@@ -81,6 +82,7 @@ export const updateProject = async (req, res) => {
       const update = req.body;
       const project = await Project.findOne({ _id: update._id });
       project.title = update.title;
+      project.support = update.support;
       project.theme = update.theme;
       project.image = update.image;
       project.data = update.data;

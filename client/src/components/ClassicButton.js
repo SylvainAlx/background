@@ -9,7 +9,7 @@ const ClassicButton = (props) => {
   };
 
   return (
-    <div className="classicButton" onClick={handleClick}>
+    <div className={props.class} onClick={handleClick}>
       {props.content}
     </div>
   );
