@@ -14,5 +14,7 @@ export const deleteFolder = (folderPath) => {
       }
     });
     fs.rmdirSync(folderPath); // supprimer le dossier
+  } else {
+    console.log("chemin erroné : " + folderPath);
   }
 };

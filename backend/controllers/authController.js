@@ -1,6 +1,8 @@
 import User from "../models/userSchema.js";
 import jwt from "jsonwebtoken";
 import fs from "fs";
+import { gitKeep } from "../utils/createGitkeep.js";
+import { createFolder } from "../utils/createFolder.js";
 
 export const register = async (req, res) => {
   try {
@@ -15,14 +17,8 @@ export const register = async (req, res) => {
       .save()
       .then((user) => {
         const jwt = user.createJWT();
-        fs.mkdir(
-          `${process.env.PUBLIC_DIR_URL}/images/${user._id}`,
-          (error) => {
-            if (error) {
-              console.log(error);
-            }
-          }
-        );
+        createFolder(`${process.env.PUBLIC_DIR_URL}/images/${user._id}`);
+        gitKeep(`${process.env.PUBLIC_DIR_URL}/images/${user._id}`);
         res.status(201).json({ user, jwt });
       })
 

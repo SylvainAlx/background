@@ -2,6 +2,7 @@ import User from "../models/userSchema.js";
 import Project from "../models/projectSchema.js";
 import Template from "../models/templateSchema.js";
 import Comment from "../models/commentSchema.js";
+import { deleteFolder } from "../utils/deleteFolder.js";
 
 //PROJECTS
 
@@ -17,6 +18,10 @@ export const getProjects = async (req, res) => {
 export const deleteProject = async (req, res) => {
   try {
     const projectId = req.body.projectId;
+    const projectUser = req.body.projectUser;
+    deleteFolder(
+      `${process.env.PUBLIC_DIR_URL}images/${projectUser}/${projectId}`
+    );
     Project.findByIdAndDelete(projectId)
       .then((resp) =>
         res.status(200).json({
@@ -51,11 +56,14 @@ export const getUsers = async (req, res) => {
 export const deleteUser = (req, res) => {
   try {
     const id = req.params.id;
-    User.findByIdAndDelete(id).then((resp) =>
-      res.status(200).json({
-        action: `l'utilisateur ${resp._id} a été retiré de la base de données`,
-      })
-    );
+    deleteFolder(`${process.env.PUBLIC_DIR_URL}images/${id}`);
+    User.findByIdAndDelete(id)
+      .then((resp) =>
+        res.status(200).json({
+          action: `l'utilisateur ${resp._id} a été retiré de la base de données`,
+        })
+      )
+      .catch((err) => console.log(err));
   } catch (error) {
     res.status(400).json({ erreur: error.message });
   }

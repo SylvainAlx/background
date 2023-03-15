@@ -7,31 +7,27 @@ const Settings = () => {
     <main className="main">
       <section>
         <h2>Paramètres</h2>
-        <table className="document">
-          <thead>
-            <tr>
-              <th colspan="2">informations du compte</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th>pseudo</th>
-              <td>{user.pseudo}</td>
-            </tr>
-            <tr>
-              <th>email</th>
-              <td>{user.email}</td>
-            </tr>
-          </tbody>
-          <tfoot>
-            <th>
-              <div className="classicButton deselect">MODIFIER</div>
-            </th>
-            <th>
-              <div className="classicButton deselect">SUPPRIMER</div>
-            </th>
-          </tfoot>
-        </table>
+        <div className="document">
+          <table>
+            <thead>
+              <tr>
+                <th colSpan="2">informations du compte</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th>pseudo</th>
+                <td>{user.pseudo}</td>
+              </tr>
+              <tr>
+                <th>email</th>
+                <td>{user.email}</td>
+              </tr>
+            </tbody>
+          </table>
+          <div className="classicButton deselect">MODIFIER</div>
+          <div className="classicButton deselect">SUPPRIMER</div>
+        </div>
       </section>
     </main>
   );
