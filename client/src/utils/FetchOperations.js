@@ -50,6 +50,19 @@ export const getMyProjects = async (jwt) => {
   return result;
 };
 
+export const updateUser = async (jwt, payload) => {
+  const resp = await fetch(`http://localhost:9875/user/updateaccount`, {
+    method: "PUT",
+    headers: {
+      authorization: `Bearer ${jwt}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(payload),
+  });
+  const result = await resp.json();
+  return result;
+};
+
 //ADMIN
 
 export const getUsers = async (jwt) => {

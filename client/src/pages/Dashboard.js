@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+//import { useSelector } from "react-redux";
 import { getMyProjects } from "../utils/FetchOperations";
 
 const Dashboard = () => {
-  const user = useSelector((state) => state.user);
+  //const user = useSelector((state) => state.user);
   const [projects, setprojects] = useState([]);
 
   const jwt = localStorage.getItem("jwt");

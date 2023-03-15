@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
 import { getUsers, deleteUser } from "../utils/FetchOperations";
 import { AiFillEdit, AiFillDelete } from "react-icons/ai";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Admin = () => {
   const [users, setUsers] = useState([]);
+  const user = useSelector((state) => state.user);
   const jwt = localStorage.getItem("jwt");
-
+  const navigate = useNavigate();
   useEffect(() => {
     syncUsers();
   }, []);
@@ -28,14 +31,19 @@ const Admin = () => {
   };
 
   const handleDelete = (e) => {
-    const id = e.currentTarget.getAttribute("id");
-    const index = e.currentTarget.getAttribute("index");
-    deleteUser(jwt, id)
-      .then((data) => {
-        console.log(data);
-        syncUsers();
-      })
-      .catch((error) => console.log(error));
+    if (window.confirm(`Supprimer l'utilisateur ?`)) {
+      const id = e.currentTarget.getAttribute("id");
+      const index = e.currentTarget.getAttribute("index");
+      deleteUser(jwt, id)
+        .then((data) => {
+          console.log(data);
+          syncUsers();
+          if (user.id === id) {
+            navigate("/register");
+          }
+        })
+        .catch((error) => console.log(error));
+    }
   };
 
   return (
