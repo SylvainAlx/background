@@ -2,6 +2,7 @@
 import Home from "../pages/Home.js";
 import Publics from "../pages/Publics.js";
 import Dashboard from "../pages/Dashboard.js";
+import Production from "../pages/Production.js";
 import Login from "../pages/Login.js";
 import Register from "../pages/Register.js";
 import Admin from "../pages/Admin.js";
@@ -16,6 +17,7 @@ export const publicRoutes = [
 
 export const privateRoutes = [
   { path: "/dashboard", page: <Dashboard /> },
+  { path: "/production", page: <Production /> },
   { path: "/settings", page: <Settings /> },
 ];
 

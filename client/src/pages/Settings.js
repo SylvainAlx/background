@@ -1,11 +1,13 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useState } from "react";
-import { updateUser } from "../utils/FetchOperations";
+import { updateUser, deleteAccount } from "../utils/FetchOperations";
 import { setUser } from "../store/slices/userSlice";
+import { useNavigate } from "react-router-dom";
 
 const Settings = () => {
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [edition, setEdtion] = useState(false);
   const [update, setUpdate] = useState({
     pseudo: user.pseudo,
@@ -34,6 +36,22 @@ const Settings = () => {
         dispatch(setUser(data));
       })
       .catch((error) => console.log(error));
+  };
+
+  const handleDelete = (e) => {
+    if (
+      window.confirm(
+        `Etes-vous sûr de supprimer votre compte et tous les projets associés ?`
+      )
+    ) {
+      deleteAccount(jwt)
+        .then(() => {
+          localStorage.removeItem("jwt");
+          dispatch(setUser({ email: "", isAdmin: false }));
+          navigate("/register");
+        })
+        .catch((error) => console.log(error));
+    }
   };
 
   return (
@@ -84,7 +102,9 @@ const Settings = () => {
               <div onClick={handleEdit} className="classicButton deselect">
                 MODIFIER
               </div>
-              <div className="classicButton deselect">SUPPRIMER LE COMPTE</div>
+              <div onClick={handleDelete} className="classicButton red">
+                SUPPRIMER LE COMPTE
+              </div>
             </>
           ) : (
             <>
@@ -96,19 +116,6 @@ const Settings = () => {
               </div>
             </>
           )}
-        </div>
-        <div className="document">
-          <h3>Personnalisation</h3>
-          <div className="table">
-            <div className="legend">
-              <h4>Couleur 1</h4>
-              <h4>Couleur 2</h4>
-            </div>
-            <div className="data">
-              <input type="color" />
-              <input type="color" />
-            </div>
-          </div>
         </div>
       </section>
     </main>

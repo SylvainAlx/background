@@ -57,12 +57,19 @@ export const deleteUser = (req, res) => {
   try {
     const id = req.params.id;
     deleteFolder(`${process.env.PUBLIC_DIR_URL}images/${id}`);
+    Project.deleteMany({ user: id })
+      .then(() => {
+        console.log("projet(s) supprimé(s)");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
     User.findByIdAndDelete(id)
-      .then((resp) =>
+      .then((resp) => {
         res.status(200).json({
           action: `l'utilisateur ${resp._id} a été retiré de la base de données`,
-        })
-      )
+        });
+      })
       .catch((err) => console.log(err));
   } catch (error) {
     res.status(400).json({ erreur: error.message });
@@ -89,6 +96,15 @@ export const createTemplate = (req, res) => {
       message: "création du template impossible",
       erreur: error.message,
     });
+  }
+};
+
+export const getTemplates = async (req, res) => {
+  try {
+    const templates = await Template.find();
+    res.status(200).json({ templates });
+  } catch (error) {
+    res.status(400).json({ erreur: error.message });
   }
 };
 

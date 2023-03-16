@@ -50,6 +50,30 @@ export const getMyProjects = async (jwt) => {
   return result;
 };
 
+export const updateProject = async (jwt, payload) => {
+  const resp = await fetch(`http://localhost:9875/user/updateproject`, {
+    method: "PUT",
+    headers: {
+      authorization: `Bearer ${jwt}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(payload),
+  });
+  const result = await resp.json();
+  return result;
+};
+
+export const deleteProject = async (jwt, payload) => {
+  const resp = await fetch(`http://localhost:9875/user/deleteproject`, {
+    method: "DELETE",
+    headers: {
+      authorization: `Bearer ${jwt}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(payload),
+  });
+};
+
 export const updateUser = async (jwt, payload) => {
   const resp = await fetch(`http://localhost:9875/user/updateaccount`, {
     method: "PUT",
@@ -58,6 +82,15 @@ export const updateUser = async (jwt, payload) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(payload),
+  });
+  const result = await resp.json();
+  return result;
+};
+
+export const deleteAccount = async (jwt) => {
+  const resp = await fetch(`http://localhost:9875/user/deleteaccount`, {
+    method: "DELETE",
+    headers: { authorization: `Bearer ${jwt}` },
   });
   const result = await resp.json();
   return result;
@@ -77,6 +110,48 @@ export const deleteUser = async (jwt, id) => {
   const resp = await fetch(`http://localhost:9875/admin/deleteuser/${id}`, {
     method: "DELETE",
     headers: { authorization: `Bearer ${jwt}` },
+  });
+  const result = await resp.json();
+  return result;
+};
+
+export const getProjects = async (jwt) => {
+  const resp = await fetch("http://localhost:9875/admin/getprojects", {
+    headers: { authorization: `Bearer ${jwt}` },
+  });
+  const result = await resp.json();
+  return result;
+};
+
+export const deleteProjects = async (jwt, payload) => {
+  const resp = await fetch(`http://localhost:9875/admin/deleteproject`, {
+    method: "DELETE",
+    headers: {
+      authorization: `Bearer ${jwt}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(payload),
+  });
+  const result = await resp.json();
+  return result;
+};
+
+export const getTemplates = async (jwt) => {
+  const resp = await fetch("http://localhost:9875/admin/gettemplates", {
+    headers: { authorization: `Bearer ${jwt}` },
+  });
+  const result = await resp.json();
+  return result;
+};
+
+export const deleteTemplate = async (jwt, payload) => {
+  const resp = await fetch(`http://localhost:9875/admin/deletetemplate`, {
+    method: "DELETE",
+    headers: {
+      authorization: `Bearer ${jwt}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(payload),
   });
   const result = await resp.json();
   return result;

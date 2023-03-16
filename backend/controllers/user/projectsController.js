@@ -82,13 +82,13 @@ export const updateProject = async (req, res) => {
     if (req.body.user === req.userId) {
       const update = req.body;
       const project = await Project.findOne({ _id: update._id });
+      console.log(project);
       project.title = update.title;
       project.support = update.support;
       project.theme = update.theme;
       project.image = update.image;
       project.data = update.data;
       project.isPublic = update.isPublic;
-
       project
         .save()
         .then((resp) => res.status(200).json({ project }))
@@ -99,6 +99,7 @@ export const updateProject = async (req, res) => {
       });
     }
   } catch (error) {
+    console.log(error);
     res.status(400).json({ error });
   }
 };

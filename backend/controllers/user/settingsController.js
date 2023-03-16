@@ -1,4 +1,5 @@
 import User from "../../models/userSchema.js";
+import Project from "../../models/projectSchema.js";
 import fs from "fs";
 import { deleteFolder } from "../../utils/deleteFolder.js";
 
@@ -26,6 +27,13 @@ export const updateAccount = async (req, res) => {
 export const deleteAccount = (req, res) => {
   try {
     const id = req.userId;
+    Project.deleteMany({ user: id })
+      .then(() => {
+        console.log("projet(s) supprimé(s)");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
     User.findByIdAndDelete(id).then((resp) => {
       const path = `${process.env.PUBLIC_DIR_URL}/images/${req.userId}`;
       deleteFolder(path);

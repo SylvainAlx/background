@@ -66,12 +66,12 @@ const Nav = () => {
           <>
             <ClassicButton
               link="/login"
-              class="classicButton log"
+              class="classicButton green"
               content="se connecter"
             />
             <ClassicButton
               link="/register"
-              class="classicButton log"
+              class="classicButton green"
               content="s'inscrire"
             />
           </>
@@ -81,7 +81,7 @@ const Nav = () => {
               link="/dashboard"
               class="classicButton deselect"
               icon={<AiFillRead />}
-              content="tableau de bord"
+              content="mes projets"
             />
             <ClassicButton
               link="/settings"
@@ -90,7 +90,7 @@ const Nav = () => {
               content="paramètres"
             />
             <div
-              className="classicButton logout"
+              className="classicButton red"
               content="se déconnecter"
               onClick={handleClick}
             >
