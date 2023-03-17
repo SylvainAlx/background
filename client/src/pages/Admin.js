@@ -112,7 +112,7 @@ const Admin = () => {
                       <td>{user.pseudo}</td>
                       <td>{user.email}</td>
                       <td id={user._id} index={i} onClick={handleDeleteUser}>
-                        <AiFillDelete className="icon" />
+                        <AiFillDelete className="icon delete" />
                       </td>
                     </tr>
                   );
@@ -144,7 +144,7 @@ const Admin = () => {
                         index={i}
                         onClick={handleDeleteProject}
                       >
-                        <AiFillDelete className="icon" />
+                        <AiFillDelete className="icon delete" />
                       </td>
                     </tr>
                   );
@@ -168,10 +168,10 @@ const Admin = () => {
                     <tr key={i}>
                       <td>{template.theme}</td>
                       <td onClick={handleDeleteTemplate} id={template._id}>
-                        <AiFillDelete className="icon" />
+                        <AiFillDelete className="icon delete" />
                       </td>
                       <td id={template._id}>
-                        <AiFillEdit className="icon" />
+                        <AiFillEdit className="icon edit" />
                       </td>
                     </tr>
                   );

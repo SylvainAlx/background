@@ -71,7 +71,7 @@ const Dashboard = () => {
                       id={project._id}
                       name={project.user}
                       onClick={handleDelete}
-                      className="icon"
+                      className="icon delete"
                     />
                   </article>
                 );

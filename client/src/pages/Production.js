@@ -3,7 +3,9 @@ import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { setProject } from "../store/slices/projectSlice";
 import { projectSupports, projectThemes } from "../utils/projectSelect";
 import { updateProject } from "../utils/FetchOperations";
+import { tileModel } from "../utils/tileModel";
 import { useEffect } from "react";
+import Tile from "../components/tile/Tile";
 
 const Production = () => {
   const project = useSelector((state) => state.project);
@@ -23,10 +25,17 @@ const Production = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     updateProject(jwt, project)
-      .then((data) => {
-        dispatch(setProject(data.project));
+      .then((result) => {
+        dispatch(setProject(result.project));
       })
       .catch((error) => console.log(error));
+  };
+
+  const handleClick = (e) => {
+    const newTile = tileModel;
+    const updateData = Object.assign([], project.data);
+    updateData.push(newTile);
+    dispatch(setProject({ ...project, data: updateData }));
   };
 
   return (
@@ -81,6 +90,16 @@ const Production = () => {
             </div>
           </fieldset>
         </form>
+        <div className="document">
+          <h3>Données du projet</h3>
+          <div onClick={handleClick} className="classicButton deselect">
+            CRÉER UNE CATÉGORIE
+          </div>
+          {project.data.length !== 0 &&
+            project.data.map((element, i) => {
+              return <Tile key={i} element={element} index={i} />;
+            })}
+        </div>
       </section>
     </main>
   );

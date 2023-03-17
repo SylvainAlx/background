@@ -1,0 +1,29 @@
+@import "variables";
+
+.tile {
+  min-width: 280px;
+  max-width: 304px;
+  margin: 20px auto;
+  padding: 20px 0;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  background-color: $color-main4;
+  box-shadow: $box-shadow;
+
+  .littleFlex {
+    display: flex;
+    margin: 5px;
+  }
+
+  input {
+    width: 80%;
+  }
+
+  img {
+    width: 80%;
+    border-radius: 10px;
+  }
+}

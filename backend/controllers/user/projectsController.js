@@ -82,7 +82,6 @@ export const updateProject = async (req, res) => {
     if (req.body.user === req.userId) {
       const update = req.body;
       const project = await Project.findOne({ _id: update._id });
-      console.log(project);
       project.title = update.title;
       project.support = update.support;
       project.theme = update.theme;
