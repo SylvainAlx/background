@@ -1,22 +1,23 @@
 import { useDispatch, useSelector } from "react-redux";
-import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
+import {
+  AiFillEye,
+  AiFillEyeInvisible,
+  AiFillCheckCircle,
+} from "react-icons/ai";
 import { setProject } from "../store/slices/projectSlice";
 import { projectSupports, projectThemes } from "../utils/projectSelect";
 import { updateProject } from "../utils/FetchOperations";
-import { tileModel } from "../utils/tileModel";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Tile from "../components/tile/Tile";
 
 const Production = () => {
   const project = useSelector((state) => state.project);
   const dispatch = useDispatch();
   const jwt = localStorage.getItem("jwt");
-
-  useEffect(() => {
-    console.log(project);
-  }, [project]);
+  const [saved, setSaved] = useState(true);
 
   const handleChange = (e) => {
+    setSaved(false);
     const value = e.target.value;
     const name = e.target.name;
     dispatch(setProject({ ...project, [name]: value }));
@@ -27,13 +28,26 @@ const Production = () => {
     updateProject(jwt, project)
       .then((result) => {
         dispatch(setProject(result.project));
+        setSaved(true);
+        window.alert("sauvegarde effectuée");
       })
       .catch((error) => console.log(error));
   };
 
+  const getRandom = (max) => {
+    return Math.floor(Math.random() * max);
+  };
+
   const handleClick = (e) => {
-    const newTile = tileModel;
-    const updateData = Object.assign([], project.data);
+    const newTile = {
+      title: "",
+      tag: "",
+      image: "",
+      description: "",
+      children: [],
+    };
+    newTile.id = getRandom(100000);
+    const updateData = [...project.data];
     updateData.push(newTile);
     dispatch(setProject({ ...project, data: updateData }));
   };
@@ -41,7 +55,7 @@ const Production = () => {
   return (
     <main className="main">
       <section>
-        <form onSubmit={handleSubmit}>
+        <form>
           <fieldset className="fieldset">
             <h3>Informations générales</h3>
             <em>visibilité</em>
@@ -85,9 +99,12 @@ const Production = () => {
                 );
               })}
             </select>
-            <div className="validateButton classicButton green">
-              <input type="submit" value="sauvegarder" />
-            </div>
+            {!saved && (
+              <AiFillCheckCircle
+                onClick={handleSubmit}
+                className="icon validate"
+              />
+            )}
           </fieldset>
         </form>
         <div className="document">
@@ -97,7 +114,7 @@ const Production = () => {
           </div>
           {project.data.length !== 0 &&
             project.data.map((element, i) => {
-              return <Tile key={i} element={element} index={i} />;
+              return <Tile key={i} element={element} jwt={jwt} />;
             })}
         </div>
       </section>

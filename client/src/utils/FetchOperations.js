@@ -96,6 +96,19 @@ export const deleteAccount = async (jwt) => {
   return result;
 };
 
+export const uploadFile = async (jwt, payload) => {
+  const formData = new FormData();
+  formData.append("file", payload.file);
+  formData.append("projectId", payload.projectId);
+  const resp = await fetch(`http://localhost:9875/user/uploadfile`, {
+    method: "POST",
+    headers: { authorization: `Bearer ${jwt}` },
+    body: formData,
+  });
+  const result = await resp.json();
+  return result;
+};
+
 //ADMIN
 
 export const getUsers = async (jwt) => {

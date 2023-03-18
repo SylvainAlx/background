@@ -18,6 +18,7 @@ export const uploadFile = (req, res) => {
           files.file.newFilename +
           "." +
           extension;
+        const pathToSend = newpath.replace("public/", "");
         fs.copyFile(oldpath, newpath, (error) => {
           if (error) {
             res.send(error);
