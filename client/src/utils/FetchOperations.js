@@ -109,6 +109,19 @@ export const uploadFile = async (jwt, payload) => {
   return result;
 };
 
+export const deleteFile = async (jwt, payload) => {
+  const resp = await fetch(`http://localhost:9875/user/deletefile`, {
+    method: "DELETE",
+    headers: {
+      authorization: `Bearer ${jwt}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(payload),
+  });
+  const result = await resp.json();
+  return result;
+};
+
 //ADMIN
 
 export const getUsers = async (jwt) => {

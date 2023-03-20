@@ -1,9 +1,15 @@
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { AiFillFileAdd, AiFillDelete, AiFillCheckCircle } from "react-icons/ai";
+import { AiFillFileAdd, AiFillDelete } from "react-icons/ai";
 import { setProject } from "../../store/slices/projectSlice";
-import { updateProject, uploadFile } from "../../utils/FetchOperations";
+import {
+  updateProject,
+  uploadFile,
+  deleteFile,
+} from "../../utils/FetchOperations";
 import "../../assets/styles/Tile.scss";
+import ValidateButton from "../ValidateButton";
+import DeleteButton from "../DeleteButton";
 
 const Tile = (props) => {
   const project = useSelector((state) => state.project);
@@ -13,9 +19,7 @@ const Tile = (props) => {
   const dispatch = useDispatch();
   const jwt = props.jwt;
 
-  const upload = (e) => {
-    e.preventDefault();
-    const file = e.target[0].files[0];
+  const upload = (file) => {
     const payload = {
       file,
       projectId: project._id,
@@ -24,12 +28,26 @@ const Tile = (props) => {
       .then((result) => {
         const path = result.newpath.replace("public/", "");
         setElement({ ...element, image: path });
+        handleClick(path);
       })
       .catch((error) => console.log(error));
   };
 
-  const handleFileChange = (e) => {
-    console.log(e);
+  const handleDeleteImage = (e) => {
+    if (window.confirm(`Supprimer l'image ?`)) {
+      setSaved(false);
+      const payload = {
+        path: "public/" + e.target.id,
+      };
+
+      deleteFile(jwt, payload)
+        .then((result) => {
+          console.log(result.message);
+          setElement({ ...element, image: "" });
+          handleClick();
+        })
+        .catch((error) => console.log(error));
+    }
   };
 
   const fetchUpdate = (jwt, project) => {
@@ -48,28 +66,30 @@ const Tile = (props) => {
     setElement({ ...element, [name]: value });
   };
 
-  const handleClick = (e) => {
-    if (
-      window.confirm(
-        `Valider les modifications de l'élément ${element.title} ?`
-      )
-    ) {
-      const updateData = [...project.data];
-      const update = (array) => {
-        for (let i = 0; i < array.length; i++) {
-          if (array[i].id === element.id) {
-            array[i] = element;
-          } else {
-            update(array[i].children);
-          }
-        }
-      };
-      update(updateData);
-      const updateProject = { ...project };
-      updateProject.data = updateData;
-      fetchUpdate(jwt, updateProject);
-      setSaved(true);
+  const handleFile = (e) => {
+    if (window.confirm(`Enregistrer l'image ?`)) {
+      upload(e.target.files[0]);
     }
+  };
+
+  const handleClick = (path) => {
+    const updateData = [...project.data];
+    const update = (array) => {
+      for (let i = 0; i < array.length; i++) {
+        if (array[i].id === element.id) {
+          array[i] = { ...element };
+          path ? (array[i].image = path) : (array[i].image = "");
+        } else {
+          update(array[i].children);
+        }
+      }
+    };
+    update(updateData);
+    const updateProject = { ...project };
+    updateProject.data = updateData;
+    fetchUpdate(jwt, updateProject);
+    dispatch(setProject(updateProject));
+    setSaved(true);
   };
 
   const handleDelete = (e) => {
@@ -88,25 +108,31 @@ const Tile = (props) => {
       const updateProject = { ...project };
       updateProject.data = updateData;
       fetchUpdate(jwt, updateProject);
+      dispatch(setProject(updateProject));
+      setSaved(true);
     }
   };
 
   return (
     <div className="tile">
-      {element.image !== "" ? (
+      {saved ? <h5>élément sauvegardé</h5> : <h5>élément non sauvegardé</h5>}
+      {element.image !== "" && saved ? (
         <>
           <img
             src={`http://localhost:9875/${element.image}`}
             alt={element.image}
           />
-          <AiFillDelete className="icon delete" />
+          <div
+            onClick={handleDeleteImage}
+            id={element.image}
+            className="classicButton red"
+          >
+            supprimer l'image <AiFillDelete />
+          </div>
         </>
       ) : (
         <>
-          <form onSubmit={upload}>
-            <input type="file" />
-            <button type="submit">Envoyer</button>
-          </form>
+          <input onChange={handleFile} type="file" />
           <img
             src={`http://localhost:9875/images/noimage.jpg`}
             alt="pas d'image"
@@ -136,9 +162,9 @@ const Tile = (props) => {
       />
       <div className="littleFlex">
         {!saved ? (
-          <AiFillCheckCircle onClick={handleClick} className="icon validate" />
+          <ValidateButton action={handleClick} />
         ) : (
-          <AiFillDelete onClick={handleDelete} className="icon delete" />
+          <DeleteButton action={handleDelete} />
         )}
       </div>
     </div>

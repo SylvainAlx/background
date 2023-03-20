@@ -8,6 +8,7 @@
   color: $color-mainlight;
   background: url("../images/repeat.png") fixed;
 
+
   .icon {
     cursor: pointer;
     font-size: 30px;
@@ -22,8 +23,8 @@
   .delete:hover {
     color: $color-error;
   }
-  .validate:hover {
-    color: $color-darkgreen;
+  .iconButton {
+    font-size: 30px;
   }
 
   .input-file {
@@ -54,6 +55,15 @@
         width: 100%;
         text-align: center;
         color: $color-main1;
+      }
+
+      .uploadForm {
+        align-items: center;
+        input {
+          margin: 0 auto;
+          width: 95%;
+          font-size: 14px;
+        }
       }
 
       .projectsContainer {
@@ -103,8 +113,7 @@
     }
 
     button,
-    input[type="submit"],
-    input[type="file"] {
+    input[type="submit"] {
       background: none;
       color: inherit;
       border: none;
@@ -130,9 +139,6 @@
       min-height: 80px;
       font: inherit;
       font-size: 14px;
-    }
-    input[type="file"] {
-      width: 30%;
     }
 
     select {

@@ -12,8 +12,8 @@ export const projectThemes = [
   "fantastique",
   "fantasy",
   "science-fiction",
-  "jeu vidéo",
-  "littérature",
-  "théâtre",
-  "tv",
+  "historique",
+  "drame",
+  "comédie",
+  "romance",
 ];

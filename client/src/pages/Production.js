@@ -1,14 +1,11 @@
 import { useDispatch, useSelector } from "react-redux";
-import {
-  AiFillEye,
-  AiFillEyeInvisible,
-  AiFillCheckCircle,
-} from "react-icons/ai";
+import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { setProject } from "../store/slices/projectSlice";
 import { projectSupports, projectThemes } from "../utils/projectSelect";
 import { updateProject } from "../utils/FetchOperations";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Tile from "../components/tile/Tile";
+import ValidateButton from "../components/ValidateButton";
 
 const Production = () => {
   const project = useSelector((state) => state.project);
@@ -99,12 +96,7 @@ const Production = () => {
                 );
               })}
             </select>
-            {!saved && (
-              <AiFillCheckCircle
-                onClick={handleSubmit}
-                className="icon validate"
-              />
-            )}
+            {!saved && <ValidateButton action={handleSubmit} />}
           </fieldset>
         </form>
         <div className="document">
