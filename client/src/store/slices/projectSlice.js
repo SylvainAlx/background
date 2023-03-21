@@ -56,7 +56,7 @@ export const projectSlice = createSlice({
           if (children.id === action.payload.tile.id) {
             data = action.payload.tile;
             typeof action.payload.path === "string" &&
-              (data.image = action.payload.path);
+              (data = { ...data, image: action.payload.path });
           } else {
             update(children.children);
           }
@@ -83,7 +83,7 @@ export const projectSlice = createSlice({
     unsetChildren: (state, action) => {
       const childrens = action.payload.children;
       let data;
-      const update = () => {
+      const update = (childrens) => {
         childrens.forEach((children, i) => {
           if (children.id === action.payload.tile.id) {
             childrens.splice(i, 1);
@@ -92,7 +92,7 @@ export const projectSlice = createSlice({
           }
         });
       };
-      update(action.children);
+      update(childrens);
       const newData = state.data.map((e) => {
         if (e.id === action.payload.tile.id) {
           return data;

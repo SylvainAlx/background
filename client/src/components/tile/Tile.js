@@ -20,20 +20,10 @@ const Tile = (props) => {
   const [displayChildren, setDisplayChildren] = useState("hidden");
 
   const dispatch = useDispatch();
-  const jwt = props.jwt;
 
   useEffect(() => {
     console.log(project);
   }, [project]);
-
-  const fetchUpdate = (jwt, project) => {
-    updateProject(jwt, project)
-      .then((result) => {
-        dispatch(setProject(result.project));
-        window.alert("sauvegarde effectuée");
-      })
-      .catch((error) => console.log(error));
-  };
 
   const handleChange = (e) => {
     setSaved(false);

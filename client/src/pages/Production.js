@@ -106,7 +106,7 @@ const Production = () => {
           </div>
           {project.data.length !== 0 &&
             project.data.map((element, i) => {
-              return <Tile key={i} element={element} jwt={jwt} />;
+              return <Tile key={i} element={element} />;
             })}
         </div>
       </section>

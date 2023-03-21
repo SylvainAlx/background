@@ -51,7 +51,7 @@ export const getMyProjects = async (jwt) => {
   return result;
 };
 
-export const createProject = async (jwt, payload) => {
+export const createProject = async (payload) => {
   const resp = await fetch("http://localhost:9875/user/createproject", {
     method: "POST",
     headers: {
@@ -77,7 +77,7 @@ export const updateProject = async (payload) => {
   return result;
 };
 
-export const deleteProject = async (jwt, payload) => {
+export const deleteProject = async (payload) => {
   const resp = await fetch(`http://localhost:9875/user/deleteproject`, {
     method: "DELETE",
     headers: {

@@ -20,7 +20,8 @@ export const DisplayImage = ({ element, setElement, setSaved, update }) => {
         .then((result) => {
           console.log(result.message);
           setElement({ ...element, image: "" });
-          update();
+          const path = "";
+          update(path);
         })
         .catch((error) => console.log(error));
     }
