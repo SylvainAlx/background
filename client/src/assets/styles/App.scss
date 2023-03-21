@@ -57,14 +57,7 @@
         color: $color-main1;
       }
 
-      .uploadForm {
-        align-items: center;
-        input {
-          margin: 0 auto;
-          width: 95%;
-          font-size: 14px;
-        }
-      }
+      
 
       .projectsContainer {
         width: 100%;
@@ -142,7 +135,7 @@
     }
 
     select {
-      width: 57%;
+      width: 100%;
       height: 30px;
     }
 

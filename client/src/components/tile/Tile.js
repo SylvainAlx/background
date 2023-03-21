@@ -1,54 +1,30 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { AiFillFileAdd, AiFillDelete } from "react-icons/ai";
-import { setProject } from "../../store/slices/projectSlice";
+import { AiFillCaretDown } from "react-icons/ai";
 import {
-  updateProject,
-  uploadFile,
-  deleteFile,
-} from "../../utils/FetchOperations";
+  setProject,
+  setChildren,
+  unsetChildren,
+} from "../../store/slices/projectSlice";
+import { updateProject } from "../../utils/FetchOperations";
 import "../../assets/styles/Tile.scss";
 import ValidateButton from "../ValidateButton";
 import DeleteButton from "../DeleteButton";
+import ClassicButton from "../ClassicButton";
+import { DisplayImage } from "./DisplayImage";
 
 const Tile = (props) => {
   const project = useSelector((state) => state.project);
   const [element, setElement] = useState(props.element);
   const [saved, setSaved] = useState(true);
+  const [displayChildren, setDisplayChildren] = useState("hidden");
 
   const dispatch = useDispatch();
   const jwt = props.jwt;
 
-  const upload = (file) => {
-    const payload = {
-      file,
-      projectId: project._id,
-    };
-    uploadFile(jwt, payload)
-      .then((result) => {
-        const path = result.newpath.replace("public/", "");
-        setElement({ ...element, image: path });
-        handleClick(path);
-      })
-      .catch((error) => console.log(error));
-  };
-
-  const handleDeleteImage = (e) => {
-    if (window.confirm(`Supprimer l'image ?`)) {
-      setSaved(false);
-      const payload = {
-        path: "public/" + e.target.id,
-      };
-
-      deleteFile(jwt, payload)
-        .then((result) => {
-          console.log(result.message);
-          setElement({ ...element, image: "" });
-          handleClick();
-        })
-        .catch((error) => console.log(error));
-    }
-  };
+  useEffect(() => {
+    console.log(project);
+  }, [project]);
 
   const fetchUpdate = (jwt, project) => {
     updateProject(jwt, project)
@@ -66,49 +42,19 @@ const Tile = (props) => {
     setElement({ ...element, [name]: value });
   };
 
-  const handleFile = (e) => {
-    if (window.confirm(`Enregistrer l'image ?`)) {
-      upload(e.target.files[0]);
-    }
-  };
-
-  const handleClick = (path) => {
-    const updateData = [...project.data];
-    const update = (array) => {
-      for (let i = 0; i < array.length; i++) {
-        if (array[i].id === element.id) {
-          array[i] = { ...element };
-          path ? (array[i].image = path) : (array[i].image = "");
-        } else {
-          update(array[i].children);
-        }
-      }
-    };
-    update(updateData);
-    const updateProject = { ...project };
-    updateProject.data = updateData;
-    fetchUpdate(jwt, updateProject);
-    dispatch(setProject(updateProject));
+  const update = (path) => {
+    dispatch(setChildren({ children: project.data, tile: element, path }));
+    window.alert("sauvegarde effectuée");
     setSaved(true);
   };
 
-  const handleDelete = (e) => {
+  const handleClick = () => {
+    update();
+  };
+
+  const handleDelete = () => {
     if (window.confirm(`Supprimer l'élément ${element.title} ?`)) {
-      const updateData = [...project.data];
-      const remove = (array) => {
-        for (let i = 0; i < array.length; i++) {
-          if (array[i].id === element.id) {
-            array.splice(i, 1);
-          } else {
-            remove(array[i].children);
-          }
-        }
-      };
-      remove(updateData);
-      const updateProject = { ...project };
-      updateProject.data = updateData;
-      fetchUpdate(jwt, updateProject);
-      dispatch(setProject(updateProject));
+      dispatch(unsetChildren({ children: project.data, tile: element }));
       setSaved(true);
     }
   };
@@ -116,29 +62,12 @@ const Tile = (props) => {
   return (
     <div className="tile">
       {saved ? <h5>élément sauvegardé</h5> : <h5>élément non sauvegardé</h5>}
-      {element.image !== "" && saved ? (
-        <>
-          <img
-            src={`http://localhost:9875/${element.image}`}
-            alt={element.image}
-          />
-          <div
-            onClick={handleDeleteImage}
-            id={element.image}
-            className="classicButton red"
-          >
-            supprimer l'image <AiFillDelete />
-          </div>
-        </>
-      ) : (
-        <>
-          <input onChange={handleFile} type="file" />
-          <img
-            src={`http://localhost:9875/images/noimage.jpg`}
-            alt="pas d'image"
-          />
-        </>
-      )}
+      <DisplayImage
+        element={element}
+        setElement={setElement}
+        setSaved={setSaved}
+        update={update}
+      />
       <input
         onChange={handleChange}
         type="text"
@@ -150,7 +79,7 @@ const Tile = (props) => {
       <input
         onChange={handleChange}
         type="text"
-        name="category"
+        name="tag"
         value={element.tag}
         placeholder="tag"
       />
@@ -160,6 +89,29 @@ const Tile = (props) => {
         value={element.description}
         placeholder="description"
       />
+      <h4>nombre de sous-elements : {element.children.length}</h4>
+      <div
+        onClick={() => {
+          displayChildren === "hidden"
+            ? setDisplayChildren("show")
+            : setDisplayChildren("hidden");
+        }}
+        className="classicButton deselect"
+      >
+        <AiFillCaretDown />
+        VOIR LES SOUS-ÉLÉMENTS
+      </div>
+      <div className={`children ${displayChildren}`}>
+        {element.children.map((child, i) => {
+          return <h5 key={i}>{child.title}</h5>;
+        })}
+        <ClassicButton
+          link="/production/children"
+          class="classicButton deselect"
+          content="détails"
+        />
+      </div>
+
       <div className="littleFlex">
         {!saved ? (
           <ValidateButton action={handleClick} />

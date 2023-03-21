@@ -18,6 +18,15 @@
     margin: 5px;
   }
 
+  .uploadForm {
+    align-items: center;
+    input {
+      margin: 0 auto;
+      width: 95%;
+      font-size: 14px;
+    }
+  }
+
   input {
     width: 80%;
   }
@@ -25,5 +34,26 @@
   img {
     width: 80%;
     border-radius: 10px;
+  }
+
+  .children {
+    max-height: 250px;
+    width: 90%;
+    background-color: $color-main3;
+    border-radius: 10px;
+    box-shadow: $box-shadow;
+    transition: all 0.3s;
+    overflow:scroll;
+
+    h5 {
+      color: $color-main4;
+    }
+  } 
+
+  .hidden {
+    max-height: 0;
+  }
+  .show {
+    max-height: 250px;
   }
 }

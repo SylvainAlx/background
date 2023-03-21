@@ -19,6 +19,7 @@ export const getMyProjects = async (req, res) => {
 };
 export const createProject = async (req, res) => {
   try {
+    console.log(req.body);
     const { title, support, theme, image, isPublic } = req.body;
     const user = await User.findOne({ _id: req.userId });
     const project = new Project({

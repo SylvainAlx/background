@@ -1,4 +1,5 @@
 //AUTHENTIFICATION
+const jwt = localStorage.getItem("jwt");
 
 export const authGet = async (jwt) => {
   const resp = await fetch("http://localhost:9875/auth/verify", {
@@ -50,7 +51,20 @@ export const getMyProjects = async (jwt) => {
   return result;
 };
 
-export const updateProject = async (jwt, payload) => {
+export const createProject = async (jwt, payload) => {
+  const resp = await fetch("http://localhost:9875/user/createproject", {
+    method: "POST",
+    headers: {
+      authorization: `Bearer ${jwt}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(payload),
+  });
+  const result = await resp.json();
+  return result;
+};
+
+export const updateProject = async (payload) => {
   const resp = await fetch(`http://localhost:9875/user/updateproject`, {
     method: "PUT",
     headers: {
@@ -96,7 +110,7 @@ export const deleteAccount = async (jwt) => {
   return result;
 };
 
-export const uploadFile = async (jwt, payload) => {
+export const uploadFile = async (payload) => {
   const formData = new FormData();
   formData.append("file", payload.file);
   formData.append("projectId", payload.projectId);
@@ -109,7 +123,7 @@ export const uploadFile = async (jwt, payload) => {
   return result;
 };
 
-export const deleteFile = async (jwt, payload) => {
+export const deleteFile = async (payload) => {
   const resp = await fetch(`http://localhost:9875/user/deletefile`, {
     method: "DELETE",
     headers: {
