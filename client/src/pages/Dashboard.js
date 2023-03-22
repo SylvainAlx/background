@@ -17,21 +17,19 @@ const Dashboard = () => {
     title: "",
     support: projectSupports[0],
     theme: projectThemes[0],
+    children: [],
     isPublic: false,
   });
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  const jwt = localStorage.getItem("jwt");
 
   useEffect(() => {
     syncProjects();
   }, []);
 
   const syncProjects = () => {
-    getMyProjects(jwt)
+    getMyProjects()
       .then((data) => {
-        console.log(data);
         setprojects(data.projects);
       })
       .catch((error) => console.log(error));
@@ -49,7 +47,7 @@ const Dashboard = () => {
   };
 
   const createNewProject = () => {
-    createProject(jwt, newProjet)
+    createProject(newProjet)
       .then((data) => {
         console.log(data);
 
@@ -65,7 +63,7 @@ const Dashboard = () => {
       const projectId = e.currentTarget.getAttribute("id");
       const projectUser = e.currentTarget.getAttribute("name");
       const payload = { projectId, projectUser };
-      deleteProject(jwt, payload)
+      deleteProject(payload)
         .then(() => {
           syncProjects();
         })

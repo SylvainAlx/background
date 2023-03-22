@@ -21,7 +21,7 @@ const projectSchema = mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
     },
-    data: {
+    children: {
       type: Array,
     },
     publicUser: {

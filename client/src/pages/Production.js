@@ -3,14 +3,13 @@ import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { setProject } from "../store/slices/projectSlice";
 import { projectSupports, projectThemes } from "../utils/projectSelect";
 import { updateProject } from "../utils/FetchOperations";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Tile from "../components/tile/Tile";
 import ValidateButton from "../components/ValidateButton";
 
 const Production = () => {
   const project = useSelector((state) => state.project);
   const dispatch = useDispatch();
-  const jwt = localStorage.getItem("jwt");
   const [saved, setSaved] = useState(true);
 
   const handleChange = (e) => {
@@ -20,9 +19,13 @@ const Production = () => {
     dispatch(setProject({ ...project, [name]: value }));
   };
 
+  useEffect(() => {
+    console.log(project);
+  }, []);
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    updateProject(jwt, project)
+    updateProject(project)
       .then((result) => {
         dispatch(setProject(result.project));
         setSaved(true);
@@ -104,8 +107,9 @@ const Production = () => {
           <div onClick={handleClick} className="classicButton deselect">
             CRÉER UNE CATÉGORIE
           </div>
-          {project.data.length !== 0 &&
-            project.data.map((element, i) => {
+
+          {project.children.length !== 0 &&
+            project.children.map((element, i) => {
               return <Tile key={i} element={element} />;
             })}
         </div>

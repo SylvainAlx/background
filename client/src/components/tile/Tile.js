@@ -33,13 +33,22 @@ const Tile = (props) => {
   };
 
   const update = (path) => {
-    dispatch(setChildren({ children: project.data, tile: element, path }));
+    dispatch(
+      setChildren({
+        children: project.data,
+        tile: element,
+        path,
+        project: project,
+      })
+    );
     window.alert("sauvegarde effectuée");
     setSaved(true);
   };
 
   const handleClick = () => {
-    update();
+    if (window.confirm(`Sauvegarder l'élément ${element.title} ?`)) {
+      update();
+    }
   };
 
   const handleDelete = () => {

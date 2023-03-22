@@ -43,7 +43,7 @@ export const getPublics = async () => {
 
 //USER
 
-export const getMyProjects = async (jwt) => {
+export const getMyProjects = async () => {
   const resp = await fetch("http://localhost:9875/user/getmyprojects", {
     headers: { authorization: `Bearer ${jwt}` },
   });
