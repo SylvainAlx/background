@@ -1,8 +1,7 @@
 @import "variables";
 
 .tile {
-  min-width: 280px;
-  max-width: 304px;
+  width: 90%;
   margin: 20px auto;
   padding: 20px 0;
   border-radius: 10px;
@@ -37,6 +36,7 @@
   }
 
   .children {
+    min-height: 0;
     max-height: 250px;
     width: 90%;
     background-color: $color-main3;
@@ -54,6 +54,7 @@
     max-height: 0;
   }
   .show {
+    min-height: 100px;
     max-height: 250px;
   }
 }

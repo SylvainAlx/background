@@ -48,6 +48,27 @@ export const projectSlice = createSlice({
       };
     },
 
+    createChildren: (state, action) => {
+      //projet non mis à jour
+      const project = { ...action.payload.project };
+      //nouvel élement à insérer dans la data
+      const tile = { ...action.payload.tile };
+      function createNewChildren(children, newChild) {
+        return children.map((child, i) => {
+          if (child.id === newChild.parentId) {
+            const update = [...child.children];
+            update.push(newChild);
+            return update;
+          }
+          if (child.children.length > 0) {
+            createNewChildren(child.children);
+          }
+        });
+      }
+
+      console.log(createNewChildren(project.children, tile));
+    },
+
     setChildren: (state, action) => {
       //projet non mis à jour
       const project = { ...action.payload.project };
@@ -81,77 +102,54 @@ export const projectSlice = createSlice({
       updateProject(updatedProject);
 
       return updatedProject;
-
-      /*
-     
-      const childrens = action.payload.children;
-      let data;
-      const update = (childrens) => {
-        console.log(action.payload.tile);
-        console.log(childrens);
-        childrens.forEach((children, i) => {
-          if (children.id === action.payload.tile.id) {
-            data = action.payload.tile;
-            typeof action.payload.path === "string" &&
-              (data = { ...data, image: action.payload.path });
-          } else {
-            update(children.children);
-          }
-        });
-      };
-      update(childrens);
-      const newData = state.data.map((e) => {
-        if (e.id === action.payload.tile.id) {
-          return data;
-        } else {
-          return e;
-        }
-      });
-
-      updateProject({
-        ...state,
-        data: newData,
-      });
-
-      return {
-        ...state,
-        data: newData,
-      };
-      */
     },
 
     unsetChildren: (state, action) => {
-      const childrens = action.payload.children;
-      let data;
-      const update = (childrens) => {
-        childrens.forEach((children, i) => {
-          if (children.id === action.payload.tile.id) {
-            childrens.splice(i, 1);
-          } else {
-            update(children.children);
+      //projet non mis à jour
+      const project = { ...action.payload.project };
+      //nouvel élement à insérer dans la data
+      const tile = { ...action.payload.tile };
+
+      function removeObjectById(obj, id) {
+        // Vérifier si l'objet courant contient un tableau
+        if (Array.isArray(obj)) {
+          // Parcourir tous les éléments du tableau
+          for (let i = 0; i < obj.length; i++) {
+            // Si l'élément courant est un objet, appeler récursivement la fonction sur cet objet
+            if (typeof obj[i] === "object") {
+              removeObjectById(obj[i], id);
+            }
           }
-        });
-      };
-      update(childrens);
-      const newData = state.data.map((e) => {
-        if (e.id === action.payload.tile.id) {
-          return data;
         } else {
-          return e;
+          // Si l'objet courant n'est pas un tableau
+          // Parcourir toutes les propriétés de l'objet
+          for (let prop in obj) {
+            // Si la propriété courante est un objet, appeler récursivement la fonction sur cet objet
+            if (typeof obj[prop] === "object") {
+              removeObjectById(obj[prop], id);
+            }
+            // Si la propriété courante est l'id recherché, supprimer l'objet du tableau parent
+            else if (
+              prop === "id" &&
+              obj[prop] === id &&
+              Array.isArray(obj.parent)
+            ) {
+              return obj.parent.splice(obj.index, 1);
+            }
+          }
         }
-      });
-      updateProject({
-        ...state,
-        data: newData,
-      });
-      return {
-        ...state,
-        data: newData,
-      };
+      }
+
+      const updatedProject = removeObjectById(project, tile.id);
+      console.log(updatedProject);
+      //updateProject(updatedProject);
+
+      //return updatedProject;
     },
   },
 });
 
-export const { setProject, setChildren, unsetChildren } = projectSlice.actions;
+export const { setProject, createChildren, setChildren, unsetChildren } =
+  projectSlice.actions;
 
 export default projectSlice.reducer;

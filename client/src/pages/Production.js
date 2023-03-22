@@ -6,6 +6,7 @@ import { updateProject } from "../utils/FetchOperations";
 import { useEffect, useState } from "react";
 import Tile from "../components/tile/Tile";
 import ValidateButton from "../components/ValidateButton";
+import CreateTile from "../components/tile/CreateTile";
 
 const Production = () => {
   const project = useSelector((state) => state.project);
@@ -34,22 +35,11 @@ const Production = () => {
       .catch((error) => console.log(error));
   };
 
-  const getRandom = (max) => {
-    return Math.floor(Math.random() * max);
-  };
-
   const handleClick = (e) => {
-    const newTile = {
-      title: "",
-      tag: "",
-      image: "",
-      description: "",
-      children: [],
-    };
-    newTile.id = getRandom(100000);
-    const updateData = [...project.data];
+    const newTile = CreateTile();
+    const updateData = [...project.children];
     updateData.push(newTile);
-    dispatch(setProject({ ...project, data: updateData }));
+    dispatch(setProject({ ...project, children: updateData }));
   };
 
   return (

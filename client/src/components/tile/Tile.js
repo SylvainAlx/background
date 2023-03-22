@@ -2,16 +2,15 @@ import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { AiFillCaretDown } from "react-icons/ai";
 import {
-  setProject,
+  createChildren,
   setChildren,
   unsetChildren,
 } from "../../store/slices/projectSlice";
-import { updateProject } from "../../utils/FetchOperations";
 import "../../assets/styles/Tile.scss";
 import ValidateButton from "../ValidateButton";
 import DeleteButton from "../DeleteButton";
-import ClassicButton from "../ClassicButton";
 import { DisplayImage } from "./DisplayImage";
+import CreateTile from "./CreateTile";
 
 const Tile = (props) => {
   const project = useSelector((state) => state.project);
@@ -22,7 +21,7 @@ const Tile = (props) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log(project);
+    //console.log(project);
   }, [project]);
 
   const handleChange = (e) => {
@@ -35,7 +34,6 @@ const Tile = (props) => {
   const update = (path) => {
     dispatch(
       setChildren({
-        children: project.data,
         tile: element,
         path,
         project: project,
@@ -56,6 +54,14 @@ const Tile = (props) => {
       dispatch(unsetChildren({ children: project.data, tile: element }));
       setSaved(true);
     }
+  };
+
+  const addSubTile = () => {
+    let newTile = CreateTile(element.id);
+    const updateData = [...element.children];
+    updateData.push(newTile);
+    setElement({ ...element, children: updateData });
+    dispatch(createChildren({ project, tile: newTile }));
   };
 
   return (
@@ -101,14 +107,12 @@ const Tile = (props) => {
         VOIR LES SOUS-ÉLÉMENTS
       </div>
       <div className={`children ${displayChildren}`}>
+        <div onClick={addSubTile} className="classicButton green">
+          AJOUTER
+        </div>
         {element.children.map((child, i) => {
-          return <h5 key={i}>{child.title}</h5>;
+          return <Tile key={i} element={child} />;
         })}
-        <ClassicButton
-          link="/production/children"
-          class="classicButton deselect"
-          content="détails"
-        />
       </div>
 
       <div className="littleFlex">

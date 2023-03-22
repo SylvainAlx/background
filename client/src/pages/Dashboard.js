@@ -123,7 +123,7 @@ const Dashboard = () => {
           </form>
         )}
         <div className="projectsContainer">
-          {projects.length !== 0 ? (
+          {projects.length !== 0 && (
             <>
               {projects.map((project, i) => {
                 return (
@@ -150,8 +150,6 @@ const Dashboard = () => {
                 );
               })}
             </>
-          ) : (
-            <div className="classicButton green">CRÉER UN PREMIER PROJET</div>
           )}
         </div>
       </section>
