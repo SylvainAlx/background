@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
-import { setProject } from "../store/slices/projectSlice";
+import { setProject, createChildren } from "../store/slices/projectSlice";
 import { projectSupports, projectThemes } from "../utils/projectSelect";
 import { updateProject } from "../utils/FetchOperations";
 import { useEffect, useState } from "react";
@@ -22,7 +22,7 @@ const Production = () => {
 
   useEffect(() => {
     console.log(project);
-  }, []);
+  }, [project]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -39,7 +39,7 @@ const Production = () => {
     const newTile = CreateTile();
     const updateData = [...project.children];
     updateData.push(newTile);
-    dispatch(setProject({ ...project, children: updateData }));
+    dispatch(createChildren({ project, tile: newTile }));
   };
 
   return (
@@ -89,15 +89,23 @@ const Production = () => {
                 );
               })}
             </select>
+            <em>description</em>
+            <textarea
+              onChange={handleChange}
+              name="description"
+              value={project.description}
+              placeholder="description"
+            />
             {!saved && <ValidateButton action={handleSubmit} />}
           </fieldset>
         </form>
-        <div className="document">
-          <h3>Données du projet</h3>
-          <div onClick={handleClick} className="classicButton deselect">
-            CRÉER UNE CATÉGORIE
+        <div className="document dashboard">
+          <div className="dashboardTitle">
+            <h3>Données du projet</h3>
+            <div onClick={handleClick} className="classicButton deselect">
+              CRÉER UNE CATÉGORIE
+            </div>
           </div>
-
           {project.children.length !== 0 &&
             project.children.map((element, i) => {
               return <Tile key={i} element={element} />;

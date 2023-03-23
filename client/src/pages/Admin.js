@@ -6,6 +6,7 @@ import {
   deleteProjects,
   getTemplates,
   deleteTemplate,
+  getComments,
 } from "../utils/FetchOperations";
 import { AiFillDelete, AiFillEdit } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
@@ -15,6 +16,7 @@ const Admin = () => {
   const [users, setUsers] = useState([]);
   const [projects, setProjects] = useState([]);
   const [templates, setTemplates] = useState([]);
+  const [comments, setComments] = useState([]);
   const user = useSelector((state) => state.user);
   const jwt = localStorage.getItem("jwt");
   const navigate = useNavigate();
@@ -22,7 +24,17 @@ const Admin = () => {
     syncUsers();
     syncProjects();
     syncTemplates();
+    syncComments();
   }, []);
+
+  const syncComments = () => {
+    getComments()
+      .then((data) => {
+        setComments(data);
+        console.log(data);
+      })
+      .catch((error) => console.log(error));
+  };
 
   const syncUsers = () => {
     getUsers(jwt)
@@ -145,6 +157,37 @@ const Admin = () => {
                         onClick={handleDeleteProject}
                       >
                         <AiFillDelete className="icon delete" />
+                      </td>
+                    </tr>
+                  );
+                })}
+            </tbody>
+          </table>
+        </div>
+        <div className="document">
+          <h3>commentaires</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>auteur</th>
+                <th>commentaire</th>
+                <th>projet</th>
+              </tr>
+            </thead>
+            <tbody>
+              {comments.length !== 0 &&
+                comments.map((comment, i) => {
+                  return (
+                    <tr key={i}>
+                      <td>{comment.publicUser}</td>
+                      <td>{comment.message}</td>
+                      <td>{comment.publicProject}</td>
+
+                      <td onClick={handleDeleteTemplate} id={comment._id}>
+                        <AiFillDelete className="icon delete" />
+                      </td>
+                      <td id={comment._id}>
+                        <AiFillEdit className="icon edit" />
                       </td>
                     </tr>
                   );

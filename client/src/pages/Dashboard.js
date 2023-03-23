@@ -17,6 +17,7 @@ const Dashboard = () => {
     title: "",
     support: projectSupports[0],
     theme: projectThemes[0],
+    description: "",
     children: [],
     isPublic: false,
   });
@@ -77,9 +78,9 @@ const Dashboard = () => {
         <h2>Mes projets</h2>
         <div
           onClick={() => setDisplayForm(true)}
-          className="classicButton green"
+          className="fullwidth classicButton green"
         >
-          CRÉER UN NOUVEAU PROJET
+          NOUVEAU PROJET
         </div>
         {displayForm && (
           <form>
@@ -117,6 +118,12 @@ const Dashboard = () => {
                 );
               })}
             </select>
+            <textarea
+              onChange={handleChange}
+              name="description"
+              value={newProjet.description}
+              placeholder="description"
+            />
             <div onClick={createNewProject} className="classicButton green">
               CRÉER
             </div>

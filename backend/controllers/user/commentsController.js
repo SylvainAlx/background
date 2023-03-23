@@ -2,9 +2,22 @@ import Project from "../../models/projectSchema.js";
 import User from "../../models/userSchema.js";
 import Comment from "../../models/commentSchema.js";
 
+export const getComments = async (req, res) => {
+  try {
+    const comments = await Comment.find();
+    res.status(200).json(comments);
+  } catch (error) {
+    res.status(400).json({
+      message: "impossible de récupérer les commentaires",
+    });
+  }
+};
+
 export const addComment = async (req, res) => {
   try {
-    const { projectId, message } = req.body;
+    console.log(req.body);
+    console.log(req.userId);
+    const { projectId, message, userId } = req.body;
     if (!projectId) {
       return res.status(400).json(error.message);
     }
@@ -15,6 +28,8 @@ export const addComment = async (req, res) => {
       message,
       user,
       project,
+      publicUser: user.pseudo,
+      publicProject: project.title,
     });
 
     comment
@@ -30,13 +45,13 @@ export const addComment = async (req, res) => {
 
 export const deleteComment = async (req, res) => {
   try {
-    const { commentId, commentUser } = req.body;
-    if (!commentId || !commentUser) {
+    const { commentId } = req.body;
+    if (!commentId) {
       return res.status(400).json({
         message: "informations manquantes",
       });
     }
-    if (commentUser === req.userId) {
+    if (req.userId === req.userId) {
       Comment.findByIdAndDelete(commentId)
         .then((resp) =>
           res.status(200).json({

@@ -11,6 +11,7 @@ import {
   AiFillControl,
   AiFillRead,
 } from "react-icons/ai";
+import "../../assets/styles/NavButton.scss";
 
 const Nav = () => {
   const [navOpen, setNavOpen] = useState("hidden");
@@ -41,23 +42,23 @@ const Nav = () => {
       <div onClick={toggleNav}>
         <BurgerMenu burgerModel={burgerModel} />
       </div>
-      <nav className={`headerNav, ${navOpen}`} onClick={toggleNav}>
+      <nav className={`headerNav ${navOpen}`} onClick={toggleNav}>
         <ClassicButton
           link="/"
-          class="classicButton deselect"
+          class="navButton"
           icon={<AiFillHome />}
           content="accueil"
         />
         <ClassicButton
           link="/publics"
-          class="classicButton deselect"
+          class="navButton"
           icon={<AiFillCopy />}
           content="projets publics"
         />
         {user.isAdmin && (
           <ClassicButton
             link="/admin"
-            class="classicButton deselect"
+            class="navButton"
             icon={<AiFillControl />}
             content="administration"
           />
@@ -66,12 +67,12 @@ const Nav = () => {
           <>
             <ClassicButton
               link="/login"
-              class="classicButton green"
+              class="navButton"
               content="se connecter"
             />
             <ClassicButton
               link="/register"
-              class="classicButton green"
+              class="navButton"
               content="s'inscrire"
             />
           </>
@@ -79,18 +80,18 @@ const Nav = () => {
           <>
             <ClassicButton
               link="/dashboard"
-              class="classicButton deselect"
+              class="navButton"
               icon={<AiFillRead />}
               content="mes projets"
             />
             <ClassicButton
               link="/settings"
-              class="classicButton deselect"
+              class="navButton"
               icon={<AiFillSetting />}
               content="paramètres"
             />
             <div
-              className="classicButton red"
+              className="navButton navRed"
               content="se déconnecter"
               onClick={handleClick}
             >

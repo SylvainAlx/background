@@ -1,13 +1,24 @@
 @import "variables";
+@import "mixin";
 
 header {
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    
+    gap: 20px;
+    @include desktop {
+      flex-direction: row;
+      justify-content: space-between;
+    }
 
-    h1 {
+    .title {
+      margin: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      h1 {
         text-align: center;
         font-size: 40px;
         margin: 5px auto;
@@ -15,29 +26,47 @@ header {
         background: $bg-gradient;
         background-clip: text;
         -webkit-text-fill-color: transparent;
+        @include desktop {
+          font-size: 50px;
+        }
     }
     em {
         font-size: 12px;
-        margin-bottom: 20px;
         color: $color-main3;
     }
+    }
+    
+
+    
     nav {
       max-height: 300px;
       transition: all 0.5s;
+      
     }
     .headerNav {
-      z-index: 2;
+      //z-index: 2;
       display: flex;
       flex-direction: column;
       width: 100%;
-      justify-content: center;
       align-items: center; 
+      overflow: hidden;
+      @include laptop {
+        flex-direction: row;
+        justify-content: center;
+      }
+      @include desktop {
+        justify-content: flex-end;
+      }
+      
     }
     .show {
       max-height: 300px;
     }
     .hidden {
       max-height: 0px;
+      @include laptop {
+        max-height: unset;
+      }
     }
 
   

@@ -86,6 +86,7 @@ export const updateProject = async (req, res) => {
       project.title = update.title;
       project.support = update.support;
       project.theme = update.theme;
+      project.description = update.description;
       project.image = update.image;
       project.children = update.children;
       project.isPublic = update.isPublic;

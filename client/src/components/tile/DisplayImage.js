@@ -42,7 +42,7 @@ export const DisplayImage = ({ element, setElement, setSaved, update }) => {
   };
 
   return (
-    <>
+    <div className="imageControl">
       {element.image !== "" ? (
         <>
           <img
@@ -63,6 +63,6 @@ export const DisplayImage = ({ element, setElement, setSaved, update }) => {
           <img src={`http://localhost:9875/images/noimage.jpg`} alt="noimage" />
         </>
       )}
-    </>
+    </div>
   );
 };

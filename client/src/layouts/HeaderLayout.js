@@ -4,8 +4,10 @@ import Nav from "../components/nav/Nav.js";
 const Header = () => {
   return (
     <header>
-      <h1>background</h1>
-      <em>worldbuilding pour créateurs d'histoires</em>
+      <div className="title">
+        <h1>background</h1>
+        <em>worldbuilding pour créateurs d'histoires</em>
+      </div>
       <Nav />
     </header>
   );

@@ -1,0 +1,46 @@
+@import "variables";
+@import "mixin";
+
+.navButton {
+    min-width: 130px;
+    max-width: 70%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin: 5px;
+    padding: 5px 8px;
+    color:white;
+    border: none;
+    font-weight: 700;
+    font-size: 12px;
+    transition: all 0.2s;
+    box-sizing: border-box;
+    background-color: $color-main1;
+    border-radius: 10px;
+    @include laptop {
+        color: $color-main1;
+        background-color: unset;
+    }
+    @include desktop {
+    font-size: 15px;
+    gap: 20px;
+    }
+}
+
+.navButton:hover {
+    background-color: $color-main2;
+    cursor: pointer;
+    @include laptop {
+        background-color: unset;
+        color: $color-main2;
+    }
+}
+
+.navRed {
+    background-color: $color-red;
+    @include laptop {
+        background-color: unset;
+        color: $color-red;
+    }
+}

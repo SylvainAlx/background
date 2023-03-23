@@ -11,6 +11,7 @@ import ValidateButton from "../ValidateButton";
 import DeleteButton from "../DeleteButton";
 import { DisplayImage } from "./DisplayImage";
 import CreateTile from "./CreateTile";
+import { useNavigate } from "react-router-dom";
 
 const Tile = (props) => {
   const project = useSelector((state) => state.project);
@@ -19,10 +20,7 @@ const Tile = (props) => {
   const [displayChildren, setDisplayChildren] = useState("hidden");
 
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    //console.log(project);
-  }, [project]);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setSaved(false);
@@ -51,7 +49,7 @@ const Tile = (props) => {
 
   const handleDelete = () => {
     if (window.confirm(`Supprimer l'élément ${element.title} ?`)) {
-      dispatch(unsetChildren({ children: project.data, tile: element }));
+      dispatch(unsetChildren({ project: project, tile: element }));
       setSaved(true);
     }
   };

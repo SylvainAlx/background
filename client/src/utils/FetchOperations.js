@@ -41,7 +41,37 @@ export const getPublics = async () => {
   return result;
 };
 
+export const getComments = async () => {
+  const resp = await fetch("http://localhost:9875/public/getcomments");
+  const result = await resp.json();
+  return result;
+};
+
 //USER
+
+export const addComment = async (payload) => {
+  const resp = await fetch("http://localhost:9875/user/addcomment", {
+    method: "POST",
+    headers: {
+      authorization: `Bearer ${jwt}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(payload),
+  });
+  const result = await resp.json();
+  return result;
+};
+
+export const deleteComment = async (payload) => {
+  const resp = await fetch(`http://localhost:9875/user/deletecomment`, {
+    method: "DELETE",
+    headers: {
+      authorization: `Bearer ${jwt}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(payload),
+  });
+};
 
 export const getMyProjects = async () => {
   const resp = await fetch("http://localhost:9875/user/getmyprojects", {

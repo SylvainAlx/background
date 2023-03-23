@@ -14,6 +14,12 @@ const commentSchema = mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "Project",
     },
+    publicProject: {
+      type: String,
+    },
+    publicUser: {
+      type: String,
+    },
   },
   {
     timestamps: true,

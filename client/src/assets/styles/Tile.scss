@@ -1,7 +1,9 @@
 @import "variables";
+@import "mixin";
 
 .tile {
   width: 90%;
+  max-width: 300px;
   margin: 20px auto;
   padding: 20px 0;
   border-radius: 10px;
@@ -11,6 +13,12 @@
   align-items: center;
   background-color: $color-main4;
   box-shadow: $box-shadow;
+  @include laptop {
+    max-width: 90%;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  
 
   .littleFlex {
     display: flex;
@@ -33,6 +41,9 @@
   img {
     width: 80%;
     border-radius: 10px;
+    @include laptop {
+      max-width: 20%;
+    }
   }
 
   .children {
@@ -45,10 +56,27 @@
     transition: all 0.3s;
     overflow:scroll;
 
-    h5 {
-      color: $color-main4;
-    }
+    
   } 
+  h5 {
+    color: $color-main1;
+    text-align: center;
+    @include laptop {
+      width: 100%;
+    }
+  }
+
+  .classicButton {
+    @include laptop {
+      width: 100%;
+    }
+  }
+
+  .imageControl {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 
   .hidden {
     max-height: 0;
