@@ -11,27 +11,37 @@ import { AiFillDelete } from "react-icons/ai";
 
 const Publics = () => {
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.user);
   const publics = useSelector((state) => state.publics);
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState("");
+  const [showForm, setShowForm] = useState(false);
 
   useEffect(() => {
     getPublics()
       .then((data) => {
         dispatch(setPublics(data.publicProjects));
-        console.log(data);
       })
       .catch((error) => console.log(error));
     getComments()
       .then((data) => {
-        setComments(data.comments);
+        setComments(data);
       })
       .catch((error) => console.log(error));
   }, []);
 
+  useEffect(() => {
+    console.log(comments);
+  }, [comments]);
+
   const handleChange = (e) => {
     setNewComment(e.target.value);
   };
+
+  const handleClick = (e) => {
+    setShowForm(!showForm);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const payload = {
@@ -66,27 +76,42 @@ const Publics = () => {
                     {project.theme})
                   </h6>
                   <p>{project.description}</p>
+
                   <div className="commentContainer">
-                    <h4>commentaires :</h4>
-                    <form>
-                      <textarea
-                        onChange={handleChange}
-                        name="message"
-                        placeholder="message"
-                      />
-                      <div
-                        onClick={handleSubmit}
-                        id={project._id}
-                        className="classicButton green"
-                      >
-                        POSTER
-                      </div>
-                    </form>
-                    <AiFillDelete className="icon delete" />
+                    <div className="classicButton green" onClick={handleClick}>
+                      COMMENTER
+                    </div>
+                    {showForm && (
+                      <form>
+                        <textarea
+                          onChange={handleChange}
+                          name="message"
+                          placeholder="message"
+                        />
+                        <div
+                          onClick={handleSubmit}
+                          id={project._id}
+                          className="classicButton green"
+                        >
+                          POSTER
+                        </div>
+                      </form>
+                    )}
                     {comments !== undefined &&
                       comments.map((comment, i) => {
                         if (comment.project === project._id) {
-                          return <em>{comment.message}</em>;
+                          return (
+                            <div key={i}>
+                              <span>{comment.message}</span>
+                              {comments.user === user._id && (
+                                <AiFillDelete
+                                  id={comment._id}
+                                  className="icon delete"
+                                  //onClick={handleDelete}
+                                />
+                              )}
+                            </div>
+                          );
                         }
                       })}
                   </div>
