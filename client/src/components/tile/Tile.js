@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { AiFillCaretDown } from "react-icons/ai";
 import {
@@ -7,11 +7,10 @@ import {
   unsetChildren,
 } from "../../store/slices/projectSlice";
 import "../../assets/styles/Tile.scss";
-import ValidateButton from "../ValidateButton";
-import DeleteButton from "../DeleteButton";
+import ValidateButton from "../buttons/ValidateButton";
+import DeleteButton from "../buttons/DeleteButton";
 import { DisplayImage } from "./DisplayImage";
 import CreateTile from "./CreateTile";
-import { useNavigate } from "react-router-dom";
 
 const Tile = (props) => {
   const project = useSelector((state) => state.project);
@@ -20,7 +19,6 @@ const Tile = (props) => {
   const [displayChildren, setDisplayChildren] = useState("hidden");
 
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setSaved(false);

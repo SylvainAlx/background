@@ -3,9 +3,9 @@ import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { setProject, createChildren } from "../store/slices/projectSlice";
 import { projectSupports, projectThemes } from "../utils/projectSelect";
 import { updateProject } from "../utils/FetchOperations";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Tile from "../components/tile/Tile";
-import ValidateButton from "../components/ValidateButton";
+import ValidateButton from "../components/buttons/ValidateButton";
 import CreateTile from "../components/tile/CreateTile";
 
 const Production = () => {
@@ -19,10 +19,6 @@ const Production = () => {
     const name = e.target.name;
     dispatch(setProject({ ...project, [name]: value }));
   };
-
-  useEffect(() => {
-    console.log(project);
-  }, [project]);
 
   const handleSubmit = (e) => {
     e.preventDefault();

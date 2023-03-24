@@ -1,0 +1,19 @@
+@import "variables";
+@import "mixin";
+
+.dashboard,
+form {
+  @include laptop {
+    width: 90%;
+    display: flex;
+    flex-wrap: wrap;
+
+    .dashboardTitle{
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+  
+}

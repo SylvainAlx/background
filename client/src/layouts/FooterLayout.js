@@ -1,5 +1,5 @@
 import "../assets/styles/Footer.scss";
-import ClassicButton from "../components/ClassicButton";
+import ClassicButton from "../components/buttons/ClassicButton";
 
 const Footer = () => {
   return (

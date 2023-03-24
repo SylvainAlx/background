@@ -16,4 +16,5 @@ export const projectThemes = [
   "drame",
   "comédie",
   "romance",
+  "AJOUTER UN THEME",
 ];

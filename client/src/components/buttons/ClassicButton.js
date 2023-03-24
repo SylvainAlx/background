@@ -1,4 +1,4 @@
-import "../assets/styles/ClassicButton.scss";
+import "../../assets/styles/ClassicButton.scss";
 import { useNavigate } from "react-router-dom";
 
 const ClassicButton = (props) => {

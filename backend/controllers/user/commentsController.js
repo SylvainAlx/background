@@ -15,9 +15,7 @@ export const getComments = async (req, res) => {
 
 export const addComment = async (req, res) => {
   try {
-    console.log(req.body);
-    console.log(req.userId);
-    const { projectId, message, userId } = req.body;
+    const { projectId, message } = req.body;
     if (!projectId) {
       return res.status(400).json(error.message);
     }
@@ -45,13 +43,13 @@ export const addComment = async (req, res) => {
 
 export const deleteComment = async (req, res) => {
   try {
-    const { commentId } = req.body;
+    const { commentId, commentUser } = req.body;
     if (!commentId) {
       return res.status(400).json({
         message: "informations manquantes",
       });
     }
-    if (req.userId === req.userId) {
+    if (req.userId === commentUser) {
       Comment.findByIdAndDelete(commentId)
         .then((resp) =>
           res.status(200).json({

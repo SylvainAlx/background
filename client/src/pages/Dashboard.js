@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { AiFillDelete } from "react-icons/ai";
 import {
   getMyProjects,
@@ -9,8 +9,10 @@ import {
 import { setProject } from "../store/slices/projectSlice";
 import { useNavigate } from "react-router-dom";
 import { projectSupports, projectThemes } from "../utils/projectSelect";
+import "../assets/styles/Dashboard.scss";
 
 const Dashboard = () => {
+  const user = useSelector((state) => state.user);
   const [projects, setprojects] = useState([]);
   const [displayForm, setDisplayForm] = useState(false);
   const [newProjet, setNewProject] = useState({
@@ -26,7 +28,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     syncProjects();
-  }, []);
+  }, [user]);
 
   const syncProjects = () => {
     getMyProjects()
@@ -78,7 +80,7 @@ const Dashboard = () => {
         <h2>Mes projets</h2>
         <div
           onClick={() => setDisplayForm(true)}
-          className="fullwidth classicButton green"
+          className="classicButton green"
         >
           NOUVEAU PROJET
         </div>
@@ -130,7 +132,7 @@ const Dashboard = () => {
           </form>
         )}
         <div className="projectsContainer">
-          {projects.length !== 0 && (
+          {projects.length !== undefined && (
             <>
               {projects.map((project, i) => {
                 return (

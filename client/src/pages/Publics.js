@@ -8,6 +8,7 @@ import {
   deleteComment,
 } from "../utils/FetchOperations.js";
 import { AiFillDelete } from "react-icons/ai";
+import "../assets/styles/Publics.scss";
 
 const Publics = () => {
   const dispatch = useDispatch();
@@ -18,21 +19,25 @@ const Publics = () => {
   const [showForm, setShowForm] = useState(false);
 
   useEffect(() => {
-    getPublics()
-      .then((data) => {
-        dispatch(setPublics(data.publicProjects));
-      })
-      .catch((error) => console.log(error));
+    syncPublics();
+    syncComments();
+  }, []);
+
+  const syncComments = () => {
     getComments()
       .then((data) => {
         setComments(data);
       })
       .catch((error) => console.log(error));
-  }, []);
+  };
 
-  useEffect(() => {
-    console.log(comments);
-  }, [comments]);
+  const syncPublics = () => {
+    getPublics()
+      .then((data) => {
+        dispatch(setPublics(data.publicProjects));
+      })
+      .catch((error) => console.log(error));
+  };
 
   const handleChange = (e) => {
     setNewComment(e.target.value);
@@ -43,22 +48,31 @@ const Publics = () => {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    const payload = {
-      projectId: e.target.id,
-      message: newComment,
-    };
-    addComment(payload).then((data) => {
-      console.log(data);
-    });
-
-    const handleDelete = (e) => {
-      deleteComment()
-        .then((data) => {
-          console.log(data);
+    if (window.confirm(`Poster le commentaire ?`)) {
+      e.preventDefault();
+      const payload = {
+        projectId: e.target.id,
+        message: newComment,
+      };
+      addComment(payload).then(() => {
+        syncComments();
+      });
+    }
+  };
+  const handleDelete = (e) => {
+    if (window.confirm(`Supprimer le commentaire ?`)) {
+      const commentId = e.currentTarget.getAttribute("id");
+      const commentUser = e.currentTarget.getAttribute("name");
+      const payload = {
+        commentId,
+        commentUser,
+      };
+      deleteComment(payload)
+        .then(() => {
+          syncComments();
         })
         .catch((error) => console.log(error));
-    };
+    }
   };
 
   return (
@@ -78,36 +92,46 @@ const Publics = () => {
                   <p>{project.description}</p>
 
                   <div className="commentContainer">
-                    <div className="classicButton green" onClick={handleClick}>
-                      COMMENTER
-                    </div>
-                    {showForm && (
-                      <form>
-                        <textarea
-                          onChange={handleChange}
-                          name="message"
-                          placeholder="message"
-                        />
+                    {user.pseudo !== undefined && (
+                      <div>
                         <div
-                          onClick={handleSubmit}
-                          id={project._id}
                           className="classicButton green"
+                          onClick={handleClick}
                         >
-                          POSTER
+                          COMMENTER
                         </div>
-                      </form>
+                        {showForm && (
+                          <form>
+                            <textarea
+                              onChange={handleChange}
+                              name="message"
+                              placeholder="message"
+                              className="commentArea"
+                            />
+                            <div
+                              onClick={handleSubmit}
+                              id={project._id}
+                              className="classicButton green"
+                            >
+                              POSTER
+                            </div>
+                          </form>
+                        )}
+                      </div>
                     )}
                     {comments !== undefined &&
                       comments.map((comment, i) => {
                         if (comment.project === project._id) {
                           return (
-                            <div key={i}>
-                              <span>{comment.message}</span>
-                              {comments.user === user._id && (
+                            <div className="comment" key={i}>
+                              <span>{comment.message} </span>
+                              <em>par {comment.publicUser}</em>
+                              {comment.user === user.id && (
                                 <AiFillDelete
                                   id={comment._id}
+                                  name={comment.user}
                                   className="icon delete"
-                                  //onClick={handleDelete}
+                                  onClick={handleDelete}
                                 />
                               )}
                             </div>

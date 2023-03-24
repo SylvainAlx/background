@@ -7,7 +7,6 @@ import Login from "../pages/Login.js";
 import Register from "../pages/Register.js";
 import Admin from "../pages/Admin.js";
 import Settings from "../pages/Settings.js";
-import Children from "../pages/Children.js";
 
 export const publicRoutes = [
   { path: "/", page: <Home /> },
@@ -19,7 +18,6 @@ export const publicRoutes = [
 export const privateRoutes = [
   { path: "/dashboard", page: <Dashboard /> },
   { path: "/production", page: <Production /> },
-  { path: "/production/children", page: <Children /> },
   { path: "/settings", page: <Settings /> },
 ];
 

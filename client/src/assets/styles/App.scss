@@ -10,7 +10,6 @@
   background: url("../images/repeat.png") fixed;
   transition: all 0.3s;
 
-
   .icon {
     cursor: pointer;
     font-size: 30px;
@@ -33,6 +32,21 @@
     display: none;
   }
 
+  .fullwidth {
+    width: 100%;
+  }
+
+  h2,
+  h3 {
+    width: 100%;
+    text-align: center;
+  }
+
+  p {
+    width: 90%;
+    text-align: justify;
+  }
+
   .main {
     width: 100%;
     display: flex;
@@ -41,173 +55,127 @@
     flex-grow: 1;
     background-color: $color-main1;
 
-    .fullwidth {
+  }
+  section {
+    width: 90%;
+    margin: 0 auto;
+    padding-bottom: 20px;
+    padding-top: 10px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+
+
+    .projectsContainer {
       width: 100%;
-    }
-
-    .commentContainer {
-      width: 90%;
-      margin-bottom: 10px;
-      color: white;
-      min-height: 150px;
-      background-color: $color-main1;
-      border-radius: 10px;
-
-      h4 {
-        text-align: center;
-      }
-    }
-
-    section {
-      width: 90%;
-      margin: 0 auto;
-      padding-bottom: 20px;
-      padding-top: 10px;
       display: flex;
-      align-items: flex-start;
-      justify-content: center;
       flex-wrap: wrap;
       gap: 20px;
-
-      h2,
-      h3 {
-        width: 100%;
-        text-align: center;
-      }
-
-      p {
-        width: 90%;
-        text-align: justify;
-      }
-
-      
-
-      .projectsContainer {
-        width: 100%;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 20px;
-        justify-content: space-around;
-      }
-
-      .document {
-        min-width: 328px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        background-color: $color-element;
-        box-shadow: $box-shadow;
-        border-radius: 10px;
-        color: $color-main1;
-        
-      }
-
-      .dashboard, form {
-        @include laptop {
-          width: 90%;
-          display: flex;
-          flex-wrap: wrap;
-
-          .dashboardTitle{
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-          }
-        }
-        
-      }
-
-      .table {
-        min-width: 298px;
-        min-height: 114px;
-        display: flex;
-        justify-content: space-around;
-        gap: 20px;
-
-        .legend,
-        .data {
-          display: flex;
-          flex-direction: column;
-          justify-content: space-around;
-
-          h4,
-          h5 {
-            margin: 0;
-          }
-        }
-      }
+      justify-content: space-around;
     }
 
-    .error {
-      color: $color-error;
-      font-weight: 700;
-      font-size: 11px;
-    }
-
-    button,
-    input[type="submit"] {
-      background: none;
-      color: inherit;
-      border: none;
-      padding: 0;
-      font: inherit;
-      cursor: pointer;
-      outline: inherit;
-    }
-    textarea,
-    input[type="text"],
-    input[type="email"],
-    input[type="password"],
-    input[type="number"],
-    select {
-      width: 90%;
-      border-radius: 15px;
-      border: none;
-      line-height: 30px;
-      margin: 3px 0;
-      text-align: center;
-    }
-    textarea {
-      width: 80%;
-      min-height: 80px;
-      font: inherit;
-      font-size: 14px;
-    }
-
-    select {
-      height: 30px;
-    }
-
-    form {
+    .document {
+      min-width: 328px;
       display: flex;
       flex-direction: column;
+      align-items: center;
+      background-color: $color-element;
+      box-shadow: $box-shadow;
+      border-radius: 10px;
+      color: $color-main1;
+      
+    }
+    .table {
+      min-width: 298px;
+      min-height: 114px;
+      display: flex;
+      justify-content: space-around;
+      gap: 20px;
 
-      .fieldset {
-        min-width: 304px;
-        padding: 10px;
-        border: none;
-        border-radius: 10px;
+      .legend,
+      .data {
         display: flex;
-        align-items: center;
         flex-direction: column;
-        color: $color-lightgray;
-        background-color: $color-element;
-        box-shadow: $box-shadow;
-        text-align: center;
+        justify-content: space-around;
+
+        h4,
+        h5 {
+          margin: 0;
+        }
       }
     }
+  }
 
-    table {
-      th {
-        color: $color-main1;
-      }
-    }
+  .error {
+    color: $color-error;
+    font-weight: 700;
+    font-size: 11px;
+  }
 
-    .validateButton {
-      width: 75%;
-      height: 30px;
-      font-size: 15px;
+  button,
+  input[type="submit"] {
+    background: none;
+    color: inherit;
+    border: none;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
+    outline: inherit;
+  }
+  textarea,
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="number"],
+  select {
+    //width: 90%;
+    border-radius: 15px;
+    border: none;
+    line-height: 30px;
+    margin: 3px 0;
+    text-align: center;
+  }
+  // textarea {
+  //   width: 80%;
+  //   min-height: 80px;
+  //   font: inherit;
+  //   font-size: 14px;
+  // }
+
+  select {
+    height: 30px;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+
+    .fieldset {
+      min-width: 304px;
+      padding: 10px;
+      border: none;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      color: $color-lightgray;
+      background-color: $color-element;
+      box-shadow: $box-shadow;
+      text-align: center;
     }
+  }
+
+  table {
+    th {
+      color: $color-main1;
+    }
+  }
+
+  .validateButton {
+    width: 75%;
+    height: 30px;
+    font-size: 15px;
   }
 }

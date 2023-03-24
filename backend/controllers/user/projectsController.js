@@ -8,6 +8,7 @@ import { gitKeep } from "../../utils/createGitkeep.js";
 export const getMyProjects = async (req, res) => {
   try {
     const id = req.userId;
+    console.log(id);
     const projects = await Project.find({ user: id });
     res.status(200).json({ projects });
   } catch (error) {

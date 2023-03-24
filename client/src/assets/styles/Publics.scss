@@ -1,0 +1,36 @@
+@import "variables";
+@import "mixin";
+
+.commentContainer {
+  width: 90%;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  color: white;
+  min-height: 150px;
+  background-color: $color-main1;
+  border-radius: 10px;
+
+  .classicButton {
+    width: 150px;
+    margin: 10px auto;
+  }
+
+  .commentArea {
+    width: 90%;
+    margin: 0 auto;
+  }
+
+  .comment {
+    margin: 5px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background-color: $color-main3;
+  }
+
+  h4 {
+    text-align: center;
+  }
+}

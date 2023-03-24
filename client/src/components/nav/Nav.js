@@ -1,4 +1,4 @@
-import ClassicButton from "../ClassicButton.js";
+import ClassicButton from "../buttons/ClassicButton.js";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";

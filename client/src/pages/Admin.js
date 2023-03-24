@@ -7,6 +7,7 @@ import {
   getTemplates,
   deleteTemplate,
   getComments,
+  deleteCommentAdmin,
 } from "../utils/FetchOperations";
 import { AiFillDelete, AiFillEdit } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
@@ -31,7 +32,6 @@ const Admin = () => {
     getComments()
       .then((data) => {
         setComments(data);
-        console.log(data);
       })
       .catch((error) => console.log(error));
   };
@@ -62,7 +62,6 @@ const Admin = () => {
   const handleDeleteUser = (e) => {
     if (window.confirm(`Supprimer l'utilisateur et les projets associés ?`)) {
       const id = e.currentTarget.getAttribute("id");
-      const index = e.currentTarget.getAttribute("index");
       deleteUser(jwt, id)
         .then((data) => {
           console.log(data);
@@ -103,6 +102,20 @@ const Admin = () => {
     }
   };
 
+  const handleDeleteComment = (e) => {
+    if (window.confirm(`Supprimer le commentaire ?`)) {
+      const commentId = e.currentTarget.getAttribute("id");
+      const payload = {
+        commentId,
+      };
+      deleteCommentAdmin(payload)
+        .then(() => {
+          syncComments();
+        })
+        .catch((error) => console.log(error));
+    }
+  };
+
   return (
     <main className="main">
       <section>
@@ -123,7 +136,7 @@ const Admin = () => {
                     <tr key={i}>
                       <td>{user.pseudo}</td>
                       <td>{user.email}</td>
-                      <td id={user._id} index={i} onClick={handleDeleteUser}>
+                      <td id={user._id} onClick={handleDeleteUser}>
                         <AiFillDelete className="icon delete" />
                       </td>
                     </tr>
@@ -183,11 +196,8 @@ const Admin = () => {
                       <td>{comment.message}</td>
                       <td>{comment.publicProject}</td>
 
-                      <td onClick={handleDeleteTemplate} id={comment._id}>
+                      <td onClick={handleDeleteComment} id={comment._id}>
                         <AiFillDelete className="icon delete" />
-                      </td>
-                      <td id={comment._id}>
-                        <AiFillEdit className="icon edit" />
                       </td>
                     </tr>
                   );
