@@ -10,6 +10,10 @@
   background: url("../images/repeat.png") fixed;
   transition: all 0.3s;
 
+  textarea {
+    font-family: unset;
+
+  }
   .icon {
     cursor: pointer;
     font-size: 30px;
@@ -158,7 +162,6 @@
       border: none;
       border-radius: 10px;
       display: flex;
-      align-items: center;
       flex-direction: column;
       color: $color-lightgray;
       background-color: $color-element;

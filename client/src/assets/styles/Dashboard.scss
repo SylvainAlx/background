@@ -3,7 +3,7 @@
 
 .dashboard,
 form {
-  @include laptop {
+  @include desktop {
     width: 90%;
     display: flex;
     flex-wrap: wrap;

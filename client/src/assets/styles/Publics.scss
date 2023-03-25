@@ -1,11 +1,20 @@
 @import "variables";
 @import "mixin";
 
+textarea {
+  max-width: 180px;
+}
+
+.document {
+    width: 40%;
+}
+
 .commentContainer {
   width: 90%;
   margin-bottom: 10px;
   display: flex;
   flex-direction: column;
+  align-items: center;
   color: white;
   min-height: 150px;
   background-color: $color-main1;
@@ -22,15 +31,21 @@
   }
 
   .comment {
+    width: 70%;
     margin: 5px;
+    padding: 5px;
     border-radius: 5px;
     display: flex;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-between;
     background-color: $color-main3;
   }
 
   h4 {
     text-align: center;
+  }
+
+  em {
+    font-size: 12px;
   }
 }

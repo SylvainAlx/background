@@ -62,19 +62,18 @@ const Tile = (props) => {
 
   return (
     <div className="tile">
-      {saved ? <h5>élément sauvegardé</h5> : <h5>élément non sauvegardé</h5>}
-      <DisplayImage
-        element={element}
-        setElement={setElement}
-        setSaved={setSaved}
-        update={update}
-      />
       <input
         onChange={handleChange}
         type="text"
         name="title"
         value={element.title}
         placeholder="titre"
+      />
+      <DisplayImage
+        element={element}
+        setElement={setElement}
+        setSaved={setSaved}
+        update={update}
       />
 
       <input
@@ -89,8 +88,9 @@ const Tile = (props) => {
         name="description"
         value={element.description}
         placeholder="description"
+        className="description"
       />
-      <h4>nombre de sous-elements : {element.children.length}</h4>
+      <h5>nombre de sous-elements : {element.children.length}</h5>
       <div
         onClick={() => {
           displayChildren === "hidden"
@@ -110,7 +110,7 @@ const Tile = (props) => {
           return <Tile key={i} element={child} />;
         })}
       </div>
-
+      {saved ? <h5>élément sauvegardé</h5> : <h5>élément non sauvegardé</h5>}
       <div className="littleFlex">
         {!saved ? (
           <ValidateButton action={handleClick} />
