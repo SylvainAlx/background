@@ -48,6 +48,9 @@
   img {
     width: 80%;
     border-radius: 10px;
+    @include laptop {
+      width: 30%;
+    }
   }
 
   .children {
@@ -62,6 +65,20 @@
     box-shadow: $box-shadow;
     transition: all 0.3s;
     overflow:scroll;
+    @include desktop {
+      flex-direction: row;
+      align-items: flex-start;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 1%;
+      .addButton {
+        width: 100%;
+        min-width: 70%;
+      }
+      .tile {
+        width: 30%;
+      }
+    }
 
     
   } 

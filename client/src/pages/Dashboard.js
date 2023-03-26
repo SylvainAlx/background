@@ -5,20 +5,21 @@ import {
   getMyProjects,
   deleteProject,
   createProject,
+  getCategories,
 } from "../utils/FetchOperations";
 import { setProject } from "../store/slices/projectSlice";
 import { useNavigate } from "react-router-dom";
-import { projectSupports, projectThemes } from "../utils/projectSelect";
 import "../assets/styles/Dashboard.scss";
 
 const Dashboard = () => {
   const user = useSelector((state) => state.user);
   const [projects, setprojects] = useState([]);
   const [displayForm, setDisplayForm] = useState(false);
+  const [categories, setCategories] = useState([]);
   const [newProjet, setNewProject] = useState({
     title: "",
-    support: projectSupports[0],
-    theme: projectThemes[0],
+    support: "",
+    theme: "",
     description: "",
     children: [],
     isPublic: false,
@@ -28,12 +29,21 @@ const Dashboard = () => {
 
   useEffect(() => {
     syncProjects();
+    syncCategories();
   }, [user]);
 
   const syncProjects = () => {
     getMyProjects()
       .then((data) => {
         setprojects(data.projects);
+      })
+      .catch((error) => console.log(error));
+  };
+
+  const syncCategories = () => {
+    getCategories()
+      .then((data) => {
+        setCategories(data.categories);
       })
       .catch((error) => console.log(error));
   };
@@ -99,26 +109,32 @@ const Dashboard = () => {
               onChange={handleChange}
               value={newProjet.support}
             >
-              {projectSupports.map((support, i) => {
-                return (
-                  <option key={i} value={support}>
-                    {support}
-                  </option>
-                );
-              })}
+              {categories !== undefined &&
+                categories.map((category, i) => {
+                  if (category.type === "support") {
+                    return (
+                      <option key={i} value={category.name}>
+                        {category.name}
+                      </option>
+                    );
+                  }
+                })}
             </select>
             <select
               name="theme"
               onChange={handleChange}
               value={newProjet.theme}
             >
-              {projectThemes.map((theme, i) => {
-                return (
-                  <option key={i} value={theme}>
-                    {theme}
-                  </option>
-                );
-              })}
+              {categories !== undefined &&
+                categories.map((category, i) => {
+                  if (category.type === "theme") {
+                    return (
+                      <option key={i} value={category.name}>
+                        {category.name}
+                      </option>
+                    );
+                  }
+                })}
             </select>
             <textarea
               onChange={handleChange}

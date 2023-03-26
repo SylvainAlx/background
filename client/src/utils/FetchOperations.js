@@ -177,6 +177,15 @@ export const deleteFile = async (payload) => {
   return result;
 };
 
+export const getCategories = async () => {
+  const jwt = localStorage.getItem("jwt");
+  const resp = await fetch("http://localhost:9875/user/getcategories", {
+    headers: { authorization: `Bearer ${jwt}` },
+  });
+  const result = await resp.json();
+  return result;
+};
+
 //ADMIN
 
 export const getUsers = async (jwt) => {
@@ -217,17 +226,22 @@ export const deleteProjects = async (jwt, payload) => {
   return result;
 };
 
-export const getTemplates = async (jwt) => {
-  const resp = await fetch("http://localhost:9875/admin/gettemplates", {
-    headers: { authorization: `Bearer ${jwt}` },
+export const createCategory = async (payload) => {
+  const jwt = localStorage.getItem("jwt");
+  const resp = await fetch(`http://localhost:9875/admin/createcategory`, {
+    method: "POST",
+    headers: {
+      authorization: `Bearer ${jwt}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(payload),
   });
   const result = await resp.json();
   return result;
 };
 
-export const deleteTemplate = async (payload) => {
-  const jwt = localStorage.getItem("jwt");
-  const resp = await fetch(`http://localhost:9875/admin/deletetemplate`, {
+export const deleteCategory = async (jwt, payload) => {
+  const resp = await fetch(`http://localhost:9875/admin/deletecategory`, {
     method: "DELETE",
     headers: {
       authorization: `Bearer ${jwt}`,

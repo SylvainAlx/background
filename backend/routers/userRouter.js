@@ -1,6 +1,6 @@
 import express from "express";
 import {
-  getTemplates,
+  getCategories,
   createProject,
   getMyProjects,
   deleteProject,
@@ -20,7 +20,7 @@ const userRouter = express.Router();
 
 userRouter.put("/updateaccount", updateAccount);
 userRouter.delete("/deleteaccount", deleteAccount);
-userRouter.get("/gettemplates", getTemplates);
+userRouter.get("/getcategories", getCategories);
 userRouter.post("/createproject", createProject);
 userRouter.get("/getmyprojects", getMyProjects);
 userRouter.delete("/deleteproject", deleteProject);

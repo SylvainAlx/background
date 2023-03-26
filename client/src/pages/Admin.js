@@ -4,8 +4,9 @@ import {
   deleteUser,
   getProjects,
   deleteProjects,
-  getTemplates,
-  deleteTemplate,
+  getCategories,
+  deleteCategory,
+  createCategory,
   getComments,
   deleteCommentAdmin,
 } from "../utils/FetchOperations";
@@ -16,7 +17,7 @@ import { useSelector } from "react-redux";
 const Admin = () => {
   const [users, setUsers] = useState([]);
   const [projects, setProjects] = useState([]);
-  const [templates, setTemplates] = useState([]);
+  const [categories, setCategories] = useState([]);
   const [comments, setComments] = useState([]);
   const user = useSelector((state) => state.user);
   const jwt = localStorage.getItem("jwt");
@@ -24,7 +25,7 @@ const Admin = () => {
   useEffect(() => {
     syncUsers();
     syncProjects();
-    syncTemplates();
+    syncCategories();
     syncComments();
   }, []);
 
@@ -51,10 +52,10 @@ const Admin = () => {
       .catch((error) => console.log(error));
   };
 
-  const syncTemplates = () => {
-    getTemplates(jwt)
+  const syncCategories = () => {
+    getCategories(jwt)
       .then((data) => {
-        setTemplates(data.templates);
+        setCategories(data.categories);
       })
       .catch((error) => console.log(error));
   };
@@ -91,12 +92,12 @@ const Admin = () => {
     }
   };
 
-  const handleDeleteTemplate = (e) => {
-    if (window.confirm(`Supprimer le modèle ?`)) {
-      const templateId = e.currentTarget.getAttribute("id");
-      deleteTemplate(jwt, { templateId })
+  const handleDeleteCategory = (e) => {
+    if (window.confirm(`Supprimer la catégorie ?`)) {
+      const categoryId = e.currentTarget.getAttribute("id");
+      deleteCategory(jwt, { categoryId })
         .then(() => {
-          syncTemplates();
+          syncCategories();
         })
         .catch((error) => console.log(error));
     }
@@ -111,6 +112,22 @@ const Admin = () => {
       deleteCommentAdmin(payload)
         .then(() => {
           syncComments();
+        })
+        .catch((error) => console.log(error));
+    }
+  };
+
+  const handleSubmit = () => {
+    const type = window.prompt("Type de catégorie");
+    const name = window.prompt("Nom de la catégorie");
+    if (window.confirm(`Créer la catégorie ${type + " " + name} ?`)) {
+      const payload = {
+        type,
+        name,
+      };
+      createCategory(payload)
+        .then(() => {
+          syncCategories();
         })
         .catch((error) => console.log(error));
     }
@@ -195,7 +212,6 @@ const Admin = () => {
                       <td>{comment.publicUser}</td>
                       <td>{comment.message}</td>
                       <td>{comment.publicProject}</td>
-
                       <td onClick={handleDeleteComment} id={comment._id}>
                         <AiFillDelete className="icon delete" />
                       </td>
@@ -206,24 +222,28 @@ const Admin = () => {
           </table>
         </div>
         <div className="document">
-          <h3>modèles</h3>
-          <div className="classicButton deselect">CRÉER UN MODÈLE</div>
+          <h3>catégories</h3>
+          <div onClick={handleSubmit} className="classicButton deselect">
+            CRÉER UNE CATÉGORIE
+          </div>
           <table>
             <thead>
               <tr>
-                <th>thème</th>
+                <th>Type</th>
+                <th>Nom</th>
               </tr>
             </thead>
             <tbody>
-              {templates.length !== 0 &&
-                templates.map((template, i) => {
+              {categories.length !== 0 &&
+                categories.map((category, i) => {
                   return (
                     <tr key={i}>
-                      <td>{template.theme}</td>
-                      <td onClick={handleDeleteTemplate} id={template._id}>
+                      <td>{category.type}</td>
+                      <td>{category.name}</td>
+                      <td onClick={handleDeleteCategory} id={category._id}>
                         <AiFillDelete className="icon delete" />
                       </td>
-                      <td id={template._id}>
+                      <td id={category._id}>
                         <AiFillEdit className="icon edit" />
                       </td>
                     </tr>

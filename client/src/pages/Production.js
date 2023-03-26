@@ -1,9 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { setProject, createChildren } from "../store/slices/projectSlice";
-import { projectSupports, projectThemes } from "../utils/projectSelect";
-import { updateProject } from "../utils/FetchOperations";
-import { useState } from "react";
+import { updateProject, getCategories } from "../utils/FetchOperations";
+import { useEffect, useState } from "react";
 import Tile from "../components/tile/Tile";
 import ValidateButton from "../components/buttons/ValidateButton";
 import CreateTile from "../components/tile/CreateTile";
@@ -13,6 +12,19 @@ const Production = () => {
   const project = useSelector((state) => state.project);
   const dispatch = useDispatch();
   const [saved, setSaved] = useState(true);
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    syncCategories();
+  }, []);
+
+  const syncCategories = () => {
+    getCategories()
+      .then((data) => {
+        setCategories(data.categories);
+      })
+      .catch((error) => console.log(error));
+  };
 
   const handleChange = (e) => {
     setSaved(false);
@@ -70,23 +82,29 @@ const Production = () => {
               onChange={handleChange}
               value={project.support}
             >
-              {projectSupports.map((support, i) => {
-                return (
-                  <option key={i} value={support}>
-                    {support}
-                  </option>
-                );
-              })}
+              {categories !== undefined &&
+                categories.map((category, i) => {
+                  if (category.type === "support") {
+                    return (
+                      <option key={i} value={category.name}>
+                        {category.name}
+                      </option>
+                    );
+                  }
+                })}
             </select>
             <em>thème</em>
             <select name="theme" onChange={handleChange} value={project.theme}>
-              {projectThemes.map((theme, i) => {
-                return (
-                  <option key={i} value={theme}>
-                    {theme}
-                  </option>
-                );
-              })}
+              {categories !== undefined &&
+                categories.map((category, i) => {
+                  if (category.type === "theme") {
+                    return (
+                      <option key={i} value={category.name}>
+                        {category.name}
+                      </option>
+                    );
+                  }
+                })}
             </select>
             <em>description</em>
             <textarea
@@ -103,7 +121,7 @@ const Production = () => {
           <div className="dashboardTitle">
             <h3>Données du projet</h3>
             <div onClick={handleClick} className="classicButton deselect">
-              CRÉER UNE CATÉGORIE
+              CRÉER UN ÉLEMENT
             </div>
           </div>
           {project.children.length !== 0 &&

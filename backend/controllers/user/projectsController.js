@@ -1,6 +1,6 @@
 import User from "../../models/userSchema.js";
 import Project from "../../models/projectSchema.js";
-import Template from "../../models/templateSchema.js";
+import Category from "../../models/categorySchema.js";
 import { deleteFolder } from "../../utils/deleteFolder.js";
 import { createFolder } from "../../utils/createFolder.js";
 import { gitKeep } from "../../utils/createGitkeep.js";
@@ -8,7 +8,6 @@ import { gitKeep } from "../../utils/createGitkeep.js";
 export const getMyProjects = async (req, res) => {
   try {
     const id = req.userId;
-    console.log(id);
     const projects = await Project.find({ user: id });
     res.status(200).json({ projects });
   } catch (error) {
@@ -106,10 +105,10 @@ export const updateProject = async (req, res) => {
   }
 };
 
-export const getTemplates = async (req, res) => {
+export const getCategories = async (req, res) => {
   try {
-    const templates = await Template.find();
-    res.status(200).json({ templates });
+    const categories = await Category.find();
+    res.status(200).json({ categories });
   } catch (error) {
     res.status(400).json({ error });
   }

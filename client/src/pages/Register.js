@@ -40,7 +40,7 @@ const Register = () => {
     <main className="main">
       <section>
         <h2>Pas encore de compte ?</h2>
-        <form onSubmit={handleSubmit}>
+        <form className="authForm" onSubmit={handleSubmit}>
           <fieldset className="fieldset">
             <input
               type="text"

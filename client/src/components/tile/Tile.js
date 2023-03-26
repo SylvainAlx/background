@@ -103,7 +103,7 @@ const Tile = (props) => {
         VOIR LES SOUS-ÉLÉMENTS
       </div>
       <div className={`children ${displayChildren}`}>
-        <div onClick={addSubTile} className="classicButton green">
+        <div onClick={addSubTile} className="addButton classicButton green">
           AJOUTER
         </div>
         {element.children.map((child, i) => {

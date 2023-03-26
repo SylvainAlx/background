@@ -1,6 +1,7 @@
 import User from "../models/userSchema.js";
 import Project from "../models/projectSchema.js";
 import Template from "../models/templateSchema.js";
+import Category from "../models/categorySchema.js";
 import Comment from "../models/commentSchema.js";
 import { deleteFolder } from "../utils/deleteFolder.js";
 
@@ -78,64 +79,42 @@ export const deleteUser = (req, res) => {
 
 //TEMPLATES
 
-export const createTemplate = (req, res) => {
+export const createCategory = (req, res) => {
   try {
-    const { theme, data } = req.body;
-    const template = new Template({
-      theme,
-      data,
+    const { type, name } = req.body;
+    const category = new Category({
+      type,
+      name,
     });
-    template
+    category
       .save()
       .then((resp) => {
-        res.status(201).json({ template });
+        res.status(201).json({ category });
       })
       .catch((error) => res.status(400).json(error.message));
   } catch (error) {
     res.status(400).json({
-      message: "création du template impossible",
+      message: "création de la catégorie impossible",
       erreur: error.message,
     });
   }
 };
 
-export const getTemplates = async (req, res) => {
+export const deleteCategory = async (req, res) => {
   try {
-    const templates = await Template.find();
-    res.status(200).json({ templates });
-  } catch (error) {
-    res.status(400).json({ erreur: error.message });
-  }
-};
-
-export const deleteTemplate = async (req, res) => {
-  try {
-    const { templateId } = req.body;
-    Template.findByIdAndDelete(templateId)
+    const { categoryId } = req.body;
+    Category.findByIdAndDelete(categoryId)
       .then((resp) => {
         res.status(200).json({
-          action: `le template a été retiré de la base de données`,
+          action: `la catégorie a été retirée de la base de données`,
         });
       })
       .catch((error) => res.status(400).json(error));
   } catch (error) {
     res.status(400).json({
-      message: "suppression du projet impossible",
+      message: "suppression impossible",
       erreur: error.message,
     });
-  }
-};
-
-export const updateTemplate = async (req, res) => {
-  try {
-    const update = req.body;
-    const template = await Template.findOne({ _id: update._id });
-    template.theme = update.theme;
-    template.data = update.data;
-
-    template.save().then((resp) => res.status(200).json({ template }));
-  } catch (error) {
-    res.status(400).json({ message: "mise à jour impossible", erreur: Error });
   }
 };
 

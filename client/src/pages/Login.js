@@ -40,7 +40,7 @@ const Login = () => {
     <main className="main">
       <section>
         <h2>Déjà un compte ?</h2>
-        <form onSubmit={handleSubmit}>
+        <form className="authForm" onSubmit={handleSubmit}>
           <fieldset className="fieldset">
             <input
               type="email"
