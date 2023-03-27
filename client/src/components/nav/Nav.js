@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import BurgerMenu from "./BurgerMenu.js";
 import { setUser } from "../../store/slices/userSlice.js";
+import { logoutOk } from "../../utils/toast.js";
 import {
   AiFillHome,
   AiFillSetting,
@@ -32,9 +33,12 @@ const Nav = () => {
 
   const handleClick = (e) => {
     e.preventDefault();
-    localStorage.removeItem("jwt");
-    dispatch(setUser({ email: "", isAdmin: false }));
-    navigate("/login");
+    if (window.confirm(`Souhaitez-vous vous déconnecter ?`)) {
+      localStorage.removeItem("jwt");
+      dispatch(setUser({ email: "", isAdmin: false }));
+      navigate("/login");
+      logoutOk();
+    }
   };
 
   return (

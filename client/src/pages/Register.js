@@ -1,8 +1,9 @@
 import { useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { registerFetch } from "../utils/FetchOperations";
 import { setUser } from "../store/slices/userSlice.js";
+import { registerOk, errorMessage } from "../utils/toast.js";
 
 const Register = () => {
   const [userData, setUserData] = useState({
@@ -10,8 +11,6 @@ const Register = () => {
     email: "",
     password: "",
   });
-  const [error, setError] = useState("");
-  const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -29,18 +28,19 @@ const Register = () => {
           dispatch(setUser(data.user));
           localStorage.setItem("jwt", data.jwt);
           navigate("/dashboard");
+          registerOk();
         } else {
-          setError(data.message);
+          errorMessage(data.message);
         }
       })
-      .catch((error) => console.log(error));
+      .catch((error) => errorMessage(error));
   };
 
   return (
     <main className="main">
       <section>
         <h2>Pas encore de compte ?</h2>
-        <form className="authForm" onSubmit={handleSubmit}>
+        <form className="authForm">
           <fieldset className="fieldset">
             <input
               type="text"
@@ -67,8 +67,10 @@ const Register = () => {
               required
               onChange={handleChange}
             />
-            <div className="error">{error}</div>
-            <div className="validateButton classicButton deselect">
+            <div
+              className="validateButton classicButton deselect"
+              onClick={handleSubmit}
+            >
               <input type="submit" value="créer un compte" />
             </div>
           </fieldset>

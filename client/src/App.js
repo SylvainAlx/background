@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { setUser } from "./store/slices/userSlice.js";
 import { authGet } from "./utils/FetchOperations.js";
+import { ToastContainer } from "react-toastify";
 //layouts et pages
 import { Layout } from "./layouts/Layout.js";
 import { adminRoutes, privateRoutes, publicRoutes } from "./router/routes.js";
@@ -62,6 +63,7 @@ function App() {
           )}
         </Routes>
       </BrowserRouter>
+      <ToastContainer />
     </div>
   );
 }

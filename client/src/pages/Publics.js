@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setPublics } from "../store/slices/publicsSlice.js";
+import { tilesCounter } from "../utils/tilesCounter.js";
 import {
   getPublics,
   getComments,
@@ -8,6 +9,7 @@ import {
   deleteComment,
 } from "../utils/FetchOperations.js";
 import { AiFillDelete } from "react-icons/ai";
+import { commentOk, deleteOk } from "../utils/toast.js";
 import "../assets/styles/Publics.scss";
 
 const Publics = () => {
@@ -56,6 +58,7 @@ const Publics = () => {
       };
       addComment(payload).then(() => {
         syncComments();
+        commentOk();
       });
     }
   };
@@ -70,6 +73,7 @@ const Publics = () => {
       deleteComment(payload)
         .then(() => {
           syncComments();
+          deleteOk();
         })
         .catch((error) => console.log(error));
     }
@@ -84,11 +88,12 @@ const Publics = () => {
             publics.projects.map((project, i) => {
               return (
                 <article className="document" key={i}>
-                  <h4>{project.title}</h4>
+                  <h3>{project.title}</h3>
+                  <h6>par {project.publicUser}</h6>
                   <h6>
-                    par {project.publicUser} | {project.support} (
-                    {project.theme})
+                    {project.support} ({project.theme})
                   </h6>
+                  <h6>Nombre d'éléments : {tilesCounter(project)}</h6>
                   <p>{project.description}</p>
 
                   <div className="commentContainer">

@@ -18,7 +18,6 @@ export const DisplayImage = ({ element, setElement, setSaved, update }) => {
       };
       deleteFile(payload)
         .then((result) => {
-          console.log(result.message);
           setElement({ ...element, image: "" });
           const path = "";
           update(path);

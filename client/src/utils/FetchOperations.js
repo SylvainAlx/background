@@ -1,4 +1,7 @@
 //AUTHENTIFICATION
+const getJwt = () => {
+  return localStorage.getItem("jwt");
+};
 
 export const authGet = async (token) => {
   const resp = await fetch("http://localhost:9875/auth/verify", {
@@ -49,7 +52,7 @@ export const getComments = async () => {
 //USER
 
 export const addComment = async (payload) => {
-  const jwt = localStorage.getItem("jwt");
+  const jwt = getJwt();
   const resp = await fetch("http://localhost:9875/user/addcomment", {
     method: "POST",
     headers: {
@@ -63,7 +66,7 @@ export const addComment = async (payload) => {
 };
 
 export const deleteComment = async (payload) => {
-  const jwt = localStorage.getItem("jwt");
+  const jwt = getJwt();
   const resp = await fetch(`http://localhost:9875/user/deletecomment`, {
     method: "DELETE",
     headers: {
@@ -77,7 +80,7 @@ export const deleteComment = async (payload) => {
 };
 
 export const getMyProjects = async () => {
-  const jwt = localStorage.getItem("jwt");
+  const jwt = getJwt();
   const resp = await fetch("http://localhost:9875/user/getmyprojects", {
     headers: { authorization: `Bearer ${jwt}` },
   });
@@ -86,7 +89,7 @@ export const getMyProjects = async () => {
 };
 
 export const createProject = async (payload) => {
-  const jwt = localStorage.getItem("jwt");
+  const jwt = getJwt();
   const resp = await fetch("http://localhost:9875/user/createproject", {
     method: "POST",
     headers: {
@@ -100,7 +103,7 @@ export const createProject = async (payload) => {
 };
 
 export const updateProject = async (payload) => {
-  const jwt = localStorage.getItem("jwt");
+  const jwt = getJwt();
   const resp = await fetch(`http://localhost:9875/user/updateproject`, {
     method: "PUT",
     headers: {
@@ -114,7 +117,7 @@ export const updateProject = async (payload) => {
 };
 
 export const deleteProject = async (payload) => {
-  const jwt = localStorage.getItem("jwt");
+  const jwt = getJwt();
   const resp = await fetch(`http://localhost:9875/user/deleteproject`, {
     method: "DELETE",
     headers: {
@@ -127,7 +130,8 @@ export const deleteProject = async (payload) => {
   return result;
 };
 
-export const updateUser = async (jwt, payload) => {
+export const updateUser = async (payload) => {
+  const jwt = getJwt();
   const resp = await fetch(`http://localhost:9875/user/updateaccount`, {
     method: "PUT",
     headers: {
@@ -140,7 +144,8 @@ export const updateUser = async (jwt, payload) => {
   return result;
 };
 
-export const deleteAccount = async (jwt) => {
+export const deleteAccount = async () => {
+  const jwt = getJwt();
   const resp = await fetch(`http://localhost:9875/user/deleteaccount`, {
     method: "DELETE",
     headers: { authorization: `Bearer ${jwt}` },
@@ -150,7 +155,7 @@ export const deleteAccount = async (jwt) => {
 };
 
 export const uploadFile = async (payload) => {
-  const jwt = localStorage.getItem("jwt");
+  const jwt = getJwt();
   const formData = new FormData();
   formData.append("file", payload.file);
   formData.append("projectId", payload.projectId);
@@ -164,7 +169,7 @@ export const uploadFile = async (payload) => {
 };
 
 export const deleteFile = async (payload) => {
-  const jwt = localStorage.getItem("jwt");
+  const jwt = getJwt();
   const resp = await fetch(`http://localhost:9875/user/deletefile`, {
     method: "DELETE",
     headers: {
@@ -178,7 +183,7 @@ export const deleteFile = async (payload) => {
 };
 
 export const getCategories = async () => {
-  const jwt = localStorage.getItem("jwt");
+  const jwt = getJwt();
   const resp = await fetch("http://localhost:9875/user/getcategories", {
     headers: { authorization: `Bearer ${jwt}` },
   });
@@ -188,7 +193,8 @@ export const getCategories = async () => {
 
 //ADMIN
 
-export const getUsers = async (jwt) => {
+export const getUsers = async () => {
+  const jwt = getJwt();
   const resp = await fetch("http://localhost:9875/admin/getusers", {
     headers: { authorization: `Bearer ${jwt}` },
   });
@@ -196,7 +202,8 @@ export const getUsers = async (jwt) => {
   return result;
 };
 
-export const deleteUser = async (jwt, id) => {
+export const deleteUser = async (id) => {
+  const jwt = getJwt();
   const resp = await fetch(`http://localhost:9875/admin/deleteuser/${id}`, {
     method: "DELETE",
     headers: { authorization: `Bearer ${jwt}` },
@@ -205,7 +212,8 @@ export const deleteUser = async (jwt, id) => {
   return result;
 };
 
-export const getProjects = async (jwt) => {
+export const getProjects = async () => {
+  const jwt = getJwt();
   const resp = await fetch("http://localhost:9875/admin/getprojects", {
     headers: { authorization: `Bearer ${jwt}` },
   });
@@ -213,7 +221,8 @@ export const getProjects = async (jwt) => {
   return result;
 };
 
-export const deleteProjects = async (jwt, payload) => {
+export const deleteProjects = async (payload) => {
+  const jwt = getJwt();
   const resp = await fetch(`http://localhost:9875/admin/deleteproject`, {
     method: "DELETE",
     headers: {
@@ -227,7 +236,7 @@ export const deleteProjects = async (jwt, payload) => {
 };
 
 export const createCategory = async (payload) => {
-  const jwt = localStorage.getItem("jwt");
+  const jwt = getJwt();
   const resp = await fetch(`http://localhost:9875/admin/createcategory`, {
     method: "POST",
     headers: {
@@ -240,7 +249,8 @@ export const createCategory = async (payload) => {
   return result;
 };
 
-export const deleteCategory = async (jwt, payload) => {
+export const deleteCategory = async (payload) => {
+  const jwt = getJwt();
   const resp = await fetch(`http://localhost:9875/admin/deletecategory`, {
     method: "DELETE",
     headers: {
@@ -254,7 +264,7 @@ export const deleteCategory = async (jwt, payload) => {
 };
 
 export const deleteCommentAdmin = async (payload) => {
-  const jwt = localStorage.getItem("jwt");
+  const jwt = getJwt();
   const resp = await fetch(`http://localhost:9875/admin/deletecomment`, {
     method: "DELETE",
     headers: {

@@ -10,7 +10,8 @@ import {
   getComments,
   deleteCommentAdmin,
 } from "../utils/FetchOperations";
-import { AiFillDelete, AiFillEdit } from "react-icons/ai";
+import { AiFillDelete } from "react-icons/ai";
+import { addCategory, deleteOk } from "../utils/toast";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
@@ -20,7 +21,6 @@ const Admin = () => {
   const [categories, setCategories] = useState([]);
   const [comments, setComments] = useState([]);
   const user = useSelector((state) => state.user);
-  const jwt = localStorage.getItem("jwt");
   const navigate = useNavigate();
   useEffect(() => {
     syncUsers();
@@ -38,14 +38,14 @@ const Admin = () => {
   };
 
   const syncUsers = () => {
-    getUsers(jwt)
+    getUsers()
       .then((data) => {
         setUsers(data.users);
       })
       .catch((error) => console.log(error));
   };
   const syncProjects = () => {
-    getProjects(jwt)
+    getProjects()
       .then((data) => {
         setProjects(data.projects);
       })
@@ -53,7 +53,7 @@ const Admin = () => {
   };
 
   const syncCategories = () => {
-    getCategories(jwt)
+    getCategories()
       .then((data) => {
         setCategories(data.categories);
       })
@@ -63,9 +63,9 @@ const Admin = () => {
   const handleDeleteUser = (e) => {
     if (window.confirm(`Supprimer l'utilisateur et les projets associés ?`)) {
       const id = e.currentTarget.getAttribute("id");
-      deleteUser(jwt, id)
-        .then((data) => {
-          console.log(data);
+      deleteUser(id)
+        .then(() => {
+          deleteOk();
           syncProjects();
           syncUsers();
           if (user.id === id) {
@@ -84,9 +84,10 @@ const Admin = () => {
         projectId,
         projectUser,
       };
-      deleteProjects(jwt, payload)
+      deleteProjects(payload)
         .then(() => {
           syncProjects();
+          deleteOk();
         })
         .catch((error) => console.log(error));
     }
@@ -95,9 +96,10 @@ const Admin = () => {
   const handleDeleteCategory = (e) => {
     if (window.confirm(`Supprimer la catégorie ?`)) {
       const categoryId = e.currentTarget.getAttribute("id");
-      deleteCategory(jwt, { categoryId })
+      deleteCategory({ categoryId })
         .then(() => {
           syncCategories();
+          deleteOk();
         })
         .catch((error) => console.log(error));
     }
@@ -112,6 +114,7 @@ const Admin = () => {
       deleteCommentAdmin(payload)
         .then(() => {
           syncComments();
+          deleteOk();
         })
         .catch((error) => console.log(error));
     }
@@ -128,6 +131,7 @@ const Admin = () => {
       createCategory(payload)
         .then(() => {
           syncCategories();
+          addCategory();
         })
         .catch((error) => console.log(error));
     }
@@ -242,9 +246,6 @@ const Admin = () => {
                       <td>{category.name}</td>
                       <td onClick={handleDeleteCategory} id={category._id}>
                         <AiFillDelete className="icon delete" />
-                      </td>
-                      <td id={category._id}>
-                        <AiFillEdit className="icon edit" />
                       </td>
                     </tr>
                   );

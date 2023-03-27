@@ -3,10 +3,15 @@
 
 .dashboard,
 form {
+  min-width: 328px;
+  textarea {
+    max-width: unset;
+    width: 100%;
+  }
   @include desktop {
-    width: 90%;
     display: flex;
     flex-wrap: wrap;
+    
 
     .dashboardTitle{
       width: 100%;
@@ -16,4 +21,9 @@ form {
     }
   }
   
+}
+
+img  {
+  width: 200px;
+  height: 200px;
 }

@@ -75,11 +75,11 @@ export const projectSlice = createSlice({
             ),
           };
         }
+        return obj;
       }
       const updatedProject = createNewChildren(project, tile, tile.parentId);
-      console.log(updatedProject);
-      //updateProject(updatedProject);
-      //return updatedProject;
+      updateProject(updatedProject);
+      return updatedProject;
     },
 
     setChildren: (state, action) => {
@@ -87,7 +87,8 @@ export const projectSlice = createSlice({
       const project = { ...action.payload.project };
       //Élement à mettre à jour dans la data
       const tile = { ...action.payload.tile };
-      const path = action.payload.path !== undefined ? action.payload.path : "";
+      const path =
+        action.payload.path !== undefined ? action.payload.path : tile.image;
       function updateObjectById(obj, idToUpdate, updatedValue) {
         // Si l'objet actuel a l'ID donné, retournez une copie mise à jour
         if (obj.id === idToUpdate) {

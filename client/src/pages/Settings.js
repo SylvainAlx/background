@@ -13,7 +13,6 @@ const Settings = () => {
     pseudo: user.pseudo,
     email: user.email,
   });
-  const jwt = localStorage.getItem("jwt");
 
   const handleChange = (e) => {
     const value = e.target.value;
@@ -31,7 +30,7 @@ const Settings = () => {
 
   const handleSubmit = (e) => {
     setEdtion(!edition);
-    updateUser(jwt, update)
+    updateUser(update)
       .then((data) => {
         dispatch(setUser(data));
       })
@@ -44,7 +43,7 @@ const Settings = () => {
         `Etes-vous sûr de supprimer votre compte et tous les projets associés ?`
       )
     ) {
-      deleteAccount(jwt)
+      deleteAccount()
         .then(() => {
           localStorage.removeItem("jwt");
           dispatch(setUser({ email: "", isAdmin: false }));

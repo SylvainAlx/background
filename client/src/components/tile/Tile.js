@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { saveOk, deleteOk } from "../../utils/toast";
 import { AiFillCaretDown } from "react-icons/ai";
 import {
   createChildren,
@@ -11,6 +12,7 @@ import ValidateButton from "../buttons/ValidateButton";
 import DeleteButton from "../buttons/DeleteButton";
 import { DisplayImage } from "./DisplayImage";
 import CreateTile from "./CreateTile";
+import "react-toastify/dist/ReactToastify.css";
 
 const Tile = (props) => {
   const project = useSelector((state) => state.project);
@@ -19,6 +21,10 @@ const Tile = (props) => {
   const [displayChildren, setDisplayChildren] = useState("hidden");
 
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    setSaved(true);
+  }, [project]);
 
   const handleChange = (e) => {
     setSaved(false);
@@ -35,8 +41,7 @@ const Tile = (props) => {
         project: project,
       })
     );
-    window.alert("sauvegarde effectuée");
-    setSaved(true);
+    saveOk();
   };
 
   const handleClick = () => {
@@ -48,7 +53,7 @@ const Tile = (props) => {
   const handleDelete = () => {
     if (window.confirm(`Supprimer l'élément ${element.title} ?`)) {
       dispatch(unsetChildren({ project: project, tile: element }));
-      setSaved(true);
+      deleteOk();
     }
   };
 
@@ -58,38 +63,41 @@ const Tile = (props) => {
     updateData.push(newTile);
     setElement({ ...element, children: updateData });
     dispatch(createChildren({ project, tile: newTile }));
+    saveOk();
   };
 
   return (
     <div className="tile">
-      <input
-        onChange={handleChange}
-        type="text"
-        name="title"
-        value={element.title}
-        placeholder="titre"
-      />
       <DisplayImage
         element={element}
         setElement={setElement}
         setSaved={setSaved}
         update={update}
       />
+      <div className="tileForm">
+        <input
+          onChange={handleChange}
+          type="text"
+          name="title"
+          value={element.title}
+          placeholder="titre"
+        />
+        <input
+          onChange={handleChange}
+          type="text"
+          name="tag"
+          value={element.tag}
+          placeholder="tag"
+        />
+        <textarea
+          onChange={handleChange}
+          name="description"
+          value={element.description}
+          placeholder="description"
+          className="description"
+        />
+      </div>
 
-      <input
-        onChange={handleChange}
-        type="text"
-        name="tag"
-        value={element.tag}
-        placeholder="tag"
-      />
-      <textarea
-        onChange={handleChange}
-        name="description"
-        value={element.description}
-        placeholder="description"
-        className="description"
-      />
       <h5>nombre de sous-elements : {element.children.length}</h5>
       <div
         onClick={() => {

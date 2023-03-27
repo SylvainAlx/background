@@ -45,7 +45,7 @@ const Production = () => {
   };
 
   const handleClick = (e) => {
-    const newTile = CreateTile();
+    const newTile = CreateTile(0);
     const updateData = [...project.children];
     updateData.push(newTile);
     dispatch(createChildren({ project, tile: newTile }));

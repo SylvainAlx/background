@@ -9,6 +9,8 @@ import {
 } from "../utils/FetchOperations";
 import { setProject } from "../store/slices/projectSlice";
 import { useNavigate } from "react-router-dom";
+import { tilesCounter } from "../utils/tilesCounter";
+import { newElement, deleteOk } from "../utils/toast";
 import "../assets/styles/Dashboard.scss";
 
 const Dashboard = () => {
@@ -62,11 +64,10 @@ const Dashboard = () => {
   const createNewProject = () => {
     createProject(newProjet)
       .then((data) => {
-        console.log(data);
-
         const update = [...projects];
         update.push(data.project);
         setprojects(update);
+        newElement();
       })
       .catch((error) => console.log(error));
   };
@@ -79,6 +80,7 @@ const Dashboard = () => {
       deleteProject(payload)
         .then(() => {
           syncProjects();
+          deleteOk();
         })
         .catch((error) => console.log(error));
     }
@@ -88,12 +90,14 @@ const Dashboard = () => {
     <main className="main">
       <section>
         <h2>Mes projets</h2>
-        <div
-          onClick={() => setDisplayForm(true)}
-          className="classicButton green"
-        >
-          NOUVEAU PROJET
-        </div>
+        {!displayForm && (
+          <div
+            onClick={() => setDisplayForm(true)}
+            className="classicButton green"
+          >
+            NOUVEAU PROJET
+          </div>
+        )}
         {displayForm && (
           <form>
             <input
@@ -153,11 +157,15 @@ const Dashboard = () => {
               {projects.map((project, i) => {
                 return (
                   <article className="document" key={i}>
-                    <h4>{project.title}</h4>
+                    <h3>{project.title}</h3>
                     <h6>
                       {project.support} ({project.theme})
                     </h6>
-                    <img src={project.image} alt={project.image} />
+                    <h6>Nombre d'éléments : {tilesCounter(project)}</h6>
+                    {project.image !== "" ||
+                      (project.image !== undefined && (
+                        <img src={project.image} alt="image principale" />
+                      ))}
                     <div
                       onClick={handleClick}
                       id={i}

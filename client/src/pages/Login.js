@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { setUser } from "../store/slices/userSlice.js";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { loginFetch } from "../utils/FetchOperations.js";
+import { loginOk, errorMessage } from "../utils/toast.js";
 import "../assets/styles/ClassicButton.scss";
 
 const Login = () => {
@@ -10,8 +11,6 @@ const Login = () => {
     email: "",
     password: "",
   });
-  const [error, setError] = useState("");
-  const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -29,18 +28,19 @@ const Login = () => {
           dispatch(setUser(data.user));
           localStorage.setItem("jwt", data.jwt);
           navigate("/dashboard");
+          loginOk();
         } else {
-          setError(data.message);
+          errorMessage(data.message);
         }
       })
-      .catch((error) => console.log(error));
+      .catch((error) => errorMessage(error));
   };
 
   return (
     <main className="main">
       <section>
         <h2>Déjà un compte ?</h2>
-        <form className="authForm" onSubmit={handleSubmit}>
+        <form className="authForm">
           <fieldset className="fieldset">
             <input
               type="email"
@@ -59,8 +59,10 @@ const Login = () => {
               required
               onChange={handleChange}
             />
-            <div className="error">{error}</div>
-            <div className="validateButton classicButton deselect">
+            <div
+              className="validateButton classicButton deselect"
+              onClick={handleSubmit}
+            >
               <input type="submit" value="se connecter" />
             </div>
           </fieldset>

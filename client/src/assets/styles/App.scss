@@ -134,19 +134,13 @@
   input[type="password"],
   input[type="number"],
   select {
-    //width: 90%;
     border-radius: 15px;
     border: none;
     line-height: 30px;
     margin: 3px 0;
     text-align: center;
   }
-  // textarea {
-  //   width: 80%;
-  //   min-height: 80px;
-  //   font: inherit;
-  //   font-size: 14px;
-  // }
+
 
   select {
     height: 30px;
@@ -175,12 +169,34 @@
   }
 
   table {
+    width: 90%;
     th {
       color: $color-main1;
     }
+    tbody{
+      font-size: 12px;
+      tr:nth-child(even){
+        background-color: $color-evenTr;
+      }
+      tr:nth-child(odd){
+        background-color: $color-oddTr;
+      }
+      td:first-child{
+        font-weight: 700;
+      }
+      td:last-child{
+        font-size: 9px;
+        text-align: center;
+      }
+
+    }
+    
+    
+   
   }
 
   .validateButton {
+    margin: 10px auto;
     width: 75%;
     height: 30px;
     font-size: 15px;

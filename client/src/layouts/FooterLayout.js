@@ -1,21 +1,18 @@
 import "../assets/styles/Footer.scss";
-import ClassicButton from "../components/buttons/ClassicButton";
+import { AiFillGithub, AiFillMail } from "react-icons/ai";
 
 const Footer = () => {
   return (
     <footer>
-      <nav>
-        <ClassicButton
-          class="classicButton deselect"
-          link="/contacts"
-          content="contacts"
-        />
-        <ClassicButton
-          class="classicButton deselect"
-          link="/thanks"
-          content="remerciements"
-        />
-      </nav>
+      <div className="contact">
+        <h4>CONTACT</h4>
+        <h5>
+          <AiFillMail /> sylval49@gmail.com
+        </h5>
+        <h5>
+          <AiFillGithub /> SylvainAlx
+        </h5>
+      </div>
     </footer>
   );
 };

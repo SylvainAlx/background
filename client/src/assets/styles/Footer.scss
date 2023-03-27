@@ -2,10 +2,20 @@
 
 footer {
     width: 100%;
+    height: 100px;
     background-color: $color-main3;
-    
-    nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .contact  {
         display: flex;
-        justify-content: space-around;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        h4,
+        h5 {
+            margin: 5px 0;
+        }
     }
 }
