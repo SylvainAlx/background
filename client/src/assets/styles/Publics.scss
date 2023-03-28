@@ -2,55 +2,46 @@
 @import "mixin";
 
 textarea {
-  max-width: 180px;
+	max-width: 180px;
 }
-
 .document {
     width: 40%;
 }
 h6 {
-  margin: 5px auto;
+	margin: 5px auto;
 }
-
 .commentContainer {
-  width: 90%;
-  margin-bottom: 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  color: white;
-  min-height: 150px;
-  background-color: $color-main1;
-  border-radius: 10px;
-
-  .classicButton {
-    width: 150px;
-    margin: 10px auto;
-  }
-
-  .commentArea {
-    width: 90%;
-    margin: 0 auto;
-  }
-
-  .comment {
-    width: 70%;
-    margin: 5px;
-    padding: 5px;
-    border-radius: 5px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background-color: $color-main3;
-  }
-
-  h4 {
-    text-align: center;
-  }
-
-  
-
-  em {
-    font-size: 12px;
-  }
+	width: 90%;
+	margin-bottom: 10px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	color: white;
+	min-height: 150px;
+	background-color: $color-main1;
+	border-radius: 10px;
+	.classicButton {
+		width: 150px;
+		margin: 10px auto;
+	}
+	.commentArea {
+		width: 90%;
+		margin: 0 auto;
+	}
+	.comment {
+		width: 70%;
+		margin: 5px;
+		padding: 5px;
+		border-radius: 5px;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		background-color: $color-main3;
+	}
+	h4 {
+		text-align: center;
+	}
+	em {
+		font-size: 12px;
+	}
 }

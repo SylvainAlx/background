@@ -3,6 +3,7 @@ import { useState } from "react";
 import { updateUser, deleteAccount } from "../utils/FetchOperations";
 import { setUser } from "../store/slices/userSlice";
 import { useNavigate } from "react-router-dom";
+import "../assets/styles/Settings.scss";
 
 const Settings = () => {
   const user = useSelector((state) => state.user);

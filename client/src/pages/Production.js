@@ -60,7 +60,6 @@ const Production = () => {
             <div>
               {project.isPublic ? <AiFillEye /> : <AiFillEyeInvisible />}
             </div>
-
             <select
               name="isPublic"
               onChange={handleChange}
@@ -117,7 +116,7 @@ const Production = () => {
             {!saved && <ValidateButton action={handleSubmit} />}
           </fieldset>
         </form>
-        <div className="document dashboard">
+        <div id="dashboard" className="document dashboard">
           <div className="dashboardTitle">
             <h3>Données du projet</h3>
             <div onClick={handleClick} className="classicButton deselect">

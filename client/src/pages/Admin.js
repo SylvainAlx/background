@@ -14,6 +14,7 @@ import { AiFillDelete } from "react-icons/ai";
 import { addCategory, deleteOk } from "../utils/toast";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import "../assets/styles/Admin.scss";
 
 const Admin = () => {
   const [users, setUsers] = useState([]);

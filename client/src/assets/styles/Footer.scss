@@ -16,6 +16,14 @@ footer {
         h4,
         h5 {
             margin: 5px 0;
+            a {
+                text-decoration: none;
+                color: unset;
+            }
+            a:hover {
+                cursor: pointer;
+                border-bottom: white 1px solid;
+            }
         }
     }
 }

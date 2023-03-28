@@ -7,10 +7,14 @@ const Footer = () => {
       <div className="contact">
         <h4>CONTACT</h4>
         <h5>
-          <AiFillMail /> sylval49@gmail.com
+          <a href="mailto:sylval49@gmail.com" target="_blank">
+            <AiFillMail /> sylval49@gmail.com
+          </a>
         </h5>
         <h5>
-          <AiFillGithub /> SylvainAlx
+          <a href="https://github.com/SylvainAlx" target="_blank">
+            <AiFillGithub /> SylvainAlx
+          </a>
         </h5>
       </div>
     </footer>

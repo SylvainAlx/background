@@ -2,17 +2,29 @@
 @import "mixin";
 
 .production {
-  .fieldset {
-    align-items: unset;
-    h3{
-      color: $color-main1;
-    }
-    .description {
-      min-width: 100%;
-      min-height: 200px;
-      text-align: justify;
-    }
-  }
+	form {
+		.fieldset {
+			align-items: unset;
+			h3{
+				color: $color-main1;
+			}
+			.description {
+				min-width: 100%;
+				min-height: 200px;
+				text-align: justify;
+			}
+		}
+		@include desktop {
+			min-width: 70%;
+		}
+	}
+	
+	#dashboard {
+		@include desktop {
+			min-width: 70%;
+		}
+		
+	}
 }
 
 

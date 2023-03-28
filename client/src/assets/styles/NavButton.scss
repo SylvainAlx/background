@@ -27,7 +27,6 @@
     gap: 20px;
     }
 }
-
 .navButton:hover {
     background-color: $color-main2;
     cursor: pointer;
@@ -36,7 +35,6 @@
         color: $color-main2;
     }
 }
-
 .navRed {
     background-color: $color-red;
     @include laptop {
