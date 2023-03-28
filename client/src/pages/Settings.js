@@ -109,7 +109,7 @@ const Settings = () => {
           ) : (
             <>
               <div onClick={handleCancel} className="classicButton deselect">
-                ANNULÉ
+                ANNULER
               </div>
               <div onClick={handleSubmit} className="classicButton deselect">
                 VALIDER

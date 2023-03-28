@@ -3,8 +3,10 @@ const getJwt = () => {
   return localStorage.getItem("jwt");
 };
 
+const SERVER_URL = process.env.REACT_APP_SERVER_URL;
+
 export const authGet = async (token) => {
-  const resp = await fetch("http://localhost:9875/auth/verify", {
+  const resp = await fetch(`${SERVER_URL}/auth/verify`, {
     headers: { authorization: `Bearer ${token}` },
   });
   const result = await resp.json();
@@ -12,7 +14,7 @@ export const authGet = async (token) => {
 };
 
 export const loginFetch = async (payload) => {
-  const resp = await fetch("http://localhost:9875/auth/login", {
+  const resp = await fetch(`${SERVER_URL}/auth/login`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -24,7 +26,7 @@ export const loginFetch = async (payload) => {
 };
 
 export const registerFetch = async (payload) => {
-  const resp = await fetch("http://localhost:9875/auth/register", {
+  const resp = await fetch(`${SERVER_URL}/auth/register`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -38,13 +40,13 @@ export const registerFetch = async (payload) => {
 //PUBLICS
 
 export const getPublics = async () => {
-  const resp = await fetch("http://localhost:9875/public/getpublicprojects");
+  const resp = await fetch(`${SERVER_URL}/public/getpublicprojects`);
   const result = await resp.json();
   return result;
 };
 
 export const getComments = async () => {
-  const resp = await fetch("http://localhost:9875/public/getcomments");
+  const resp = await fetch(`${SERVER_URL}/public/getcomments`);
   const result = await resp.json();
   return result;
 };
@@ -53,7 +55,7 @@ export const getComments = async () => {
 
 export const addComment = async (payload) => {
   const jwt = getJwt();
-  const resp = await fetch("http://localhost:9875/user/addcomment", {
+  const resp = await fetch(`${SERVER_URL}/user/addcomment`, {
     method: "POST",
     headers: {
       authorization: `Bearer ${jwt}`,
@@ -67,7 +69,7 @@ export const addComment = async (payload) => {
 
 export const deleteComment = async (payload) => {
   const jwt = getJwt();
-  const resp = await fetch(`http://localhost:9875/user/deletecomment`, {
+  const resp = await fetch(`${SERVER_URL}/user/deletecomment`, {
     method: "DELETE",
     headers: {
       authorization: `Bearer ${jwt}`,
@@ -81,7 +83,7 @@ export const deleteComment = async (payload) => {
 
 export const getMyProjects = async () => {
   const jwt = getJwt();
-  const resp = await fetch("http://localhost:9875/user/getmyprojects", {
+  const resp = await fetch(`${SERVER_URL}/user/getmyprojects`, {
     headers: { authorization: `Bearer ${jwt}` },
   });
   const result = await resp.json();
@@ -90,7 +92,7 @@ export const getMyProjects = async () => {
 
 export const createProject = async (payload) => {
   const jwt = getJwt();
-  const resp = await fetch("http://localhost:9875/user/createproject", {
+  const resp = await fetch(`${SERVER_URL}/user/createproject`, {
     method: "POST",
     headers: {
       authorization: `Bearer ${jwt}`,
@@ -104,7 +106,7 @@ export const createProject = async (payload) => {
 
 export const updateProject = async (payload) => {
   const jwt = getJwt();
-  const resp = await fetch(`http://localhost:9875/user/updateproject`, {
+  const resp = await fetch(`${SERVER_URL}/user/updateproject`, {
     method: "PUT",
     headers: {
       authorization: `Bearer ${jwt}`,
@@ -118,7 +120,7 @@ export const updateProject = async (payload) => {
 
 export const deleteProject = async (payload) => {
   const jwt = getJwt();
-  const resp = await fetch(`http://localhost:9875/user/deleteproject`, {
+  const resp = await fetch(`${SERVER_URL}/user/deleteproject`, {
     method: "DELETE",
     headers: {
       authorization: `Bearer ${jwt}`,
@@ -132,7 +134,7 @@ export const deleteProject = async (payload) => {
 
 export const updateUser = async (payload) => {
   const jwt = getJwt();
-  const resp = await fetch(`http://localhost:9875/user/updateaccount`, {
+  const resp = await fetch(`${SERVER_URL}/user/updateaccount`, {
     method: "PUT",
     headers: {
       authorization: `Bearer ${jwt}`,
@@ -146,7 +148,7 @@ export const updateUser = async (payload) => {
 
 export const deleteAccount = async () => {
   const jwt = getJwt();
-  const resp = await fetch(`http://localhost:9875/user/deleteaccount`, {
+  const resp = await fetch(`${SERVER_URL}/user/deleteaccount`, {
     method: "DELETE",
     headers: { authorization: `Bearer ${jwt}` },
   });
@@ -159,7 +161,7 @@ export const uploadFile = async (payload) => {
   const formData = new FormData();
   formData.append("file", payload.file);
   formData.append("projectId", payload.projectId);
-  const resp = await fetch(`http://localhost:9875/user/uploadfile`, {
+  const resp = await fetch(`${SERVER_URL}/user/uploadfile`, {
     method: "POST",
     headers: { authorization: `Bearer ${jwt}` },
     body: formData,
@@ -170,7 +172,7 @@ export const uploadFile = async (payload) => {
 
 export const deleteFile = async (payload) => {
   const jwt = getJwt();
-  const resp = await fetch(`http://localhost:9875/user/deletefile`, {
+  const resp = await fetch(`${SERVER_URL}/user/deletefile`, {
     method: "DELETE",
     headers: {
       authorization: `Bearer ${jwt}`,
@@ -184,7 +186,7 @@ export const deleteFile = async (payload) => {
 
 export const getCategories = async () => {
   const jwt = getJwt();
-  const resp = await fetch("http://localhost:9875/user/getcategories", {
+  const resp = await fetch(`${SERVER_URL}/user/getcategories`, {
     headers: { authorization: `Bearer ${jwt}` },
   });
   const result = await resp.json();
@@ -195,7 +197,7 @@ export const getCategories = async () => {
 
 export const getUsers = async () => {
   const jwt = getJwt();
-  const resp = await fetch("http://localhost:9875/admin/getusers", {
+  const resp = await fetch(`${SERVER_URL}/admin/getusers`, {
     headers: { authorization: `Bearer ${jwt}` },
   });
   const result = await resp.json();
@@ -204,7 +206,7 @@ export const getUsers = async () => {
 
 export const deleteUser = async (id) => {
   const jwt = getJwt();
-  const resp = await fetch(`http://localhost:9875/admin/deleteuser/${id}`, {
+  const resp = await fetch(`${SERVER_URL}/admin/deleteuser/${id}`, {
     method: "DELETE",
     headers: { authorization: `Bearer ${jwt}` },
   });
@@ -214,7 +216,7 @@ export const deleteUser = async (id) => {
 
 export const getProjects = async () => {
   const jwt = getJwt();
-  const resp = await fetch("http://localhost:9875/admin/getprojects", {
+  const resp = await fetch(`${SERVER_URL}/admin/getprojects`, {
     headers: { authorization: `Bearer ${jwt}` },
   });
   const result = await resp.json();
@@ -223,7 +225,7 @@ export const getProjects = async () => {
 
 export const deleteProjects = async (payload) => {
   const jwt = getJwt();
-  const resp = await fetch(`http://localhost:9875/admin/deleteproject`, {
+  const resp = await fetch(`${SERVER_URL}/admin/deleteproject`, {
     method: "DELETE",
     headers: {
       authorization: `Bearer ${jwt}`,
@@ -237,7 +239,7 @@ export const deleteProjects = async (payload) => {
 
 export const createCategory = async (payload) => {
   const jwt = getJwt();
-  const resp = await fetch(`http://localhost:9875/admin/createcategory`, {
+  const resp = await fetch(`${SERVER_URL}/admin/createcategory`, {
     method: "POST",
     headers: {
       authorization: `Bearer ${jwt}`,
@@ -251,7 +253,7 @@ export const createCategory = async (payload) => {
 
 export const deleteCategory = async (payload) => {
   const jwt = getJwt();
-  const resp = await fetch(`http://localhost:9875/admin/deletecategory`, {
+  const resp = await fetch(`${SERVER_URL}/admin/deletecategory`, {
     method: "DELETE",
     headers: {
       authorization: `Bearer ${jwt}`,
@@ -265,7 +267,7 @@ export const deleteCategory = async (payload) => {
 
 export const deleteCommentAdmin = async (payload) => {
   const jwt = getJwt();
-  const resp = await fetch(`http://localhost:9875/admin/deletecomment`, {
+  const resp = await fetch(`${SERVER_URL}/admin/deletecomment`, {
     method: "DELETE",
     headers: {
       authorization: `Bearer ${jwt}`,

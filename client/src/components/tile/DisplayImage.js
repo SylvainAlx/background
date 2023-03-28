@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 
 export const DisplayImage = ({ element, setElement, setSaved, update }) => {
   const project = useSelector((state) => state.project);
-
+  const SERVER_URL = process.env.REACT_APP_SERVER_URL;
   const handleFile = (e) => {
     if (window.confirm(`Enregistrer l'image ?`)) {
       upload(e.target.files[0]);
@@ -44,10 +44,7 @@ export const DisplayImage = ({ element, setElement, setSaved, update }) => {
     <div className="imageControl">
       {element.image !== "" ? (
         <>
-          <img
-            src={`http://localhost:9875/${element.image}`}
-            alt={element.image}
-          />
+          <img src={`${SERVER_URL}/${element.image}`} alt={element.image} />
           <div
             onClick={handleDeleteImage}
             id={element.image}
@@ -59,7 +56,7 @@ export const DisplayImage = ({ element, setElement, setSaved, update }) => {
       ) : (
         <>
           <input onChange={handleFile} type="file" />
-          <img src={`http://localhost:9875/images/noimage.jpg`} alt="noimage" />
+          <img src={`${SERVER_URL}/images/noimage.jpg`} alt="noimage" />
         </>
       )}
     </div>
