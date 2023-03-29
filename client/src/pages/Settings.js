@@ -3,6 +3,7 @@ import { useState } from "react";
 import { updateUser, deleteAccount } from "../utils/FetchOperations";
 import { setUser } from "../store/slices/userSlice";
 import { useNavigate } from "react-router-dom";
+import { saveOk, deleteOk, errorMessage } from "../utils/toast.js";
 import "../assets/styles/Settings.scss";
 
 const Settings = () => {
@@ -33,9 +34,14 @@ const Settings = () => {
     setEdtion(!edition);
     updateUser(update)
       .then((data) => {
-        dispatch(setUser(data));
+        if (data.type === 11000) {
+          errorMessage(data.message);
+        } else {
+          saveOk();
+          dispatch(setUser(data));
+        }
       })
-      .catch((error) => console.log(error));
+      .catch((error) => errorMessage(error));
   };
 
   const handleDelete = (e) => {
@@ -49,8 +55,9 @@ const Settings = () => {
           localStorage.removeItem("jwt");
           dispatch(setUser({ email: "", isAdmin: false }));
           navigate("/register");
+          deleteOk();
         })
-        .catch((error) => console.log(error));
+        .catch((error) => errorMessage(error));
     }
   };
 

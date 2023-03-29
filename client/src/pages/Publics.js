@@ -18,7 +18,7 @@ const Publics = () => {
   const publics = useSelector((state) => state.publics);
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState("");
-  const [showForm, setShowForm] = useState(false);
+  const [showForm, setShowForm] = useState(0);
 
   useEffect(() => {
     syncPublics();
@@ -46,7 +46,7 @@ const Publics = () => {
   };
 
   const handleClick = (e) => {
-    setShowForm(!showForm);
+    showForm !== 0 ? setShowForm(0) : setShowForm(e.target.id);
   };
 
   const handleSubmit = (e) => {
@@ -93,19 +93,20 @@ const Publics = () => {
                   <h6>
                     {project.support} ({project.theme})
                   </h6>
-                  <h6>Nombre d'éléments : {tilesCounter(project)}</h6>
+                  <h6>Nombre d'élément(s) : {tilesCounter(project)}</h6>
                   <p>{project.description}</p>
 
                   <div className="commentContainer">
                     {user.pseudo !== undefined && (
                       <div>
                         <div
+                          id={project._id}
                           className="classicButton green"
                           onClick={handleClick}
                         >
                           COMMENTER
                         </div>
-                        {showForm && (
+                        {showForm === project._id && (
                           <form>
                             <textarea
                               onChange={handleChange}

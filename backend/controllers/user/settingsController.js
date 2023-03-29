@@ -7,13 +7,24 @@ export const updateAccount = async (req, res) => {
     const { pseudo, email, password } = req.body;
     const user = await User.findOne({ _id: req.userId });
 
-    (user.pseudo = pseudo || user.pseudo),
+    (user.pseudo = pseudo),
       (user.email = email || user.email),
       (user.password = password || user.password),
       user
         .save()
         .then((resp) => res.status(200).json(user))
-        .catch((error) => res.status(400).json(error.message));
+        .catch((error) => {
+          if (error.code === 11000) {
+            res
+              .status(400)
+              .json({
+                type: 11000,
+                message: "informations déjà existantes dans la base de données",
+              });
+          } else {
+            res.status(400).json(error.message);
+          }
+        });
   } catch (error) {
     res
       .status(400)

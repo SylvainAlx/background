@@ -28,7 +28,9 @@ export const register = async (req, res) => {
             erreur: error.keyValue,
           });
         } else {
-          res.status(400).json({ message: error.message });
+          res.status(400).json({
+            message: `certaines informations sont erronées ou manquantes`,
+          });
         }
       });
   } catch (error) {
