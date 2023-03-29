@@ -1,6 +1,5 @@
 import User from "../../models/userSchema.js";
 import Project from "../../models/projectSchema.js";
-import fs from "fs";
 import { deleteFolder } from "../../utils/deleteFolder.js";
 
 export const updateAccount = async (req, res) => {

@@ -1,6 +1,5 @@
 import User from "../models/userSchema.js";
 import jwt from "jsonwebtoken";
-import fs from "fs";
 import { gitKeep } from "../utils/createGitkeep.js";
 import { createFolder } from "../utils/createFolder.js";
 
@@ -29,7 +28,7 @@ export const register = async (req, res) => {
             erreur: error.keyValue,
           });
         } else {
-          res.status(400).json({ erreur: error.message });
+          res.status(400).json({ message: error.message });
         }
       });
   } catch (error) {

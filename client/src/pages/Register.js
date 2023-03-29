@@ -33,7 +33,9 @@ const Register = () => {
           errorMessage(data.message);
         }
       })
-      .catch((error) => errorMessage(error));
+      .catch((error) => {
+        errorMessage(error);
+      });
   };
 
   return (

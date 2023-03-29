@@ -18,6 +18,11 @@
 			min-width: 70%;
 		}
 	}
+	.green {
+		@include desktop {
+			margin: 10px auto;
+		}
+	}
 	
 	#dashboard {
 		@include desktop {

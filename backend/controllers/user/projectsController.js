@@ -19,7 +19,6 @@ export const getMyProjects = async (req, res) => {
 };
 export const createProject = async (req, res) => {
   try {
-    console.log(req.body);
     const { title, support, theme, image, isPublic, children } = req.body;
     const user = await User.findOne({ _id: req.userId });
     const project = new Project({
@@ -82,6 +81,7 @@ export const updateProject = async (req, res) => {
   try {
     if (req.body.user === req.userId) {
       const update = req.body;
+      const user = await User.findOne({ _id: req.userId });
       const project = await Project.findOne({ _id: update._id });
       project.title = update.title;
       project.support = update.support;
@@ -90,6 +90,7 @@ export const updateProject = async (req, res) => {
       project.image = update.image;
       project.children = update.children;
       project.isPublic = update.isPublic;
+      project.publicUser = user.pseudo;
       project
         .save()
         .then((resp) => res.status(200).json({ project }))

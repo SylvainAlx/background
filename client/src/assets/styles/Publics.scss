@@ -37,11 +37,16 @@ h6 {
 		align-items: center;
 		justify-content: space-between;
 		background-color: $color-main3;
+		span {
+			padding: 5px;
+			font-size: 11px;
+		}
 	}
 	h4 {
 		text-align: center;
 	}
 	em {
 		font-size: 12px;
+		padding: 5px;
 	}
 }
