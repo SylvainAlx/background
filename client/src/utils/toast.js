@@ -5,6 +5,7 @@ export const deleteOk = () => toast.success("Suppression effectuée");
 export const addCategory = () => toast.success("Ajout effectué");
 export const newElement = () => toast.success("Création réussie");
 export const commentOk = () => toast.success("Commentaire posté");
+export const displayMode = () => toast.success("Changement du thème effectué");
 
 export const loginOk = () => toast.success("Connexion réussie");
 export const registerOk = () => toast.success("Inscription réussie");

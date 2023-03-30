@@ -11,6 +11,7 @@ import { setProject } from "../store/slices/projectSlice";
 import { useNavigate } from "react-router-dom";
 import { tilesCounter } from "../utils/tilesCounter";
 import { newElement, deleteOk } from "../utils/toast";
+import { BsFillShareFill, BsFillCloudArrowDownFill } from "react-icons/bs";
 import "../assets/styles/Dashboard.scss";
 
 const Dashboard = () => {
@@ -86,6 +87,31 @@ const Dashboard = () => {
     }
   };
 
+  const handleDownload = (e) => {
+    const index = e.currentTarget.getAttribute("id");
+    const dataStr =
+      "data:text/json;charset=utf-8," +
+      encodeURIComponent(JSON.stringify(projects[index]));
+    const downloadAnchorNode = document.createElement("a");
+    downloadAnchorNode.setAttribute("href", dataStr);
+    downloadAnchorNode.setAttribute(
+      "download",
+      projects[index].title + ".json"
+    );
+    document.body.appendChild(downloadAnchorNode);
+    downloadAnchorNode.click();
+    downloadAnchorNode.remove();
+  };
+
+  const handleAPI = (e) => {
+    const index = e.currentTarget.getAttribute("id");
+    const id = projects[index]._id;
+    window.open(
+      `${process.env.REACT_APP_SERVER_URL}/public/api/${id}`,
+      "_blank"
+    );
+  };
+
   return (
     <main className="main">
       <section>
@@ -157,6 +183,18 @@ const Dashboard = () => {
               {projects.map((project, i) => {
                 return (
                   <article className="document" key={i}>
+                    <div className="share">
+                      <BsFillShareFill
+                        id={i}
+                        className="icon"
+                        onClick={handleAPI}
+                      />
+                      <BsFillCloudArrowDownFill
+                        id={i}
+                        className="icon"
+                        onClick={handleDownload}
+                      />
+                    </div>
                     <h3>{project.title}</h3>
                     <h6>
                       {project.support} ({project.theme})

@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import BurgerMenu from "./BurgerMenu.js";
 import { setUser } from "../../store/slices/userSlice.js";
-import { logoutOk } from "../../utils/toast.js";
+import { logoutOk, displayMode } from "../../utils/toast.js";
 import {
   AiFillHome,
   AiFillSetting,
@@ -12,11 +12,13 @@ import {
   AiFillControl,
   AiFillRead,
 } from "react-icons/ai";
+import { BsFillBrightnessHighFill, BsFillMoonFill } from "react-icons/bs";
 import "../../assets/styles/NavButton.scss";
 
 const Nav = () => {
   const [navOpen, setNavOpen] = useState("hidden");
   const [burgerModel, setBurgerModel] = useState("burgerClose");
+  const [darkmode, setDarkmode] = useState(false);
   const user = useSelector((state) => state.user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -39,6 +41,13 @@ const Nav = () => {
       navigate("/login");
       logoutOk();
     }
+  };
+
+  const switchDarkMode = () => {
+    setDarkmode(!darkmode);
+    const app = document.getElementsByClassName("App");
+    app[0].classList.toggle("darkmode");
+    displayMode();
   };
 
   return (
@@ -102,6 +111,14 @@ const Nav = () => {
               se déconnecter
             </div>
           </>
+        )}
+        {darkmode ? (
+          <BsFillMoonFill onClick={switchDarkMode} className="darkModeIcon" />
+        ) : (
+          <BsFillBrightnessHighFill
+            onClick={switchDarkMode}
+            className="darkModeIcon"
+          />
         )}
       </nav>
     </>

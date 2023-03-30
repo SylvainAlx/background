@@ -16,9 +16,13 @@ export const projectApi = async (req, res) => {
   try {
     const projectId = req.params.id;
     const project = await Project.findOne({ _id: projectId });
-    res
-      .status(200)
-      .json({ title: project.title, theme: project.theme, data: project.data });
+    res.status(200).json({
+      title: project.title,
+      support: project.support,
+      theme: project.theme,
+      description: project.description,
+      children: project.children,
+    });
   } catch (error) {
     res.status(400).json({
       message: "aucun projet à afficher",

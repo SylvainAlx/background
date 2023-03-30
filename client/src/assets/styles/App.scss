@@ -1,6 +1,29 @@
 @import "variables";
 @import "mixin";
 
+.darkmode * {
+	background-color: $color-darkModeDark !important;
+	
+  .burgerStripe {
+    background-color: $color-darkModeLight !important;
+  }
+  .document,
+  .classicButton {
+    border: solid $color-darkModeBorder 1px;
+    
+  }
+  .classicButton:hover {
+    background-color: $color-darkModeLight !important;
+    color : $color-darkModeDark !important;
+  }
+  input,
+  select,
+  textarea {
+    color: $color-darkModeLight !important;
+    border: solid $color-darkModeBorder 1px !important;
+  }
+}
+
 .App {
 	height: 100vh;
 	display: flex;
@@ -145,3 +168,4 @@
 		font-size: 15px;
 	}
 }
+

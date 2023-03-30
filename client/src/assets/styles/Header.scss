@@ -60,4 +60,11 @@ header {
 		max-height: unset;
 		}
     }
+    .darkModeIcon {
+      padding: 5px;
+      color: $color-darkModeIcon;
+      cursor: pointer;
+      background-color: $color-main1;
+      border-radius: 50%;
+    }
 }

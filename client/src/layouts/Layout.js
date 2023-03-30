@@ -4,7 +4,7 @@ import Footer from "./FooterLayout";
 export const Layout = ({ children }) => {
   return (
     <>
-      <Header />
+      <Header setDarkmode={children.setDarkmode} />
       <>{children}</>
       <Footer />
     </>
