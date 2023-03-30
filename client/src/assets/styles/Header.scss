@@ -61,10 +61,14 @@ header {
 		}
     }
     .darkModeIcon {
+      margin: 5px;
       padding: 5px;
       color: $color-darkModeIcon;
       cursor: pointer;
       background-color: $color-main1;
       border-radius: 50%;
+      @include laptop {
+        margin: 0 5px;
+        }
     }
 }
