@@ -7,6 +7,7 @@ import adminRouter from "./routers/adminRouter.js";
 import userRouter from "./routers/userRouter.js";
 import publicRouter from "./routers/publicRouter.js";
 import { verifyJwt, isAdmin } from "./middlewares/authMiddleware.js";
+import { getHome } from "./controllers/publicController.js";
 
 //config serveur
 const app = express();
@@ -34,4 +35,5 @@ app.listen(PORT, () => {
   app.use("/admin", [verifyJwt], [isAdmin], adminRouter);
   app.use("/user", [verifyJwt], userRouter);
   app.use("/public", publicRouter);
+  app.use("/", getHome);
 });

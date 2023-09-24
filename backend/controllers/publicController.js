@@ -1,5 +1,9 @@
 import Project from "../models/projectSchema.js";
 
+export const getHome = (req, res) => {
+  res.send("<h1>Background server</h1>");
+};
+
 export const getpublicprojects = async (req, res) => {
   try {
     const publicProjects = await Project.find({ isPublic: true });
