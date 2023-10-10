@@ -7,11 +7,10 @@ import adminRouter from "./routers/adminRouter.js";
 import userRouter from "./routers/userRouter.js";
 import publicRouter from "./routers/publicRouter.js";
 import { verifyJwt, isAdmin } from "./middlewares/authMiddleware.js";
-import { getHome } from "./controllers/publicController.js";
 
 //config serveur
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 app.use(cors());
 dotenv.config();
 app.use(express.json());
@@ -35,8 +34,13 @@ try {
 //écouteur du port
 app.listen(PORT, () => {
   console.log(`server running at PORT : ${PORT}`);
+  app.get('/', (req, res) => {
+    res.status(200).json('Welcome, your app is working well');
+  })
   app.use("/auth", authRouter);
   app.use("/admin", [verifyJwt], [isAdmin], adminRouter);
   app.use("/user", [verifyJwt], userRouter);
   app.use("/public", publicRouter);
 });
+
+module.exports = app
