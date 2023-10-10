@@ -1,18 +1,19 @@
 {
   "version": 2,
+  "root": "backend",
   "env": {
     "MONGO_DB_URI": "mongodb+srv://SylvainAlx:123@clusterapp.1zcuk8m.mongodb.net/background?retryWrites=true&w=majority"
   },
   "builds": [
     {
-      "src": "backend/index.js",
+      "src": "index.js",
       "use": "@vercel/node"
     }
   ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "backend/index.js",
+      "dest": "index.js",
       "methods": ["GET", "POST", "PUT", "DELETE"]
     }
   ]
