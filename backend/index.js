@@ -19,14 +19,18 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
 //connection à la base de données
-mongoose.set("strictQuery", false);
-mongoose.connect(process.env.MONGO_DB_URI);
-mongoose.connection.on("error", () => {
-  console.log("Erreur lors de la connexion à la base de données");
+try {
+  mongoose.set("strictQuery", false);
+  mongoose.connect(process.env.MONGO_DB_URI);
+  mongoose.connection.on("error", () => {
+    console.log("Erreur lors de la connexion à la base de données");
+  });
+  mongoose.connection.on("open", () => {
+    console.log("connexion à la base de données");
 });
-mongoose.connection.on("open", () => {
-  console.log("connexion à la base de données");
-});
+} catch (error) {
+  console.log(error);
+}
 
 //écouteur du port
 app.listen(PORT, () => {
@@ -35,5 +39,4 @@ app.listen(PORT, () => {
   app.use("/admin", [verifyJwt], [isAdmin], adminRouter);
   app.use("/user", [verifyJwt], userRouter);
   app.use("/public", publicRouter);
-  app.use("/", getHome);
 });
