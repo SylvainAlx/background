@@ -42,5 +42,3 @@ app.listen(PORT, () => {
   app.use("/user", [verifyJwt], userRouter);
   app.use("/public", publicRouter);
 });
-
-module.exports = app
